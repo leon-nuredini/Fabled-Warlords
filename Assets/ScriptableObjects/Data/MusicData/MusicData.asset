@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dd50f4a73b12e34bb5baa92697a9427, type: 3}
+  m_Name: MusicData
+  m_EditorClassIdentifier: 
+  _menuClip: {fileID: 8300000, guid: 0a81c273c0a89af4fb5832e9d228c25a, type: 3}
+  _gameClipList:
+  - {fileID: 8300000, guid: 63720bcc42f918046ba220e1582258ff, type: 3}
+  - {fileID: 8300000, guid: e77eee3135141de49a51e9965b3d30bc, type: 3}
+  - {fileID: 8300000, guid: dcdb12c0e8fd1dd42b1761e0cca94716, type: 3}
+  - {fileID: 8300000, guid: eff13eecbf369a843b70e4e7faa0b04c, type: 3}
+  _mixer: {fileID: 24100000, guid: 385f5410265af6e4bbf6008fd8abfe3b, type: 2}
+  _musicFadeInDuration: 2
+  _musicFadeOutDuration: 30
+  _musicFadeOutShortDuration: 20

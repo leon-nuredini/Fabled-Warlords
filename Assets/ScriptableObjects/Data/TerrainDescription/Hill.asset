@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5475241b384f0145ac50d350c0992ef, type: 3}
+  m_Name: Hill
+  m_EditorClassIdentifier: 
+  _name: Hill
+  _description: 'Elevated terrain providing a vantage point over surrounding areas. '
+  _effect: Increases unit <color=#8BF540>evasion by 15%</color>, and <color=#8BF540>hit
+    chance by 25%</color>.
+  _movementCost: <color=#F5E040>2
+  _strategicTip: Utilize hill tiles to boost your units' attack accuracy and defense,
+    especially for ranged or defensive units.
+  _backgroundSprite: {fileID: -1670631678, guid: 19bf42ac1722bda4dbccf1fb6c8f936b,
+    type: 3}
+  _foregroundSprite: {fileID: -1491980680, guid: e791ef8dbd3e485408071cdeb1169630,
+    type: 3}

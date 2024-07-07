@@ -1,0 +1,189 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1139561927428347891
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 283379042877581956, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 40d7d4d1a9001624bb30f7b37b61301c, type: 2}
+    - target: {fileID: 798318646812673420, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: m_Name
+      value: LanceKnightBlue
+      objectReference: {fileID: 0}
+    - target: {fileID: 4616999317983947041, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: UnitName
+      value: Arcane Lance Knight
+      objectReference: {fileID: 0}
+    - target: {fileID: 4616999317983947041, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: PlayerNumber
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4616999317983947041, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: _unitDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: 2c91b5c91e8a4af419603f209f341ba0,
+        type: 2}
+    - target: {fileID: 4616999317983947041, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: _unitFaction
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296184457854121532, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 20.800001
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296184457854121532, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 11.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296184457854121532, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296184457854121532, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296184457854121532, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296184457854121532, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296184457854121532, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296184457854121532, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296184457854121532, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296184457854121532, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6479710115405553683, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: _idleUp._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 2fb2738b725f0c340a2d569d2c09bdb5, type: 2}
+    - target: {fileID: 6479710115405553683, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: _deathUp._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: da57489c06aab7a44bf3545d2a05e693, type: 2}
+    - target: {fileID: 6479710115405553683, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: _attackUp._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: e185736b333ab9f4eb4a368605d87c76, type: 2}
+    - target: {fileID: 6479710115405553683, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: _idleDown._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: e2e3cd336fcc387478afb4331fda3157, type: 2}
+    - target: {fileID: 6479710115405553683, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: _deathDown._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: fb235a92a7d3b8247a5c64431e484b33, type: 2}
+    - target: {fileID: 6479710115405553683, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: _runningUp._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: d385bc351768b364a9c4af0f69afe1fd, type: 2}
+    - target: {fileID: 6479710115405553683, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: _attackDown._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 69bdb2c9fdf491642929234f19da5ec0, type: 2}
+    - target: {fileID: 6479710115405553683, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: _runningDown._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: e6ae1b9fa43e425408074136cc0397e8, type: 2}
+    - target: {fileID: 6479710115405553683, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: _idleHorizontal._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 9f62a9e15836fc2488cae73ab8d2b545, type: 2}
+    - target: {fileID: 6479710115405553683, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: _deathHorizontal._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 8310163aa63344a4cb9b0090b9084cff, type: 2}
+    - target: {fileID: 6479710115405553683, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: _attackHorizontal._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 6070b15de792190488d80e7ba24b55ac, type: 2}
+    - target: {fileID: 6479710115405553683, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: _runningHorizontal._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 67f1323b40d768443b2870bf0ac814ff, type: 2}
+    - target: {fileID: 8397010892512382285, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: PlayerNumber
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9050044402488316364, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 269812491, guid: aed9fc171bd98f3409841b48dd75f028,
+        type: 3}
+    - target: {fileID: 9063157751252561543, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: _unitStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 01e34cf0c8142424a892271dabe2845f,
+        type: 2}
+    - target: {fileID: 9063157751252561543, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: PlayerNumber
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9063157751252561543, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: _unitDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: 2c91b5c91e8a4af419603f209f341ba0,
+        type: 2}
+    - target: {fileID: 9063157751252561543, guid: df08ccc9ba87edb43a08eef3ce4fb4c7,
+        type: 3}
+      propertyPath: _unitFaction
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: df08ccc9ba87edb43a08eef3ce4fb4c7, type: 3}

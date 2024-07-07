@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5475241b384f0145ac50d350c0992ef, type: 3}
+  m_Name: Walls
+  m_EditorClassIdentifier: 
+  _name: Walls
+  _description: Impenetrable barriers that cannot be crossed or traversed by any
+    unit.
+  _effect: Block all unit movement.
+  _movementCost: Not applicable.
+  _strategicTip: Use walls to your advantage by positioning units to create chokepoints
+    and protect key areas from enemy movement.
+  _backgroundSprite: {fileID: -205533902, guid: 19bf42ac1722bda4dbccf1fb6c8f936b,
+    type: 3}
+  _foregroundSprite: {fileID: -1160600733, guid: 19bf42ac1722bda4dbccf1fb6c8f936b,
+    type: 3}

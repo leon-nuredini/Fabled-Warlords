@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5475241b384f0145ac50d350c0992ef, type: 3}
+  m_Name: Water
+  m_EditorClassIdentifier: 
+  _name: Water
+  _description: Wetlands, rivers, and lakes that create difficult terrain for movement
+    and combat.
+  _effect: Reduces <color=#F56565>evasion by 20%</color> and decreases <color=#F56565>hit
+    chance by 25%</color>.
+  _movementCost: <color=#F56565>3
+  _strategicTip: Avoid water tiles unless necessary, as they hinder both evasion
+    and attack accuracy. Use them strategically to slow down enemy advances.
+  _backgroundSprite: {fileID: -1090409471, guid: ebc4eaf8e0b28954e88727c9c5461ad9,
+    type: 3}
+  _foregroundSprite: {fileID: 0}

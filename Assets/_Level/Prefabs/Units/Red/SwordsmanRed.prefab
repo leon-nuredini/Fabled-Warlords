@@ -1,0 +1,368 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4411562912490435708
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 508299838615450757, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: _soundEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 82fb64f57c9e1084885046aa14b586e7,
+        type: 2}
+    - target: {fileID: 3903837526696178160, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: m_Name
+      value: SwordsmanRed
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528306360651456248, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 2506b8946b4c6c84da97e5b501ce0425, type: 2}
+    - target: {fileID: 4657058977376609712, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1850068239, guid: f4de452aaa8811c4ba35aaf74bebfa17,
+        type: 3}
+    - target: {fileID: 5130528848740316871, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: TargetAmount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5310071557959121201, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: UnitName
+      value: Loyalist Swordsman
+      objectReference: {fileID: 0}
+    - target: {fileID: 5310071557959121201, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: HitPoints
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5310071557959121201, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: AttackFactor
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5310071557959121201, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: DefenceFactor
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265866529211110511, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: _idleUp._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 451a0e4c19644b24286494c003b64ba5, type: 2}
+    - target: {fileID: 7265866529211110511, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: _deathUp._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 1e34df1222344364eac1483f2be66db2, type: 2}
+    - target: {fileID: 7265866529211110511, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: _attackUp._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 069889e4f5d2f384ebf61bb064c84707, type: 2}
+    - target: {fileID: 7265866529211110511, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: _idleDown._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: b1ac3986b18f7d443a1c29289bab50c2, type: 2}
+    - target: {fileID: 7265866529211110511, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: _deathDown._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 9b5bce7dd00ff9b49a71648a24f1f4b1, type: 2}
+    - target: {fileID: 7265866529211110511, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: _runningUp._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 5dfc21c1518eab24c8ab05bb23bb5537, type: 2}
+    - target: {fileID: 7265866529211110511, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: _attackDown._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 6bb94bb11da227e4280baa6290c81b7b, type: 2}
+    - target: {fileID: 7265866529211110511, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: _runningDown._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 7283b86f4ca71da42a67ec642b69cf2c, type: 2}
+    - target: {fileID: 7265866529211110511, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: _idleHorizontal._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: b486c02438352884084f1e15c3d61536, type: 2}
+    - target: {fileID: 7265866529211110511, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: _deathHorizontal._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: f88f2ce2eeb9eea46ada6791438d0ade, type: 2}
+    - target: {fileID: 7265866529211110511, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: _attackHorizontal._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 0284dd2958e5a5748a2ece42e6006651, type: 2}
+    - target: {fileID: 7265866529211110511, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: _runningHorizontal._animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 618a5fa5446479742b8ac1135ae06f2d, type: 2}
+    - target: {fileID: 7663314018953413184, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 20.800001
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663314018953413184, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 11.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663314018953413184, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663314018953413184, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663314018953413184, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663314018953413184, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663314018953413184, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663314018953413184, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663314018953413184, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663314018953413184, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9019554959143787869, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: UnitName
+      value: Loyalist Swordsman
+      objectReference: {fileID: 0}
+    - target: {fileID: 9019554959143787869, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: HitPoints
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 9019554959143787869, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9019554959143787869, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: _hitPoints
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 9019554959143787869, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: _unitStats
+      value: 
+      objectReference: {fileID: 11400000, guid: fe3b4d54996d1544aa8f7866c0eeda78,
+        type: 2}
+    - target: {fileID: 9019554959143787869, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: AttackFactor
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 9019554959143787869, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: _unitDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: cca201165f76e3849b04c72f8f7e6cd0,
+        type: 2}
+    - target: {fileID: 9019554959143787869, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: _unitFaction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9019554959143787869, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: DefenceFactor
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9019554959143787869, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      propertyPath: _evasionFactor
+      value: 15
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 9019554959143787869, guid: 3aa54edd1404e194f823dd869d5b6f43, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 704201914471293455}
+    - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1084450355350001479}
+    - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3250987990461021833}
+    - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6278032204025234459}
+    - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: 3aa54edd1404e194f823dd869d5b6f43,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8038033595091490216}
+  m_SourcePrefab: {fileID: 100100000, guid: 3aa54edd1404e194f823dd869d5b6f43, type: 3}
+--- !u!1 &798318646812673420 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3903837526696178160, guid: 3aa54edd1404e194f823dd869d5b6f43,
+    type: 3}
+  m_PrefabInstance: {fileID: 4411562912490435708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &704201914471293455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798318646812673420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eb4911400cd6c14693656e25ccdfefa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitHighlighterAggregator: {fileID: 1793167974146847796}
+  Obstructable: 1
+  Priority: 0
+  cell: {fileID: 0}
+  AttackRange: 1
+  AttackFactor: 30
+  DefenceFactor: 10
+  MovementAnimationSpeed: 7.5
+  PlayerNumber: 0
+  _unitDetails: {fileID: 11400000, guid: cca201165f76e3849b04c72f8f7e6cd0, type: 2}
+  _unitStats: {fileID: 11400000, guid: 12091c85cb3103d4b9cf02c0bc8d914e, type: 2}
+  _unitFaction: 1
+  _markerSpriteRenderer: {fileID: 1878911632163319435}
+  _maskSpriteRenderer: {fileID: 9050044402488316364}
+  Offset: {x: 0, y: 0, z: -0.1}
+  isStructure: 0
+--- !u!114 &-1084450355350001479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798318646812673420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04efdf84d7d5fe141af2b1a06d61b4a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skillName: Allied Armament
+  _skillDescription: This unit increases it's attack power when it is alongside another
+    swordsman unit.
+  _attackPowerFactor: 2
+  _boxCastSize: {x: 3, y: 3}
+  _unitLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  _colliderArray: []
+  <CanBeActivatedDuringEnemyTurn>k__BackingField: 1
+--- !u!114 &-3250987990461021833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798318646812673420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89bf20677df71df42b3ebe2d0347282d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _retaliatePoints: 1
+  _skillName: Retaliate
+  _skillDescription: This unit counterattacks when attacked.
+--- !u!114 &6278032204025234459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798318646812673420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12fe434883859a04883454005c224073, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skillName: Siege Breaker
+  _skillDescription: This unit deals additional damage to structures.
+  <CanBeActivatedDuringEnemyTurn>k__BackingField: 1
+  _structureDamageFactor: 2
+--- !u!114 &8038033595091490216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798318646812673420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 191c517e72f4f6144b52a5eed6ff2582, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1793167974146847796 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2727943177912090696, guid: 3aa54edd1404e194f823dd869d5b6f43,
+    type: 3}
+  m_PrefabInstance: {fileID: 4411562912490435708}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85fb1d8deab68da45903617c176baa15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!212 &1878911632163319435 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2822131015226890999, guid: 3aa54edd1404e194f823dd869d5b6f43,
+    type: 3}
+  m_PrefabInstance: {fileID: 4411562912490435708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &9050044402488316364 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4657058977376609712, guid: 3aa54edd1404e194f823dd869d5b6f43,
+    type: 3}
+  m_PrefabInstance: {fileID: 4411562912490435708}
+  m_PrefabAsset: {fileID: 0}
