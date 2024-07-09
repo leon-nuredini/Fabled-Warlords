@@ -19,6 +19,7 @@ public class LUnit : Unit
     public event        Action<UnitDirection> OnMove;
     public event        Action<UnitDirection> OnAttack;
     public event        Action<UnitDirection> OnDie;
+    public event        Action<UnitDirection> OnGetHit;
     public event        Action                OnTakeDamage;
     public static event Action<LUnit>         OnAnyDisplayUnitInformation;
     public static event Action                OnAnyHideUnitInformation;
@@ -156,6 +157,7 @@ public class LUnit : Unit
         if (isRetalationResilenceActive) newDamage /= 2;
         if (newDamage <= 0) newDamage              =  1;
         _tempDamageReceived = newDamage;
+        OnGetHit?.Invoke(CurrentUnitDirection);
         return newDamage;
     }
 
@@ -232,7 +234,7 @@ public class LUnit : Unit
             if (EvadedTextSpawner.Instance != null)
                 EvadedTextSpawner.Instance.SpawnTextGameObject(enemyUnit.CachedTransform.localPosition);
         }
-        
+
         Vector3 enemyUnitPosition = unitToAttack.transform.localPosition;
         UpdateUnitDirection(enemyUnitPosition);
 
@@ -358,11 +360,12 @@ public class LUnit : Unit
 
     private UnitDirection GetMovementDirection(Vector3 moveDirection)
     {
-        UnitDirection unitDirection             = UnitDirection.Right;
+        UnitDirection unitDirection             = _currentUnitDirection;
         if (moveDirection.x > 0f) unitDirection = UnitDirection.Left;
         if (moveDirection.x < 0f) unitDirection = UnitDirection.Right;
-        if (moveDirection.y > 0f) unitDirection = UnitDirection.Down;
-        if (moveDirection.y < 0f) unitDirection = UnitDirection.Up;
+        //Move uncomment these lines if the unit has up and down idle/walking animations
+        //if (moveDirection.y > 0f) unitDirection = UnitDirection.Down;
+        //if (moveDirection.y < 0f) unitDirection = UnitDirection.Up;
         return unitDirection;
     }
 

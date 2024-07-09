@@ -13,6 +13,9 @@ public class UnitAnimationController : MonoBehaviour
     [BoxGroup("Attack")] [SerializeField] private UnitAnimation _attackHorizontal;
     [BoxGroup("Attack")] [SerializeField] private UnitAnimation _attackUp;
     [BoxGroup("Attack")] [SerializeField] private UnitAnimation _attackDown;
+    [BoxGroup("Hit")] [SerializeField] private UnitAnimation _hitHorizontal;
+    [BoxGroup("Hit")] [SerializeField] private UnitAnimation _hitUp;
+    [BoxGroup("Hit")] [SerializeField] private UnitAnimation _hitDown;
     [BoxGroup("Death")] [SerializeField] private UnitAnimation _deathHorizontal;
     [BoxGroup("Death")] [SerializeField] private UnitAnimation _deathUp;
     [BoxGroup("Death")] [SerializeField] private UnitAnimation _deathDown;
@@ -30,10 +33,11 @@ public class UnitAnimationController : MonoBehaviour
     {
         if (_unit != null)
         {
-            _unit.OnIdle += PlayIdleAnimation;
-            _unit.OnMove += PlayRunningAnimation;
+            _unit.OnIdle   += PlayIdleAnimation;
+            _unit.OnMove   += PlayRunningAnimation;
             _unit.OnAttack += PlayAttackAnimation;
-            _unit.OnDie += PlayDieAnimation;
+            _unit.OnGetHit += PlayGetHitAnimation;
+            _unit.OnDie    += PlayDieAnimation;
         }
     }
 
@@ -41,10 +45,11 @@ public class UnitAnimationController : MonoBehaviour
     {
         if (_unit != null)
         {
-            _unit.OnIdle -= PlayIdleAnimation;
-            _unit.OnMove -= PlayRunningAnimation;
+            _unit.OnIdle   -= PlayIdleAnimation;
+            _unit.OnMove   -= PlayRunningAnimation;
             _unit.OnAttack -= PlayAttackAnimation;
-            _unit.OnDie -= PlayDieAnimation;
+            _unit.OnGetHit -= PlayGetHitAnimation;
+            _unit.OnDie    -= PlayDieAnimation;
         }
     }
 
@@ -92,6 +97,22 @@ public class UnitAnimationController : MonoBehaviour
                 break;
             default:
                 ExecuteAnimation(_attackHorizontal);
+                break;
+        }
+    }
+
+    private void PlayGetHitAnimation(UnitDirection direction = UnitDirection.Right)
+    {
+        switch (direction)
+        {
+            case UnitDirection.Up:
+                ExecuteAnimation(_hitUp);
+                break;
+            case UnitDirection.Down:
+                ExecuteAnimation(_hitDown);
+                break;
+            default:
+                ExecuteAnimation(_hitHorizontal);
                 break;
         }
     }
