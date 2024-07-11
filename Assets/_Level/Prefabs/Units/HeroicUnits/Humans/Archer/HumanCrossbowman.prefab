@@ -17,8 +17,14 @@ PrefabInstance:
     - target: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
         type: 3}
       propertyPath: m_Name
-      value: HumanArcher
+      value: HumanCrossbowman
       objectReference: {fileID: 0}
+    - target: {fileID: 4528306360651456248, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: 13ada2037f0e56f4283f0d9e8076a958,
+        type: 2}
     - target: {fileID: 7663314018953413184, guid: ccbbcce10b821774dbc1040a93c307ff,
         type: 3}
       propertyPath: m_LocalPosition.x
