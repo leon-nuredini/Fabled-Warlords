@@ -1,0 +1,130 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8781227147151386015
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 508299838615450757, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      propertyPath: _soundEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: d13166bcd2329c04bb63ac40a9dcdaad,
+        type: 2}
+    - target: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      propertyPath: m_Name
+      value: PrimordialEliteDruid
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528306360651456248, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: 726fa14f7f27d2b488c187ffdf69e9b2,
+        type: 2}
+    - target: {fileID: 4657058977376609712, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1080079007, guid: 6854ff145642b484a8b9a6b3a1b4d8f4,
+        type: 3}
+    - target: {fileID: 7663314018953413184, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663314018953413184, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663314018953413184, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663314018953413184, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663314018953413184, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663314018953413184, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663314018953413184, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663314018953413184, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663314018953413184, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663314018953413184, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9019554959143787869, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      propertyPath: _unitStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 0ef8c17ad1039b74e843a647512fdc3a,
+        type: 2}
+    - target: {fileID: 9019554959143787869, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      propertyPath: _unitDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: 0409e23f1749aa74ea4bd2935df314db,
+        type: 2}
+    - target: {fileID: 9019554959143787869, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      propertyPath: _unitFaction
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2676643129880935384}
+  m_SourcePrefab: {fileID: 100100000, guid: ccbbcce10b821774dbc1040a93c307ff, type: 3}
+--- !u!1 &5760130434938246255 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 8781227147151386015}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2676643129880935384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5760130434938246255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89bf20677df71df42b3ebe2d0347282d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _retaliatePoints: 1
+  _skillName: Retaliate
+  _skillDescription: This unit counterattacks when attacked.
