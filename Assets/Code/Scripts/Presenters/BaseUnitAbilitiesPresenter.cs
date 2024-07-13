@@ -22,6 +22,8 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
     [BoxGroup("Skill UI")][SerializeField] private UIAbility _villageHealing;
     [BoxGroup("Skill UI")][SerializeField] private UIAbility _taxIncome;
     [BoxGroup("Skill UI")][SerializeField] private UIAbility _recruitUnit;
+    [BoxGroup("Skill UI")][SerializeField] private UIAbility _antiLarge;
+    [BoxGroup("Skill UI")][SerializeField] private UIAbility _parry;
 
     protected void UpdateUnitAbilities(LUnit lUnit)
     {
@@ -40,7 +42,9 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         _villageHealing.gameObject.SetActive(false);
         _taxIncome.gameObject.SetActive(false);
         _recruitUnit.gameObject.SetActive(false);
-
+        _antiLarge.gameObject.SetActive(false);
+        _parry.gameObject.SetActive(false);
+        
         for (int i = 0; i < lUnit.AttackSkillArray.Length; i++)
         {
             switch (lUnit.AttackSkillArray[i])
@@ -64,6 +68,14 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
                 case StillStrikeSkill stillStrikeSkill:
                     _stillStrike.gameObject.SetActive(true);
                     _stillStrike.UpdateNameAndDescription(stillStrikeSkill);
+                    break;
+                case AntiLargeSkill antiLargeSkill:
+                    _antiLarge.gameObject.SetActive(true);
+                    _antiLarge.UpdateNameAndDescription(antiLargeSkill);
+                    break;
+                case ParrySkill parrySkill:
+                    _parry.gameObject.SetActive(true);
+                    _parry.UpdateNameAndDescription(parrySkill);
                     break;
             }
         }

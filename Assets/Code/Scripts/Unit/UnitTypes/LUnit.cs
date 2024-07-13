@@ -80,8 +80,9 @@ public class LUnit : Unit
 
     public bool IsEvading { get => _isEvading; set => _isEvading = value; }
 
-    public    Transform CachedTransform => _cachedTransform;
-    protected Unit      Agressor        => _agressor;
+    public Transform CachedTransform => _cachedTransform;
+
+    protected Unit Agressor { get => _agressor; set => _agressor = value; }
 
     public UnitFaction Faction { get => _unitFaction; set => _unitFaction = value; }
 
@@ -94,6 +95,10 @@ public class LUnit : Unit
     public bool IsMoving { get => _isMoving; set => _isMoving = value; }
 
     public UnitStats UnitStats => _unitStats;
+
+    protected int TempDamageReceived { get => _tempDamageReceived; set => _tempDamageReceived = value; }
+
+    protected bool IsRetaliating => _isRetaliating;
 
     #endregion
 
@@ -157,11 +162,13 @@ public class LUnit : Unit
         if (isRetalationResilenceActive) newDamage /= 2;
         if (newDamage <= 0) newDamage              =  1;
         _tempDamageReceived = newDamage;
-        OnGetHit?.Invoke(CurrentUnitDirection);
+        InvokeGetHitEvent();
         return newDamage;
     }
 
-    private bool TryUseRetaliationResilence()
+    protected void InvokeGetHitEvent() { OnGetHit?.Invoke(CurrentUnitDirection); }
+
+    protected bool TryUseRetaliationResilence()
     {
         if (_retaliationResilienceSkill == null) return false;
         if (Agressor is LUnit lUnit)
@@ -254,14 +261,15 @@ public class LUnit : Unit
 
     protected override AttackAction DealDamage(Unit unitToAttack)
     {
-        var baseVal     = base.DealDamage(unitToAttack);
-        int totalDamage = CalculateDamage(baseVal, unitToAttack);
+        var baseVal                     = base.DealDamage(unitToAttack);
+        int totalDamage                 = CalculateDamage(baseVal, unitToAttack);
+        if (_isRetaliating) totalDamage = totalDamage / 2;
         //takes into account the current units health for the damage calculation
-        float hitPointsPercentage = HitPoints / TotalActionPoints;
-        hitPointsPercentage += 0.4f;
+        float hitPointsPercentage = (float) HitPoints / TotalHitPoints;
+        hitPointsPercentage += 0.3f;
         if (hitPointsPercentage > 1f) hitPointsPercentage = 1f;
 
-        var newDmg = TotalHitPoints == 0 ? 0 : (int) Mathf.Ceil(totalDamage * ((float) HitPoints / TotalHitPoints));
+        var newDmg = TotalHitPoints == 0 ? 0 : (int) Mathf.Ceil(totalDamage * hitPointsPercentage);
         return new AttackAction(newDmg, baseVal.ActionCost);
     }
 

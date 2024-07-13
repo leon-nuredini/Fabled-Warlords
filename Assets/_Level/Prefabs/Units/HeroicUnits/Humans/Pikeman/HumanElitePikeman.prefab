@@ -98,21 +98,63 @@ PrefabInstance:
       propertyPath: _unitFaction
       value: 3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9019554959143787869, guid: ccbbcce10b821774dbc1040a93c307ff, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
         type: 3}
+      insertIndex: 3
+      addedObject: {fileID: -9069765570593890555}
+    - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
       insertIndex: -1
       addedObject: {fileID: 2676643129880935384}
+    - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7469194773422565625}
   m_SourcePrefab: {fileID: 100100000, guid: ccbbcce10b821774dbc1040a93c307ff, type: 3}
+--- !u!212 &4142218637419872303 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4657058977376609712, guid: ccbbcce10b821774dbc1040a93c307ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 8781227147151386015}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5760130434938246255 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
     type: 3}
   m_PrefabInstance: {fileID: 8781227147151386015}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &-9069765570593890555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5760130434938246255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53b1bcfb77a265b43ae80047066eca51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitHighlighterAggregator: {fileID: 6631187944438703575}
+  Obstructable: 1
+  Priority: 0
+  cell: {fileID: 0}
+  AttackRange: 0
+  AttackFactor: 0
+  MovementAnimationSpeed: 0
+  PlayerNumber: 0
+  _unitDetails: {fileID: 11400000, guid: 820f22c41b651c04c831b2047e530a64, type: 2}
+  _unitStats: {fileID: 11400000, guid: 3b25785acb475184a9d8be76c7d548bf, type: 2}
+  _unitFaction: 3
+  _markerSpriteRenderer: {fileID: 6842963054553972584}
+  _maskSpriteRenderer: {fileID: 4142218637419872303}
+  Offset: {x: 0, y: 0, z: -0.1}
+  isStructure: 0
 --- !u!114 &2676643129880935384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,3 +170,37 @@ MonoBehaviour:
   _retaliatePoints: 1
   _skillName: Retaliate
   _skillDescription: This unit counterattacks when attacked.
+--- !u!114 &-7469194773422565625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5760130434938246255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ce2b77bf7dd69549b5a6ba5eb225b6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skillName: Anti-Large
+  _skillDescription: Deals additional damage to beasts, mounted, and large units.
+  _attackPowerFactor: 2
+  <CanBeActivatedDuringEnemyTurn>k__BackingField: 1
+--- !u!114 &6631187944438703575 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2727943177912090696, guid: ccbbcce10b821774dbc1040a93c307ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 8781227147151386015}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85fb1d8deab68da45903617c176baa15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!212 &6842963054553972584 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2822131015226890999, guid: ccbbcce10b821774dbc1040a93c307ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 8781227147151386015}
+  m_PrefabAsset: {fileID: 0}

@@ -106,6 +106,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2676643129880935384}
+    - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1262156259922463241}
   m_SourcePrefab: {fileID: 100100000, guid: ccbbcce10b821774dbc1040a93c307ff, type: 3}
 --- !u!1 &5760130434938246255 stripped
 GameObject:
@@ -128,3 +132,17 @@ MonoBehaviour:
   _retaliatePoints: 1
   _skillName: Retaliate
   _skillDescription: This unit counterattacks when attacked.
+--- !u!114 &-1262156259922463241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5760130434938246255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c38a045990549554091914dd22d46bd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skillName: Guardian Aura
+  _skillDescription: This unit's attacks will not trigger enemy retaliation.
