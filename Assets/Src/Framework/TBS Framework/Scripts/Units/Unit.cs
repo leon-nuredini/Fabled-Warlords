@@ -71,6 +71,8 @@ namespace TbsFramework.Units
         public event EventHandler<AbilityAddedEventArgs> AbilityAddded;
 
         public event Action OnHitpointsChange;
+        
+        public event Action OnTurnEndUnitReset;
 
         public UnitHighlighterAggregator UnitHighlighterAggregator;
 
@@ -225,6 +227,7 @@ namespace TbsFramework.Units
 
             MovementPoints = TotalMovementPoints;
             ActionPoints   = TotalActionPoints;
+            OnTurnEndUnitReset?.Invoke();
             SetState(new UnitStateNormal(this));
             UnMark();
         }

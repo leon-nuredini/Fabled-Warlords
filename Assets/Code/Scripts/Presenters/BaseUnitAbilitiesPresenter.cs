@@ -5,25 +5,61 @@ using UnityEngine.UI;
 
 public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
 {
-    [BoxGroup][SerializeField] private ScrollRect _scrollRect;
-    
-    [BoxGroup("Skill UI")][SerializeField] private UIAbility _stillStrike;
-    [BoxGroup("Skill UI")][SerializeField] private UIAbility _backstab;
-    [BoxGroup("Skill UI")][SerializeField] private UIAbility _unRetaliatable;
-    [BoxGroup("Skill UI")][SerializeField] private UIAbility _victoryValor;
-    [BoxGroup("Skill UI")][SerializeField] private UIAbility _rage;
-    [BoxGroup("Skill UI")][SerializeField] private UIAbility _retaliationResilience;
-    [BoxGroup("Skill UI")][SerializeField] private UIAbility _shieldWall;
-    [BoxGroup("Skill UI")][SerializeField] private UIAbility _alliedArmament;
-    [BoxGroup("Skill UI")][SerializeField] private UIAbility _massHealing;
-    [BoxGroup("Skill UI")][SerializeField] private UIAbility _retaliate;
-    [BoxGroup("Skill UI")][SerializeField] private UIAbility _siegeBreaker;
-    [BoxGroup("Skill UI")][SerializeField] private UIAbility _capturer;
-    [BoxGroup("Skill UI")][SerializeField] private UIAbility _villageHealing;
-    [BoxGroup("Skill UI")][SerializeField] private UIAbility _taxIncome;
-    [BoxGroup("Skill UI")][SerializeField] private UIAbility _recruitUnit;
-    [BoxGroup("Skill UI")][SerializeField] private UIAbility _antiLarge;
-    [BoxGroup("Skill UI")][SerializeField] private UIAbility _parry;
+    [BoxGroup] [SerializeField] private ScrollRect _scrollRect;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _stillStrike;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _backstab;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _unRetaliatable;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _victoryValor;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _rage;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _retaliationResilience;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _shieldWall;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _alliedArmament;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _massHealing;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _retaliate;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _siegeBreaker;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _capturer;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _villageHealing;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _taxIncome;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _recruitUnit;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _antiLarge;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _parry;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _charge;
 
     protected void UpdateUnitAbilities(LUnit lUnit)
     {
@@ -44,7 +80,8 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         _recruitUnit.gameObject.SetActive(false);
         _antiLarge.gameObject.SetActive(false);
         _parry.gameObject.SetActive(false);
-        
+        _charge.gameObject.SetActive(false);
+
         for (int i = 0; i < lUnit.AttackSkillArray.Length; i++)
         {
             switch (lUnit.AttackSkillArray[i])
@@ -77,6 +114,10 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
                     _parry.gameObject.SetActive(true);
                     _parry.UpdateNameAndDescription(parrySkill);
                     break;
+                case ChargeSkill chargeSkill:
+                    _charge.gameObject.SetActive(true);
+                    _charge.UpdateNameAndDescription(chargeSkill);
+                    break;
             }
         }
 
@@ -100,17 +141,15 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
 
         if (lUnit is Stronghold stronghold)
         {
-            UpdateAbilityText(stronghold.IncomeGenerationAbility,  _taxIncome);
-            UpdateAbilityText(stronghold.RecruitUnitAbility, _recruitUnit);
-        } else if (lUnit is Barrack barrack)
-        {
-            UpdateAbilityText(barrack.RecruitUnitAbility, _recruitUnit);
+            UpdateAbilityText(stronghold.IncomeGenerationAbility, _taxIncome);
+            UpdateAbilityText(stronghold.RecruitUnitAbility,      _recruitUnit);
         }
+        else if (lUnit is Barrack barrack) { UpdateAbilityText(barrack.RecruitUnitAbility, _recruitUnit); }
 
         if (lUnit is Village village)
         {
             UpdateAbilityText(village.IncomeGenerationAbility, _taxIncome);
-            UpdateAbilityText(village.VillageHealingSkill,  _villageHealing);
+            UpdateAbilityText(village.VillageHealingSkill,     _villageHealing);
         }
 
         FocusScrollRect();
