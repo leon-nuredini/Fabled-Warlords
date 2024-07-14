@@ -23,6 +23,8 @@ namespace TbsFramework.Units
     {
         Dictionary<Cell, IList<Cell>> cachedPaths = null;
 
+        public Dictionary<Cell, IList<Cell>> CachedPaths => cachedPaths;
+
         /// <summary>
         /// UnitClicked event is invoked when user clicks the unit. 
         /// It requires a collider on the unit game object to work.
@@ -370,8 +372,7 @@ namespace TbsFramework.Units
         /// <param name="path">A list of cells, path from source to destination cell</param>
         public virtual IEnumerator Move(Cell destinationCell, IList<Cell> path)
         {
-            var totalMovementCost = path.Sum(h => h.MovementCost);
-            MovementPoints -= totalMovementCost;
+            UpdateMovementPoints(path);
 
             Cell.IsTaken = false;
             Cell.CurrentUnits.Remove(this);
@@ -387,6 +388,12 @@ namespace TbsFramework.Units
             }
 
             if (UnitMoved != null) { UnitMoved.Invoke(this, new MovementEventArgs(Cell, destinationCell, path, this)); }
+        }
+
+        protected virtual void UpdateMovementPoints(IList<Cell> path)
+        {
+            var totalMovementCost = path.Sum(h => h.MovementCost);
+            MovementPoints -= totalMovementCost;
         }
 
         protected virtual IEnumerator MovementAnimation(IList<Cell> path)
@@ -431,7 +438,7 @@ namespace TbsFramework.Units
         /// <summary>
         /// Method returns all cells that the unit is capable of moving to.
         /// </summary>
-        public HashSet<Cell> GetAvailableDestinations(List<Cell> cells)
+        public virtual HashSet<Cell> GetAvailableDestinations(List<Cell> cells)
         {
             if (cachedPaths == null) { CachePaths(cells); }
 

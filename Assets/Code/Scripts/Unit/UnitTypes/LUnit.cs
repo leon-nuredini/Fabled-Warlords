@@ -90,7 +90,8 @@ public class LUnit : Unit
 
     public int EvasionFactor { get => _evasionFactor; private set => _evasionFactor = value; }
 
-    public SpriteRenderer MaskSpriteRenderer => _maskSpriteRenderer;
+    public SpriteRenderer MaskSpriteRenderer   => _maskSpriteRenderer;
+    public SpriteRenderer MarkerSpriteRenderer => _markerSpriteRenderer;
 
     public bool IsMoving { get => _isMoving; set => _isMoving = value; }
 
@@ -99,6 +100,8 @@ public class LUnit : Unit
     protected int TempDamageReceived { get => _tempDamageReceived; set => _tempDamageReceived = value; }
 
     protected bool IsRetaliating => _isRetaliating;
+
+    protected SpriteRenderer UnitSpriteRenderer => _spriteRenderer;
 
     #endregion
 
@@ -127,7 +130,7 @@ public class LUnit : Unit
         CachedTransform.localPosition += Offset;
     }
 
-    public void InitProperties()
+    public virtual void InitProperties()
     {
         HitPoints      = _unitStats.HitPoints;
         MovementPoints = _unitStats.MovementPoints;
