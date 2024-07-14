@@ -2,18 +2,6 @@ using TbsFramework.Units;
 
 public class Pikeman : LUnit
 {
-    protected override int Defend(Unit other, int damage)
-    {
-        int  newDamage                             = damage;
-        bool isRetalationResilenceActive           = TryUseRetaliationResilence();
-        if (isRetalationResilenceActive) newDamage /= 2;
-        if (newDamage <= 0) newDamage              =  1;
-        TempDamageReceived = newDamage;
-        Agressor           = other;
-        InvokeGetHitEvent();
-        return newDamage;
-    }
-    
     protected override int CalculateDamage(AttackAction baseVal, Unit unitToAttack)
     {
         float totalFactorDamage = 0;

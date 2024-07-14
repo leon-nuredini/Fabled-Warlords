@@ -159,17 +159,15 @@ public class LUnit : Unit
     protected override int Defend(Unit other, int damage)
     {
         _agressor = other;
-        int  defenceAmount                         = CalculateDefense();
-        int  newDamage                             = damage - defenceAmount;
+        //int  defenceAmount                         = CalculateDefense();
+        //int  newDamage                             = damage - defenceAmount;
+        int  newDamage                             = damage;
         bool isRetalationResilenceActive           = TryUseRetaliationResilence();
         if (isRetalationResilenceActive) newDamage /= 2;
         if (newDamage <= 0) newDamage              =  1;
         _tempDamageReceived = newDamage;
-        InvokeGetHitEvent();
         return newDamage;
     }
-
-    protected void InvokeGetHitEvent() { OnGetHit?.Invoke(CurrentUnitDirection); }
 
     protected bool TryUseRetaliationResilence()
     {
@@ -204,6 +202,7 @@ public class LUnit : Unit
 
     protected override void DefenceActionPerformed()
     {
+        InvokeGetHitEvent();
         SpawnDamageText();
         if (HitPoints <= 0)
         {
@@ -231,6 +230,8 @@ public class LUnit : Unit
         AttackHandlerRetaliate(Agressor);
         _agressor = null;
     }
+    
+    protected void InvokeGetHitEvent() => OnGetHit?.Invoke(CurrentUnitDirection);
 
     public void AttackHandlerRetaliate(Unit unitToAttack)
     {
