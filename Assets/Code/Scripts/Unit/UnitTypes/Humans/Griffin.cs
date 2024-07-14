@@ -5,6 +5,12 @@ using TbsFramework.Cells;
 public class Griffin : LUnit
 {
     private SoarSkill _soarSkill;
+    
+    #region Properties
+
+    public SoarSkill SoarSkill => _soarSkill;
+
+    #endregion
 
     public override void InitProperties()
     {

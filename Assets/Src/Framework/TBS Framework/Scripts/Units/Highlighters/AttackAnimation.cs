@@ -27,7 +27,7 @@ namespace TbsFramework.Units.Highlighters
 
         private IEnumerator AttackAnimationCoroutine(Unit unit, Unit otherUnit)
         {
-            var StartingPosition = unit.transform.position;
+            var StartingPosition = unit.transform.localPosition;
             _originalPosition = unit.transform.localPosition;
 
             var heading = otherUnit.transform.localPosition - unit.transform.localPosition;
@@ -51,8 +51,9 @@ namespace TbsFramework.Units.Highlighters
                 yield return 0;
             }
 
-            unit.transform.position = StartingPosition;
-            _originalPosition = unit.transform.localPosition;
+            unit.transform.localPosition = StartingPosition;
+            _originalPosition       = unit.transform.localPosition;
+            _coroutine              = null;
         }
 
         private void OnTurnEnded(object sender, bool something)

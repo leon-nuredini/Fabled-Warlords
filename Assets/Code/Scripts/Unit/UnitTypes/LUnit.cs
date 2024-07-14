@@ -207,10 +207,16 @@ public class LUnit : Unit
         SpawnDamageText();
         if (HitPoints <= 0)
         {
+            if (Agressor is Paladin paladin)
+            {
+                if (paladin.VictorsSmite != null)
+                    paladin.VictorsSmite.TryGetAdditionalActionPoint(this);
+            }
+            
             if (Agressor is LUnit lUnit)
             {
-                if (lUnit.ValorSkill == null) return;
-                lUnit.ValorSkill.TryGetAdditionalActionPoint(this);
+                if (lUnit.ValorSkill != null)
+                    lUnit.ValorSkill.TryGetAdditionalActionPoint(this);
             }
 
             return;
