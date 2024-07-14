@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TbsFramework.Cells;
 
-public class Griffin : LUnit
+public class Griffin : LUnit, IBeast
 {
     private SoarSkill _soarSkill;
     

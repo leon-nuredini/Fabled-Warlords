@@ -147,11 +147,11 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         UpdateAbilityText(lUnit.AoeHealingSkill,            _massHealing);
         UpdateAbilityText(lUnit.CapturerSkill,              _capturer);
 
-        if (lUnit is Griffin griffin) UpdateAbilityText(griffin.SoarSkill,    _soar);
+        if (lUnit is Griffin griffin)
+        {
+            UpdateAbilityText(griffin.SoarSkill, _soar);
+        }
         if (lUnit is Paladin paladin) UpdateAbilityText(paladin.VictorsSmite, _victorsSmite);
-
-        _soar.gameObject.SetActive(false);
-        _victorsSmite.gameObject.SetActive(false);
 
         if (lUnit is Stronghold stronghold)
         {
