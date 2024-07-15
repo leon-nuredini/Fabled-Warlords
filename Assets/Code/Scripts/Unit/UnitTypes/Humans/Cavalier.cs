@@ -1,4 +1,5 @@
 using TbsFramework.Units;
+using UnityEngine;
 
 public class Cavalier : LUnit, IMounted
 {
@@ -6,6 +7,9 @@ public class Cavalier : LUnit, IMounted
     {
         float totalFactorDamage = 0;
         int   baseDamage        = baseVal.Damage;
+        
+        if (StatusEffectsController.IsWeakenApplied()) baseDamage = Mathf.RoundToInt(baseDamage / 1.5f);
+        
         for (int i = 0; i < AttackSkillArray.Length; i++)
         {
             if (IsRetaliating && !AttackSkillArray[i].CanBeActivatedDuringEnemyTurn) continue;

@@ -67,6 +67,9 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
     [BoxGroup("Skill UI")] [SerializeField]
     private UIAbility _victorsSmite;
 
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _hex;
+
     protected void UpdateUnitAbilities(LUnit lUnit)
     {
         _stillStrike.gameObject.SetActive(false);
@@ -89,6 +92,7 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         _charge.gameObject.SetActive(false);
         _soar.gameObject.SetActive(false);
         _victorsSmite.gameObject.SetActive(false);
+        _hex.gameObject.SetActive(false);
 
         for (int i = 0; i < lUnit.AttackSkillArray.Length; i++)
         {
@@ -147,11 +151,9 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         UpdateAbilityText(lUnit.AoeHealingSkill,            _massHealing);
         UpdateAbilityText(lUnit.CapturerSkill,              _capturer);
 
-        if (lUnit is Griffin griffin)
-        {
-            UpdateAbilityText(griffin.SoarSkill, _soar);
-        }
-        if (lUnit is Paladin paladin) UpdateAbilityText(paladin.VictorsSmite, _victorsSmite);
+        if (lUnit is Griffin griffin) UpdateAbilityText(griffin.SoarSkill,         _soar);
+        if (lUnit is Paladin paladin) UpdateAbilityText(paladin.VictorsSmiteSkill, _victorsSmite);
+        if (lUnit is Monk monk) UpdateAbilityText(monk.HexSkill,                   _hex);
 
         if (lUnit is Stronghold stronghold)
         {

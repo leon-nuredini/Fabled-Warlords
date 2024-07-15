@@ -1,7 +1,7 @@
 using TbsFramework.Grid;
 using UnityEngine;
 
-public class VictorsSmite : MonoBehaviour, ISkill
+public class VictorsSmiteSkill : MonoBehaviour, ISkill
 {
     private LUnit _lUnit;
 

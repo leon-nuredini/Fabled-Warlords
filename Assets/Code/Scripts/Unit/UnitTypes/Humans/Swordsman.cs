@@ -1,5 +1,6 @@
 using TbsFramework.Grid;
 using TbsFramework.Units;
+using UnityEngine;
 
 public class Swordsman : LUnit
 {
@@ -7,6 +8,9 @@ public class Swordsman : LUnit
     {
         float totalFactorDamage = 0;
         int   baseDamage        = baseVal.Damage;
+
+        if (StatusEffectsController.IsWeakenApplied()) baseDamage = Mathf.RoundToInt(baseDamage / 1.5f);
+
         for (int i = 0; i < AttackSkillArray.Length; i++)
         {
             if (IsRetaliating && !AttackSkillArray[i].CanBeActivatedDuringEnemyTurn) continue;

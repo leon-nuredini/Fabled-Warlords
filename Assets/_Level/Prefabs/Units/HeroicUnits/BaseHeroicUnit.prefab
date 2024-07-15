@@ -508,6 +508,7 @@ GameObject:
   - component: {fileID: 6637719443704561577}
   - component: {fileID: 602069824960960200}
   - component: {fileID: 7265866529211110511}
+  - component: {fileID: 8614630853220135945}
   - component: {fileID: 1373822999793160806}
   - component: {fileID: 527892797097190844}
   - component: {fileID: 508299838615450757}
@@ -784,6 +785,23 @@ MonoBehaviour:
     _animationClip: {fileID: 0}
   _deathDown:
     _animationClip: {fileID: 0}
+--- !u!114 &8614630853220135945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3903837526696178160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823336eb9bed2a74f8c8a7d9a542c04e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _statusEffectList:
+  - _statusEffectType: {fileID: 11400000, guid: e3c5b844e31bf2b47b70363ae342c437,
+      type: 2}
+    _isApplied: 0
+    _durationInTurns: 0
 --- !u!114 &1373822999793160806
 MonoBehaviour:
   m_ObjectHideFlags: 0

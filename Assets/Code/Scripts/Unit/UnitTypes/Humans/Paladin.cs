@@ -1,16 +1,16 @@
 public class Paladin : LUnit
 {
-    private VictorsSmite _victorsSmite;
+    private VictorsSmiteSkill _victorsSmiteSkill;
     
     #region Properties
 
-    public VictorsSmite VictorsSmite => _victorsSmite;
+    public VictorsSmiteSkill VictorsSmiteSkill => _victorsSmiteSkill;
 
     #endregion
 
     public override void InitProperties()
     {
         base.InitProperties();
-        _victorsSmite = GetComponent<VictorsSmite>();
+        _victorsSmiteSkill = GetComponent<VictorsSmiteSkill>();
     }
 }

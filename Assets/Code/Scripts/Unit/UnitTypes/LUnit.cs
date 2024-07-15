@@ -46,6 +46,7 @@ public class LUnit : Unit
     private RetaliationResilienceSkill _retaliationResilienceSkill;
     private AOEHealingSkill            _aoeHealingSkill;
     private CapturerSkill              _capturerSkill;
+    private StatusEffectsController    _statusEffectsController;
 
     public Vector3 Offset;
 
@@ -101,7 +102,8 @@ public class LUnit : Unit
 
     protected bool IsRetaliating => _isRetaliating;
 
-    protected SpriteRenderer UnitSpriteRenderer => _spriteRenderer;
+    protected SpriteRenderer          UnitSpriteRenderer      => _spriteRenderer;
+    public StatusEffectsController StatusEffectsController => _statusEffectsController;
 
     #endregion
 
@@ -154,6 +156,7 @@ public class LUnit : Unit
         _capturerSkill              = GetComponent<CapturerSkill>();
         _retaliationResilienceSkill = GetComponent<RetaliationResilienceSkill>();
         _aoeHealingSkill            = GetComponent<AOEHealingSkill>();
+        _statusEffectsController    = GetComponent<StatusEffectsController>();
     }
 
     protected override int Defend(Unit other, int damage)
@@ -161,7 +164,10 @@ public class LUnit : Unit
         _agressor = other;
         //int  defenceAmount                         = CalculateDefense();
         //int  newDamage                             = damage - defenceAmount;
-        int  newDamage                             = damage;
+        int newDamage = damage;
+
+        if (StatusEffectsController.IsWeakenApplied()) newDamage = Mathf.RoundToInt(newDamage * 1.5f);
+
         bool isRetalationResilenceActive           = TryUseRetaliationResilence();
         if (isRetalationResilenceActive) newDamage /= 2;
         if (newDamage <= 0) newDamage              =  1;
@@ -208,10 +214,10 @@ public class LUnit : Unit
         {
             if (Agressor is Paladin paladin)
             {
-                if (paladin.VictorsSmite != null)
-                    paladin.VictorsSmite.TryGetAdditionalActionPoint(this);
+                if (paladin.VictorsSmiteSkill != null)
+                    paladin.VictorsSmiteSkill.TryGetAdditionalActionPoint(this);
             }
-            
+
             if (Agressor is LUnit lUnit)
             {
                 if (lUnit.ValorSkill != null)
@@ -230,7 +236,7 @@ public class LUnit : Unit
         AttackHandlerRetaliate(Agressor);
         _agressor = null;
     }
-    
+
     protected void InvokeGetHitEvent() => OnGetHit?.Invoke(CurrentUnitDirection);
 
     public void AttackHandlerRetaliate(Unit unitToAttack)
@@ -240,6 +246,7 @@ public class LUnit : Unit
         _isRetaliating = false;
         MarkAsAttacking(unitToAttack);
         unitToAttack.DefendHandler(this, attackAction.Damage);
+        ApplyDebuffsToEnemy(unitToAttack as LUnit, true);
     }
 
     public override void AttackHandler(Unit unitToAttack)
@@ -260,6 +267,7 @@ public class LUnit : Unit
             AttackAction attackAction = DealDamage(unitToAttack);
             unitToAttack.DefendHandler(this, attackAction.Damage);
             attackActionCost = attackAction.ActionCost;
+            ApplyDebuffsToEnemy(enemyUnit);
         }
 
         MarkAsAttacking(unitToAttack);
@@ -267,6 +275,11 @@ public class LUnit : Unit
         enemyUnit.IsEvading = false;
         if (ActionPoints == 0)
             UnmarkSelection();
+    }
+
+    protected virtual void ApplyDebuffsToEnemy(LUnit enemyUnit, bool isEnemyTurn = false)
+    {
+        //does nothing here
     }
 
     protected override AttackAction DealDamage(Unit unitToAttack)
@@ -300,6 +313,10 @@ public class LUnit : Unit
     {
         float totalFactorDamage = 0;
         int   baseDamage        = baseVal.Damage;
+
+        if (StatusEffectsController.IsWeakenApplied())
+            baseDamage = Mathf.RoundToInt(baseDamage / 1.5f);
+
         for (int i = 0; i < AttackSkillArray.Length; i++)
         {
             if (_isRetaliating && !AttackSkillArray[i].CanBeActivatedDuringEnemyTurn) continue;

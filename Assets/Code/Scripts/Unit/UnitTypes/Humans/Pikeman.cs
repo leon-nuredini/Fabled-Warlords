@@ -1,4 +1,5 @@
 using TbsFramework.Units;
+using UnityEngine;
 
 public class Pikeman : LUnit
 {
@@ -6,6 +7,9 @@ public class Pikeman : LUnit
     {
         float totalFactorDamage = 0;
         int   baseDamage        = baseVal.Damage;
+        
+        if (StatusEffectsController.IsWeakenApplied()) baseDamage = Mathf.RoundToInt(baseDamage / 1.5f);
+        
         for (int i = 0; i < AttackSkillArray.Length; i++)
         {
             if (!AttackSkillArray[i].CanBeActivatedDuringEnemyTurn) continue;
