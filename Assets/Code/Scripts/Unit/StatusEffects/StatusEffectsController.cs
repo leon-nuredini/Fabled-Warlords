@@ -61,7 +61,7 @@ public class StatusEffectsController : MonoBehaviour
 
     #region Getters
 
-    public T GetStatus<T>()
+    public T GetStatus<T>() where T : class
     {
         for (int i = 0; i < _statusEffectList.Count; i++)
         {
@@ -70,7 +70,7 @@ public class StatusEffectsController : MonoBehaviour
                 return t;
         }
 
-        return default(T);
+        return null;
     }
 
     #endregion
