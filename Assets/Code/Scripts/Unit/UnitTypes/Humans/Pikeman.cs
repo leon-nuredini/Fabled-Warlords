@@ -8,7 +8,11 @@ public class Pikeman : LUnit
         float totalFactorDamage = 0;
         int   baseDamage        = baseVal.Damage;
         
-        if (StatusEffectsController.IsWeakenApplied()) baseDamage = Mathf.RoundToInt(baseDamage / 1.5f);
+        if (StatusEffectsController.IsWeakenApplied())
+        {
+            float weakenedFactor = StatusEffectsController.GetStatus<Weaken>().weakenFactor;
+            baseDamage = Mathf.RoundToInt(baseDamage * weakenedFactor);
+        }
         
         for (int i = 0; i < AttackSkillArray.Length; i++)
         {

@@ -158,6 +158,18 @@ public class LUnit : Unit
         _aoeHealingSkill            = GetComponent<AOEHealingSkill>();
         _statusEffectsController    = GetComponent<StatusEffectsController>();
     }
+    
+    public override void OnTurnEnd()
+    {
+        base.OnTurnEnd();
+        
+        if (StatusEffectsController.IsStatusApplied<Overpower>())
+        {
+            ActionPoints = 0;
+            MovementPoints = 0;
+            SetState(new UnitStateMarkedAsFinished(this));
+        }
+    }
 
     protected override int Defend(Unit other, int damage)
     {
@@ -166,7 +178,11 @@ public class LUnit : Unit
         //int  newDamage                             = damage - defenceAmount;
         int newDamage = damage;
 
-        if (StatusEffectsController.IsWeakenApplied()) newDamage = Mathf.RoundToInt(newDamage * 1.5f);
+        if (StatusEffectsController.IsStatusApplied<Weaken>())
+        {
+            float weakenedFactor = StatusEffectsController.GetStatus<Weaken>().weakenFactor;
+            newDamage = Mathf.RoundToInt(newDamage * weakenedFactor);
+        }
 
         bool isRetalationResilenceActive           = TryUseRetaliationResilence();
         if (isRetalationResilenceActive) newDamage /= 2;
@@ -313,9 +329,12 @@ public class LUnit : Unit
     {
         float totalFactorDamage = 0;
         int   baseDamage        = baseVal.Damage;
-
-        if (StatusEffectsController.IsWeakenApplied())
-            baseDamage = Mathf.RoundToInt(baseDamage / 1.5f);
+        
+        if (StatusEffectsController.IsStatusApplied<Weaken>())
+        {
+            float weakenedFactor = StatusEffectsController.GetStatus<Weaken>().weakenFactor;
+            baseDamage = Mathf.RoundToInt(baseDamage * weakenedFactor);
+        }
 
         for (int i = 0; i < AttackSkillArray.Length; i++)
         {

@@ -7,9 +7,13 @@ public class Swordsman : LUnit
     protected override int CalculateDamage(AttackAction baseVal, Unit unitToAttack)
     {
         float totalFactorDamage = 0;
-        int   baseDamage        = baseVal.Damage;
+        int baseDamage = baseVal.Damage;
 
-        if (StatusEffectsController.IsWeakenApplied()) baseDamage = Mathf.RoundToInt(baseDamage / 1.5f);
+        if (StatusEffectsController.IsWeakenApplied())
+        {
+            float weakenedFactor = StatusEffectsController.GetStatus<Weaken>().weakenFactor;
+            baseDamage = Mathf.RoundToInt(baseDamage * weakenedFactor);
+        }
 
         for (int i = 0; i < AttackSkillArray.Length; i++)
         {
@@ -17,12 +21,12 @@ public class Swordsman : LUnit
             if (AttackSkillArray[i] is ParrySkill parrySkill)
             {
                 if (PlayerNumber == CellGrid.Instance.CurrentPlayerNumber) continue;
-                parrySkill.AggressorUnit =  unitToAttack as LUnit;
-                totalFactorDamage        += AttackSkillArray[i].GetDamageFactor();
+                parrySkill.AggressorUnit = unitToAttack as LUnit;
+                totalFactorDamage += AttackSkillArray[i].GetDamageFactor();
             }
         }
 
-        int factoredDamage = totalFactorDamage > 0 ? baseDamage * (int) totalFactorDamage : baseDamage;
+        int factoredDamage = totalFactorDamage > 0 ? baseDamage * (int)totalFactorDamage : baseDamage;
         return factoredDamage;
     }
 }
