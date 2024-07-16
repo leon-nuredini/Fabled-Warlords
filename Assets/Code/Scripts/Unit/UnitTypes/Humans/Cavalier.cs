@@ -8,7 +8,7 @@ public class Cavalier : LUnit, IMounted
         float totalFactorDamage = 0;
         int   baseDamage        = baseVal.Damage;
         
-        if (StatusEffectsController.IsWeakenApplied())
+        if (StatusEffectsController.IsStatusApplied<Weaken>())
         {
             float weakenedFactor = StatusEffectsController.GetStatus<Weaken>().weakenFactor;
             baseDamage = Mathf.RoundToInt(baseDamage * weakenedFactor);
