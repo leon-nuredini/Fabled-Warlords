@@ -98,21 +98,71 @@ PrefabInstance:
       propertyPath: _unitFaction
       value: 3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9019554959143787869, guid: ccbbcce10b821774dbc1040a93c307ff, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
         type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 3319633959897288800}
+    - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
       insertIndex: -1
       addedObject: {fileID: 2676643129880935384}
+    - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7052774224784558902}
+    - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7773547339216406956}
+    - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 393923275112635436}
   m_SourcePrefab: {fileID: 100100000, guid: ccbbcce10b821774dbc1040a93c307ff, type: 3}
+--- !u!212 &4142218637419872303 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4657058977376609712, guid: ccbbcce10b821774dbc1040a93c307ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 8781227147151386015}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5760130434938246255 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
     type: 3}
   m_PrefabInstance: {fileID: 8781227147151386015}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3319633959897288800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5760130434938246255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81086dfe996f8954db4cd60f2cacdbd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitHighlighterAggregator: {fileID: 6631187944438703575}
+  Obstructable: 1
+  Priority: 0
+  cell: {fileID: 0}
+  AttackRange: 0
+  AttackFactor: 0
+  MovementAnimationSpeed: 0
+  PlayerNumber: 0
+  _unitDetails: {fileID: 11400000, guid: 13d6dc5d15c58da4284778ff3809e9ae, type: 2}
+  _unitStats: {fileID: 11400000, guid: 20d3e13bcb2a549468f8ed6911a146ef, type: 2}
+  _unitFaction: 1
+  _markerSpriteRenderer: {fileID: 6842963054553972584}
+  _maskSpriteRenderer: {fileID: 4142218637419872303}
+  Offset: {x: 0, y: 0, z: -0.1}
+  isStructure: 0
 --- !u!114 &2676643129880935384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,3 +178,62 @@ MonoBehaviour:
   _retaliatePoints: 1
   _skillName: Retaliate
   _skillDescription: This unit counterattacks when attacked.
+--- !u!114 &7052774224784558902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5760130434938246255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bdda21652feb6942bfa61d2f861e135, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skillName: Regeneration
+  _skillDescription: Regenerates a portion of its health at the start of each turn.
+  _aoeHealingBuff: {fileID: 11400000, guid: 66c161a3f5e67a843b48c49db9744466, type: 2}
+--- !u!114 &-7773547339216406956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5760130434938246255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 874ab82ea709cd2448dc3fbcb7d211a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healingVfx: {fileID: 160608, guid: 3c83b33bf94ceba43b3d880525e8afa4, type: 3}
+--- !u!114 &393923275112635436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5760130434938246255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 835ecad459dd1cc4181d550d479ceec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundEvent: {fileID: 11400000, guid: 6af91cb38953ca24bad2ceb32ba19380, type: 2}
+--- !u!114 &6631187944438703575 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2727943177912090696, guid: ccbbcce10b821774dbc1040a93c307ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 8781227147151386015}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85fb1d8deab68da45903617c176baa15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!212 &6842963054553972584 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2822131015226890999, guid: ccbbcce10b821774dbc1040a93c307ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 8781227147151386015}
+  m_PrefabAsset: {fileID: 0}

@@ -75,6 +75,7 @@ namespace TbsFramework.Units
         public event Action OnHitpointsChange;
         
         public event Action OnTurnEndUnitReset;
+        public event Action OnTurnStartEvent;
 
         public UnitHighlighterAggregator UnitHighlighterAggregator;
 
@@ -214,6 +215,7 @@ namespace TbsFramework.Units
             var name  = this.name;
             var state = UnitState;
             SetState(new UnitStateMarkedAsFriendly(this));
+            OnTurnStartEvent?.Invoke();
         }
 
         /// <summary>
