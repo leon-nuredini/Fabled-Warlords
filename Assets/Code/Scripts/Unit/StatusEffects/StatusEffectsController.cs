@@ -14,8 +14,8 @@ public class StatusEffectsController : MonoBehaviour
 
     #endregion
 
-    private void Awake() => _lUnit = GetComponent<LUnit>();
-    private void OnEnable() => _lUnit.OnTurnEndUnitReset += DecreaseStatusEffectDuration;
+    private void Awake()     => _lUnit = GetComponent<LUnit>();
+    private void OnEnable()  => _lUnit.OnTurnEndUnitReset += DecreaseStatusEffectDuration;
     private void OnDisable() => _lUnit.OnTurnEndUnitReset -= DecreaseStatusEffectDuration;
 
     public void ApplyStatusEffect<T>(int turns)
@@ -26,7 +26,8 @@ public class StatusEffectsController : MonoBehaviour
             if (statusEffect.StatusEffectType is T)
             {
                 statusEffect.IsApplied = true;
-                statusEffect.DurationInTurns = turns;
+                if (statusEffect.DurationInTurns < turns)
+                    statusEffect.DurationInTurns = turns;
                 _statusEffectList[i] = statusEffect;
             }
         }
