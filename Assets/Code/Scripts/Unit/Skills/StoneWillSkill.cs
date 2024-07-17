@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class StoneWillSkill : MonoBehaviour
+public class StoneWillSkill : MonoBehaviour, IDefendSkill
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private string _skillName = "Iron Will";
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] private string _skillDescription =
+        "Temporarily increases its defense when attacking an enemy, reducing the damage taken from retaliatory attacks.";
+
+    [Range(0f, .75f)] [SerializeField] private float _defenseFactor;
+
+    public string SkillName => _skillName;
+    public string SkillDescription => _skillDescription;
+
+    public float DefenceAmount => _defenseFactor;
+
+    public float GetDefenceAmount() => _defenseFactor;
 }

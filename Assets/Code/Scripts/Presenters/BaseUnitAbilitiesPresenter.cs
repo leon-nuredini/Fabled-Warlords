@@ -75,6 +75,9 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
     
     [BoxGroup("Skill UI")] [SerializeField]
     private UIAbility _overPower;
+    
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _stoneWill;
 
     protected void UpdateUnitAbilities(LUnit lUnit)
     {
@@ -101,6 +104,7 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         _hex.gameObject.SetActive(false);
         _rapidShot.gameObject.SetActive(false);
         _overPower.gameObject.SetActive(false);
+        _stoneWill.gameObject.SetActive(false);
 
         for (int i = 0; i < lUnit.AttackSkillArray.Length; i++)
         {
@@ -148,6 +152,10 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
                 case ShieldwallSkill shieldwallSkill:
                     _shieldWall.gameObject.SetActive(true);
                     _shieldWall.UpdateNameAndDescription(shieldwallSkill);
+                    break;
+                case StoneWillSkill stoneWillSkill:
+                    _stoneWill.gameObject.SetActive(true);
+                    _stoneWill.UpdateNameAndDescription(stoneWillSkill);
                     break;
             }
         }

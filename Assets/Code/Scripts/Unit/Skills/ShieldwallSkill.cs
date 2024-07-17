@@ -22,7 +22,7 @@ public class ShieldwallSkill : MonoBehaviour, IDefendSkill
 
     public string SkillName => _skillName;
     public string SkillDescription => _skillDescription;
-    public int DefenceAmount => _shieldwallDefenceAmount;
+    public float DefenceAmount => _shieldwallDefenceAmount;
     public LUnit LUnit => _lUnit;
 
     private void Awake()
@@ -31,7 +31,7 @@ public class ShieldwallSkill : MonoBehaviour, IDefendSkill
         _lUnit = GetComponent<LUnit>();
     }
 
-    public int GetDefenceAmount()
+    public float GetDefenceAmount()
     {
         _colliderArray = Physics2D.OverlapBoxAll(transform.localPosition, _boxCastSize, 0f, _unitLayerMask);
 

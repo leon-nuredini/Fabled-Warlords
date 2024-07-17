@@ -203,9 +203,9 @@ public class LUnit : Unit
         return false;
     }
 
-    private int CalculateDefense()
+    protected virtual float CalculateDefense()
     {
-        int defenceAmount = 0;
+        float defenceAmount = 0;
         for (int i = 0; i < DefendSkillArray.Length; i++)
             defenceAmount += DefendSkillArray[i].GetDefenceAmount();
         return defenceAmount;
