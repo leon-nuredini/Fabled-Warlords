@@ -1,3 +1,5 @@
+using Unity.Mathematics;
+
 public class Leafshooter : LUnit
 {
     private RapidShotSkill _rapidShotSkill;
@@ -26,6 +28,8 @@ public class Leafshooter : LUnit
     protected override void ApplyDebuffsToEnemy(LUnit enemyUnit, bool isEnemyTurn = false)
     {
         if (PoisonSkill == null) return;
+        float randomChance = UnityEngine.Random.Range(0f, 100f);
+        if (randomChance < PoisonSkill.ProcChance) return;
         int extraTurn = isEnemyTurn ? 1 : 0;
         enemyUnit.StatusEffectsController.ApplyStatusEffect<Poison>(_poisonSkill.DurationInTurns + extraTurn);
     }
