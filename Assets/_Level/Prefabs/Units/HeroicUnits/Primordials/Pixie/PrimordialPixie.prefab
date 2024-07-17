@@ -85,34 +85,80 @@ PrefabInstance:
         type: 3}
       propertyPath: _unitStats
       value: 
-      objectReference: {fileID: 11400000, guid: 0ef8c17ad1039b74e843a647512fdc3a,
+      objectReference: {fileID: 11400000, guid: bc25a0368a238884ab9382e3461ea258,
         type: 2}
     - target: {fileID: 9019554959143787869, guid: ccbbcce10b821774dbc1040a93c307ff,
         type: 3}
       propertyPath: _unitDetails
       value: 
-      objectReference: {fileID: 11400000, guid: 0409e23f1749aa74ea4bd2935df314db,
+      objectReference: {fileID: 11400000, guid: 343403f26857d4c49b8461b609c90930,
         type: 2}
     - target: {fileID: 9019554959143787869, guid: ccbbcce10b821774dbc1040a93c307ff,
         type: 3}
       propertyPath: _unitFaction
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9019554959143787869, guid: ccbbcce10b821774dbc1040a93c307ff, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
         type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 6000582312619035873}
+    - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
       insertIndex: -1
       addedObject: {fileID: 2676643129880935384}
+    - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7135541855790757156}
+    - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4779367033793152145}
   m_SourcePrefab: {fileID: 100100000, guid: ccbbcce10b821774dbc1040a93c307ff, type: 3}
+--- !u!212 &4142218637419872303 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4657058977376609712, guid: ccbbcce10b821774dbc1040a93c307ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 8781227147151386015}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5760130434938246255 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
     type: 3}
   m_PrefabInstance: {fileID: 8781227147151386015}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6000582312619035873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5760130434938246255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5e849cd5253288418f3a584c07e74e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitHighlighterAggregator: {fileID: 6631187944438703575}
+  Obstructable: 1
+  Priority: 0
+  cell: {fileID: 0}
+  AttackRange: 0
+  AttackFactor: 0
+  MovementAnimationSpeed: 0
+  PlayerNumber: 0
+  _unitDetails: {fileID: 11400000, guid: 343403f26857d4c49b8461b609c90930, type: 2}
+  _unitStats: {fileID: 11400000, guid: bc25a0368a238884ab9382e3461ea258, type: 2}
+  _unitFaction: 2
+  _markerSpriteRenderer: {fileID: 6842963054553972584}
+  _maskSpriteRenderer: {fileID: 4142218637419872303}
+  Offset: {x: 0, y: 0, z: -0.1}
+  isStructure: 0
 --- !u!114 &2676643129880935384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,3 +174,52 @@ MonoBehaviour:
   _retaliatePoints: 1
   _skillName: Retaliate
   _skillDescription: This unit counterattacks when attacked.
+--- !u!114 &-7135541855790757156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5760130434938246255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0910c72712f25c74ab3dd75efbb17966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skillName: Soar
+  _skillDescription: Ignores terrain movement penalites and moves to any unoccupied
+    space within its range.
+--- !u!114 &-4779367033793152145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5760130434938246255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9440f922c5d1f004aaf8960f6ef56e71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skillName: Sleep
+  _skillDescription: Has a chance to put an enemy to sleep for one turn.
+  _durationInTurns: 1
+  _procChance: 75
+--- !u!114 &6631187944438703575 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2727943177912090696, guid: ccbbcce10b821774dbc1040a93c307ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 8781227147151386015}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85fb1d8deab68da45903617c176baa15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!212 &6842963054553972584 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2822131015226890999, guid: ccbbcce10b821774dbc1040a93c307ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 8781227147151386015}
+  m_PrefabAsset: {fileID: 0}

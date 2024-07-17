@@ -1,0 +1,4 @@
+public class Druid : Monk
+{
+    
+}
