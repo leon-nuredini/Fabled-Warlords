@@ -72,15 +72,27 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
 
     [BoxGroup("Skill UI")] [SerializeField]
     private UIAbility _rapidShot;
-    
+
     [BoxGroup("Skill UI")] [SerializeField]
     private UIAbility _overPower;
-    
+
     [BoxGroup("Skill UI")] [SerializeField]
     private UIAbility _stoneWill;
-    
+
     [BoxGroup("Skill UI")] [SerializeField]
     private UIAbility _poison;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _thunderStrike;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _sleep;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _poistonHex;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _rootGrasp;
 
     protected void UpdateUnitAbilities(LUnit lUnit)
     {
@@ -109,6 +121,10 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         _overPower.gameObject.SetActive(false);
         _stoneWill.gameObject.SetActive(false);
         _poison.gameObject.SetActive(false);
+        _thunderStrike.gameObject.SetActive(false);
+        _sleep.gameObject.SetActive(false);
+        _poistonHex.gameObject.SetActive(false);
+        _rootGrasp.gameObject.SetActive(false);
 
         for (int i = 0; i < lUnit.AttackSkillArray.Length; i++)
         {
@@ -176,9 +192,24 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         if (lUnit is Monk monk) UpdateAbilityText(monk.HexSkill, _hex);
         if (lUnit is Centaur centaur) UpdateAbilityText(centaur.RapidShotSkill, _rapidShot);
         if (lUnit is Cyclop cyclop) UpdateAbilityText(cyclop.OverpowerSkill, _overPower);
-        if (lUnit is Leafshooter leafshooter) UpdateAbilityText(leafshooter.PoisonSkill, _poison);
+        if (lUnit is Leafshooter leafshooter)
+        {
+            UpdateAbilityText(leafshooter.RapidShotSkill, _rapidShot);
+            UpdateAbilityText(leafshooter.PoisonSkill, _poison);
+        }
 
-        
+        if (lUnit is StormElemental stormElemental)
+            UpdateAbilityText(stormElemental.ThunderStrikeSkill, _thunderStrike);
+        if (lUnit is Satyr satyr) UpdateAbilityText(satyr.PoisonSkill, _poison);
+        if (lUnit is Pixie pixie)
+        {
+            UpdateAbilityText(pixie.SoarSkill, _soar);
+            UpdateAbilityText(pixie.SleepSkill, _sleep);
+        }
+
+        if (lUnit is Druid druid) UpdateAbilityText(druid.PoisonHexSkill, _poistonHex);
+        if (lUnit is Treant treant) UpdateAbilityText(treant.RootGraspSkill, _rootGrasp);
+
         if (lUnit is Stronghold stronghold)
         {
             UpdateAbilityText(stronghold.IncomeGenerationAbility, _taxIncome);
