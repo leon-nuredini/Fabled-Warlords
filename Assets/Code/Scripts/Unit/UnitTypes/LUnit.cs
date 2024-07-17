@@ -158,16 +158,26 @@ public class LUnit : Unit
         _aoeHealingSkill            = GetComponent<AOEHealingSkill>();
         _statusEffectsController    = GetComponent<StatusEffectsController>();
     }
-    
-    public override void OnTurnEnd()
+
+    public override void OnTurnStart()
     {
-        base.OnTurnEnd();
+        base.OnTurnStart();
         
-        if (StatusEffectsController.IsStatusApplied<Overpower>())
+        if (StatusEffectsController.IsStatusApplied<Stun>())
         {
             ActionPoints = 0;
             MovementPoints = 0;
             SetState(new UnitStateMarkedAsFinished(this));
+        }
+
+        if (StatusEffectsController.IsStatusApplied<Poison>())
+        {
+            Poison poisonStatusEffect = StatusEffectsController.GetStatus<Poison>();
+            int damageTaken = Mathf.RoundToInt(TotalHitPoints * poisonStatusEffect.damageFactor);
+            HitPoints -= damageTaken;
+            DefenceActionPerformedFromStatusEffect();
+            if (HitPoints <= 0)
+                OnDestroyed();
         }
     }
 
@@ -251,6 +261,12 @@ public class LUnit : Unit
         UpdateUnitDirection(enemyUnitPosition);
         AttackHandlerRetaliate(Agressor);
         _agressor = null;
+    }
+
+    protected virtual void DefenceActionPerformedFromStatusEffect()
+    {
+        InvokeGetHitEvent();
+        SpawnDamageText();
     }
 
     protected void InvokeGetHitEvent() => OnGetHit?.Invoke(CurrentUnitDirection);
