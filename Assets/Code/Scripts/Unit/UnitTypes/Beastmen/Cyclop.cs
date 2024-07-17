@@ -17,6 +17,6 @@ public class Cyclop : LUnit
     protected override void ApplyDebuffsToEnemy(LUnit enemyUnit, bool isEnemyTurn = false)
     {
         if (OverpowerSkill == null) return;
-        enemyUnit.StatusEffectsController.ApplyStatusEffect<Stun>(_overpowerSkill.DurationInTurns);
+        enemyUnit.StatusEffectsController.ApplyStatusEffect<Stun>(OverpowerSkill.DurationInTurns);
     }
 }

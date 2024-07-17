@@ -19,6 +19,6 @@ public class StormElemental : LUnit
         if (ThunderStrikeSkill == null) return;
         float randomChance = UnityEngine.Random.Range(0f, 100f);
         if (randomChance < ThunderStrikeSkill.ProcChance) return;
-        enemyUnit.StatusEffectsController.ApplyStatusEffect<Stun>(_thunderStrikeSkill.DurationInTurns);
+        enemyUnit.StatusEffectsController.ApplyStatusEffect<Stun>(ThunderStrikeSkill.DurationInTurns);
     }
 }

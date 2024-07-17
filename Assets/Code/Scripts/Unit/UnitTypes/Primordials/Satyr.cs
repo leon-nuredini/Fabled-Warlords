@@ -20,6 +20,6 @@ public class Satyr : Pikeman
         float randomChance = UnityEngine.Random.Range(0f, 100f);
         if (randomChance < PoisonSkill.ProcChance) return;
         int extraTurn = isEnemyTurn ? 1 : 0;
-        enemyUnit.StatusEffectsController.ApplyStatusEffect<Poison>(_poisonSkill.DurationInTurns + extraTurn);
+        enemyUnit.StatusEffectsController.ApplyStatusEffect<Poison>(PoisonSkill.DurationInTurns + extraTurn);
     }
 }
