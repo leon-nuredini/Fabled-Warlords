@@ -78,6 +78,9 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
     
     [BoxGroup("Skill UI")] [SerializeField]
     private UIAbility _stoneWill;
+    
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _poison;
 
     protected void UpdateUnitAbilities(LUnit lUnit)
     {
@@ -105,6 +108,7 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         _rapidShot.gameObject.SetActive(false);
         _overPower.gameObject.SetActive(false);
         _stoneWill.gameObject.SetActive(false);
+        _poison.gameObject.SetActive(false);
 
         for (int i = 0; i < lUnit.AttackSkillArray.Length; i++)
         {
@@ -172,7 +176,9 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         if (lUnit is Monk monk) UpdateAbilityText(monk.HexSkill, _hex);
         if (lUnit is Centaur centaur) UpdateAbilityText(centaur.RapidShotSkill, _rapidShot);
         if (lUnit is Cyclop cyclop) UpdateAbilityText(cyclop.OverpowerSkill, _overPower);
+        if (lUnit is Leafshooter leafshooter) UpdateAbilityText(leafshooter.PoisonSkill, _poison);
 
+        
         if (lUnit is Stronghold stronghold)
         {
             UpdateAbilityText(stronghold.IncomeGenerationAbility, _taxIncome);
