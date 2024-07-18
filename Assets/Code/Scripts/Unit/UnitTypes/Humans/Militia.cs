@@ -1,4 +1,4 @@
-public class Militia : LUnit, ISpearInfantry
+public class Militia : Pikeman
 {
-
+    
 }

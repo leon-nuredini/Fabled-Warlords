@@ -1,3 +1,6 @@
+using TbsFramework.Units;
+using UnityEngine;
+
 public class Centaur : LUnit, IRanged
 {
     private RapidShotSkill _rapidShotSkill;
@@ -18,5 +21,13 @@ public class Centaur : LUnit, IRanged
     {
         if (_rapidShotSkill != null) _rapidShotSkill.AddAdditionalActionPoint();
         base.AttackActionPerformed(actionCost);
+    }
+    
+    protected override int Defend(Unit other, int damage)
+    {
+        float newDamage = damage;
+        if (other is IMounted) newDamage *= 1.5f;
+
+        return base.Defend(other, Mathf.RoundToInt(newDamage));
     }
 }

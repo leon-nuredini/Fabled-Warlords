@@ -1,3 +1,6 @@
+using TbsFramework.Units;
+using UnityEngine;
+
 public class StormElemental : LUnit, IMage
 {
     private ThunderStrikeSkill _thunderStrikeSkill;
@@ -12,6 +15,13 @@ public class StormElemental : LUnit, IMage
     {
         base.InitProperties();
         _thunderStrikeSkill = GetComponent<ThunderStrikeSkill>();
+    }
+    
+    protected override int Defend(Unit other, int damage)
+    {
+        float newDamage = damage;
+        if (other is IMonster) newDamage *= 1.5f;
+        return base.Defend(other, Mathf.RoundToInt(newDamage));
     }
     
     protected override void ApplyDebuffsToEnemy(LUnit enemyUnit, bool isEnemyTurn = false)

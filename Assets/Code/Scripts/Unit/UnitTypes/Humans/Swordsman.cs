@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class Swordsman : LUnit, ISwordInfantry
 {
+    protected override int Defend(Unit other, int damage)
+    {
+        float newDamage = damage;
+        if (other is IMonster) newDamage *= 1.5f;
+        if (other is IMounted) newDamage *= 1.25f;
+
+        return base.Defend(other, Mathf.RoundToInt(newDamage));
+    }
+    
     protected override int CalculateDamage(AttackAction baseVal, Unit unitToAttack)
     {
         float totalFactorDamage = 0;

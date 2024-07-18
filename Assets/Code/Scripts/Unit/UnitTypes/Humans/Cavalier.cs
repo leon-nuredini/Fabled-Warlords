@@ -3,6 +3,14 @@ using UnityEngine;
 
 public class Cavalier : LUnit, IMounted
 {
+    protected override int Defend(Unit other, int damage)
+    {
+        float newDamage = damage;
+        if (other is ISpearInfantry) newDamage *= 1.5f;
+
+        return base.Defend(other, Mathf.RoundToInt(newDamage));
+    }
+    
     protected override int CalculateDamage(AttackAction baseVal, Unit unitToAttack)
     {
         float totalFactorDamage = 0;

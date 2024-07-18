@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using TbsFramework.Cells;
+using TbsFramework.Units;
+using UnityEngine;
 
 public class Pixie : LUnit, IMage
 {
@@ -19,6 +21,14 @@ public class Pixie : LUnit, IMage
         base.InitProperties();
         _sleepSkill = GetComponent<SleepSkill>();
         _soarSkill = GetComponent<SoarSkill>();
+    }
+    
+    protected override int Defend(Unit other, int damage)
+    {
+        float newDamage = damage;
+        if (other is IMonster) newDamage *= 1.25f;
+
+        return base.Defend(other, Mathf.RoundToInt(newDamage));
     }
     
     protected override void ApplyDebuffsToEnemy(LUnit enemyUnit, bool isEnemyTurn = false)

@@ -3,7 +3,16 @@ using UnityEngine;
 
 public class Pikeman : LUnit, ISpearInfantry
 {
-    protected override int CalculateDamage(AttackAction baseVal, Unit unitToAttack)
+    protected override int Defend(Unit other, int damage)
+    {
+        float newDamage = damage;
+        if (other is ISwordInfantry) newDamage *= 1.5f;
+        else if (other is IRanged) newDamage *= 1.5f;
+        
+        return base.Defend(other, Mathf.RoundToInt(newDamage));
+    }
+    
+    /*protected override int CalculateDamage(AttackAction baseVal, Unit unitToAttack)
     {
         float totalFactorDamage = 0;
         int   baseDamage        = baseVal.Damage;
@@ -26,5 +35,5 @@ public class Pikeman : LUnit, ISpearInfantry
 
         int factoredDamage = totalFactorDamage > 0 ? baseDamage * (int) totalFactorDamage : baseDamage;
         return factoredDamage;
-    }
+    }*/
 }

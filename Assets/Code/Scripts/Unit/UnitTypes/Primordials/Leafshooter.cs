@@ -1,3 +1,6 @@
+using TbsFramework.Units;
+using UnityEngine;
+
 public class Leafshooter : LUnit, IRanged
 {
     private RapidShotSkill _rapidShotSkill;
@@ -15,6 +18,14 @@ public class Leafshooter : LUnit, IRanged
         base.InitProperties();
         _rapidShotSkill = GetComponent<RapidShotSkill>();
         _poisonSkill = GetComponent<PoisonSkill>();
+    }
+    
+    protected override int Defend(Unit other, int damage)
+    {
+        float newDamage = damage;
+        if (other is IMounted) newDamage *= 1.5f;
+
+        return base.Defend(other, Mathf.RoundToInt(newDamage));
     }
     
     protected override void AttackActionPerformed(float actionCost)

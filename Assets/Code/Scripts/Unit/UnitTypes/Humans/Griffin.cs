@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using TbsFramework.Cells;
+using TbsFramework.Units;
+using UnityEngine;
 
 public class Griffin : LUnit, IMonster
 {
@@ -16,6 +18,15 @@ public class Griffin : LUnit, IMonster
     {
         base.InitProperties();
         _soarSkill = GetComponent<SoarSkill>();
+    }
+    
+    protected override int Defend(Unit other, int damage)
+    {
+        float newDamage = damage;
+        if (other is ISpearInfantry) newDamage *= 1.5f;
+        if (other is IRanged) newDamage *= 1.25f;
+
+        return base.Defend(other, Mathf.RoundToInt(newDamage));
     }
 
     public override HashSet<Cell> GetAvailableDestinations(List<Cell> cells)

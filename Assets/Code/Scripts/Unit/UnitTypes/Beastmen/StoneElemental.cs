@@ -8,7 +8,9 @@ public class StoneElemental : LUnit, IMage
         Agressor = other;
         float defenceFactor = CalculateDefense();
         float defenceAmount = damage * defenceFactor;
-        int newDamage = Mathf.RoundToInt(damage - defenceAmount);
+        float newDamage = damage - defenceAmount;
+        
+        if (other is IMonster) newDamage *= 1.5f;
 
         if (StatusEffectsController.IsStatusApplied<Weaken>())
         {
@@ -19,8 +21,8 @@ public class StoneElemental : LUnit, IMage
         bool isRetalationResilenceActive = TryUseRetaliationResilence();
         if (isRetalationResilenceActive) newDamage /= 2;
         if (newDamage <= 0) newDamage = 1;
-        TempDamageReceived = newDamage;
-        return newDamage;
+        TempDamageReceived = Mathf.RoundToInt(newDamage);
+        return TempDamageReceived;
     }
 
     protected override float CalculateDefense()
