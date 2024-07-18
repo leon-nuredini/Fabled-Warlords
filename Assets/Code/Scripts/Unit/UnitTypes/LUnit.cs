@@ -15,16 +15,16 @@ using Unit = TbsFramework.Units.Unit;
 
 public class LUnit : Unit
 {
-    public event        Action<UnitDirection> OnIdle;
-    public event        Action<UnitDirection> OnMove;
-    public event        Action<UnitDirection> OnAttack;
-    public event        Action<UnitDirection> OnDie;
-    public event        Action<UnitDirection> OnGetHit;
-    public event        Action                OnTakeDamage;
-    public static event Action<LUnit>         OnAnyDisplayUnitInformation;
-    public static event Action                OnAnyHideUnitInformation;
-    public static event Action                OnAnyUnitClicked;
-    public static event Action                OnAnyUnmarkUnit;
+    public event Action<UnitDirection> OnIdle;
+    public event Action<UnitDirection> OnMove;
+    public event Action<UnitDirection> OnAttack;
+    public event Action<UnitDirection> OnDie;
+    public event Action<UnitDirection> OnGetHit;
+    public event Action OnTakeDamage;
+    public static event Action<LUnit> OnAnyDisplayUnitInformation;
+    public static event Action OnAnyHideUnitInformation;
+    public static event Action OnAnyUnitClicked;
+    public static event Action OnAnyUnmarkUnit;
 
     [BoxGroup("Information")] [SerializeField]
     private UnitDetails _unitDetails;
@@ -35,79 +35,115 @@ public class LUnit : Unit
 
     [BoxGroup("Stats")] [SerializeField] private UnitFaction _unitFaction = UnitFaction.None;
 
+    [BoxGroup("Countering")] [SerializeField]
+    private UnitClassCounter _unitClassCounter;
+
     [BoxGroup("Sprites")] [SerializeField] private SpriteRenderer _markerSpriteRenderer;
     [BoxGroup("Sprites")] [SerializeField] private SpriteRenderer _maskSpriteRenderer;
 
-    private IAttackSkill[]             _attackSkillArray;
-    private IDefendSkill[]             _defendSkillArray;
-    private RetaliateSkill             _retaliateSkill;
-    private UnRetaliatableSkill        _unRetaliatableSkill;
-    private VictoryValorSkill          _victoryValorSkill;
+    private IAttackSkill[] _attackSkillArray;
+    private IDefendSkill[] _defendSkillArray;
+    private RetaliateSkill _retaliateSkill;
+    private UnRetaliatableSkill _unRetaliatableSkill;
+    private VictoryValorSkill _victoryValorSkill;
     private RetaliationResilienceSkill _retaliationResilienceSkill;
-    private AOEHealingSkill            _aoeHealingSkill;
-    private CapturerSkill              _capturerSkill;
-    private StatusEffectsController    _statusEffectsController;
+    private AOEHealingSkill _aoeHealingSkill;
+    private CapturerSkill _capturerSkill;
+    private StatusEffectsController _statusEffectsController;
 
     public Vector3 Offset;
 
     public bool isStructure;
 
-    private Unit           _agressor;
-    private Transform      _cachedTransform;
+    private Unit _agressor;
+    private Transform _cachedTransform;
     private SpriteRenderer _spriteRenderer;
 
     private bool _isEvading;
     private bool _isMoving;
     private bool _isRetaliating;
-    private int  _tempDamageReceived;
+    private int _tempDamageReceived;
 
     #region Properties
 
-    public UnitDetails UnitDetails { get => _unitDetails; protected set => _unitDetails = value; }
+    public UnitDetails UnitDetails
+    {
+        get => _unitDetails;
+        protected set => _unitDetails = value;
+    }
 
     private UnitDirection _currentUnitDirection = UnitDirection.Right;
 
-    public UnitFaction UnitFaction { get => _unitFaction; set => _unitFaction = value; }
+    public UnitFaction UnitFaction
+    {
+        get => _unitFaction;
+        set => _unitFaction = value;
+    }
 
     public UnitDirection CurrentUnitDirection => _currentUnitDirection;
 
-    public IDefendSkill[]             DefendSkillArray           => _defendSkillArray;
-    public IAttackSkill[]             AttackSkillArray           => _attackSkillArray;
-    public RetaliateSkill             RetaliateSkill             => _retaliateSkill;
-    public UnRetaliatableSkill        UnRetaliatableSkill        => _unRetaliatableSkill;
+    public IDefendSkill[] DefendSkillArray => _defendSkillArray;
+    public IAttackSkill[] AttackSkillArray => _attackSkillArray;
+    public RetaliateSkill RetaliateSkill => _retaliateSkill;
+    public UnRetaliatableSkill UnRetaliatableSkill => _unRetaliatableSkill;
     public RetaliationResilienceSkill RetaliationResilienceSkill => _retaliationResilienceSkill;
-    public VictoryValorSkill          ValorSkill                 => _victoryValorSkill;
-    public AOEHealingSkill            AoeHealingSkill            => _aoeHealingSkill;
+    public VictoryValorSkill ValorSkill => _victoryValorSkill;
+    public AOEHealingSkill AoeHealingSkill => _aoeHealingSkill;
 
-    public bool IsEvading { get => _isEvading; set => _isEvading = value; }
+    public bool IsEvading
+    {
+        get => _isEvading;
+        set => _isEvading = value;
+    }
 
     public Transform CachedTransform => _cachedTransform;
 
-    protected Unit Agressor { get => _agressor; set => _agressor = value; }
+    protected Unit Agressor
+    {
+        get => _agressor;
+        set => _agressor = value;
+    }
 
-    public UnitFaction Faction { get => _unitFaction; set => _unitFaction = value; }
+    public UnitFaction Faction
+    {
+        get => _unitFaction;
+        set => _unitFaction = value;
+    }
 
     public CapturerSkill CapturerSkill => _capturerSkill;
 
-    public int EvasionFactor { get => _evasionFactor; private set => _evasionFactor = value; }
+    public int EvasionFactor
+    {
+        get => _evasionFactor;
+        private set => _evasionFactor = value;
+    }
 
-    public SpriteRenderer MaskSpriteRenderer   => _maskSpriteRenderer;
+    public SpriteRenderer MaskSpriteRenderer => _maskSpriteRenderer;
     public SpriteRenderer MarkerSpriteRenderer => _markerSpriteRenderer;
 
-    public bool IsMoving { get => _isMoving; set => _isMoving = value; }
+    public bool IsMoving
+    {
+        get => _isMoving;
+        set => _isMoving = value;
+    }
 
     public UnitStats UnitStats => _unitStats;
 
-    protected int TempDamageReceived { get => _tempDamageReceived; set => _tempDamageReceived = value; }
+    protected int TempDamageReceived
+    {
+        get => _tempDamageReceived;
+        set => _tempDamageReceived = value;
+    }
 
     protected bool IsRetaliating => _isRetaliating;
 
-    protected SpriteRenderer          UnitSpriteRenderer      => _spriteRenderer;
+    protected SpriteRenderer UnitSpriteRenderer => _spriteRenderer;
     public StatusEffectsController StatusEffectsController => _statusEffectsController;
+    public UnitClassCounter UnitClassCounter => _unitClassCounter;
 
     #endregion
 
-    protected virtual void OnEnable()  => UITop.OnAnyEndTurnButtonClicked += OnHumanEndTurnManually;
+    protected virtual void OnEnable() => UITop.OnAnyEndTurnButtonClicked += OnHumanEndTurnManually;
     protected virtual void OnDisable() => UITop.OnAnyEndTurnButtonClicked -= OnHumanEndTurnManually;
 
     private void OnHumanEndTurnManually()
@@ -118,7 +154,7 @@ public class LUnit : Unit
 
     public override void Initialize()
     {
-        Buffs     = new List<(Buff, int)>();
+        Buffs = new List<(Buff, int)>();
         UnitState = new UnitStateNormal(this);
 
         InitProperties();
@@ -128,41 +164,41 @@ public class LUnit : Unit
             ability.Initialize();
         }
 
-        _cachedTransform              =  transform;
+        _cachedTransform = transform;
         CachedTransform.localPosition += Offset;
     }
 
     public virtual void InitProperties()
     {
-        HitPoints      = _unitStats.HitPoints;
+        HitPoints = _unitStats.HitPoints;
         MovementPoints = _unitStats.MovementPoints;
-        ActionPoints   = _unitStats.ActionPoints;
+        ActionPoints = _unitStats.ActionPoints;
 
-        AttackRange            = _unitStats.AttackRange;
-        AttackFactor           = _unitStats.AttackFactor;
+        AttackRange = _unitStats.AttackRange;
+        AttackFactor = _unitStats.AttackFactor;
         MovementAnimationSpeed = _unitStats.MovementAnimationSpeed;
-        EvasionFactor          = _unitStats.EvasionFactor;
+        EvasionFactor = _unitStats.EvasionFactor;
 
-        TotalHitPoints      = HitPoints;
+        TotalHitPoints = HitPoints;
         TotalMovementPoints = MovementPoints;
-        TotalActionPoints   = ActionPoints;
+        TotalActionPoints = ActionPoints;
 
-        _spriteRenderer             = GetComponent<SpriteRenderer>();
-        _attackSkillArray           = GetComponents<IAttackSkill>();
-        _defendSkillArray           = GetComponents<IDefendSkill>();
-        _retaliateSkill             = GetComponent<RetaliateSkill>();
-        _unRetaliatableSkill        = GetComponent<UnRetaliatableSkill>();
-        _victoryValorSkill          = GetComponent<VictoryValorSkill>();
-        _capturerSkill              = GetComponent<CapturerSkill>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _attackSkillArray = GetComponents<IAttackSkill>();
+        _defendSkillArray = GetComponents<IDefendSkill>();
+        _retaliateSkill = GetComponent<RetaliateSkill>();
+        _unRetaliatableSkill = GetComponent<UnRetaliatableSkill>();
+        _victoryValorSkill = GetComponent<VictoryValorSkill>();
+        _capturerSkill = GetComponent<CapturerSkill>();
         _retaliationResilienceSkill = GetComponent<RetaliationResilienceSkill>();
-        _aoeHealingSkill            = GetComponent<AOEHealingSkill>();
-        _statusEffectsController    = GetComponent<StatusEffectsController>();
+        _aoeHealingSkill = GetComponent<AOEHealingSkill>();
+        _statusEffectsController = GetComponent<StatusEffectsController>();
     }
 
     public override void OnTurnStart()
     {
         base.OnTurnStart();
-        
+
         if (StatusEffectsController.IsStatusApplied<Stun>())
         {
             ActionPoints = 0;
@@ -194,9 +230,9 @@ public class LUnit : Unit
             newDamage = Mathf.RoundToInt(newDamage * weakenedFactor);
         }
 
-        bool isRetalationResilenceActive           = TryUseRetaliationResilence();
+        bool isRetalationResilenceActive = TryUseRetaliationResilence();
         if (isRetalationResilenceActive) newDamage /= 2;
-        if (newDamage <= 0) newDamage              =  1;
+        if (newDamage <= 0) newDamage = 1;
         _tempDamageReceived = newDamage;
         return newDamage;
     }
@@ -227,7 +263,7 @@ public class LUnit : Unit
 
         if (DamageTextSpawner.Instance != null)
             DamageTextSpawner.Instance.SpawnTextGameObject(CachedTransform.localPosition,
-                                                           _tempDamageReceived.ToString());
+                _tempDamageReceived.ToString());
 
         _tempDamageReceived = 0;
     }
@@ -254,7 +290,7 @@ public class LUnit : Unit
         }
 
         if (CellGrid.Instance.CurrentPlayer.PlayerNumber == PlayerNumber) return;
-        if (_retaliateSkill                              == null) return;
+        if (_retaliateSkill == null) return;
         _retaliateSkill.AggressorUnit = Agressor as LUnit;
         if (!_retaliateSkill.IsInAttackRange()) return;
         Vector3 enemyUnitPosition = Agressor.transform.localPosition;
@@ -284,7 +320,7 @@ public class LUnit : Unit
     public override void AttackHandler(Unit unitToAttack)
     {
         float attackActionCost = 1;
-        LUnit enemyUnit        = unitToAttack as LUnit;
+        LUnit enemyUnit = unitToAttack as LUnit;
         if (enemyUnit.TryEvadeAttack(this))
         {
             if (EvadedTextSpawner.Instance != null)
@@ -316,15 +352,15 @@ public class LUnit : Unit
 
     protected override AttackAction DealDamage(Unit unitToAttack)
     {
-        var baseVal                     = base.DealDamage(unitToAttack);
-        int totalDamage                 = CalculateDamage(baseVal, unitToAttack);
+        var baseVal = base.DealDamage(unitToAttack);
+        int totalDamage = CalculateDamage(baseVal, unitToAttack);
         if (_isRetaliating) totalDamage = totalDamage / 2;
         //takes into account the current units health for the damage calculation
-        float hitPointsPercentage = (float) HitPoints / TotalHitPoints;
+        float hitPointsPercentage = (float)HitPoints / TotalHitPoints;
         hitPointsPercentage += 0.3f;
         if (hitPointsPercentage > 1f) hitPointsPercentage = 1f;
 
-        var newDmg = TotalHitPoints == 0 ? 0 : (int) Mathf.Ceil(totalDamage * hitPointsPercentage);
+        var newDmg = TotalHitPoints == 0 ? 0 : (int)Mathf.Ceil(totalDamage * hitPointsPercentage);
         return new AttackAction(newDmg, baseVal.ActionCost);
     }
 
@@ -332,11 +368,11 @@ public class LUnit : Unit
     {
         if (PlayerNumber == CellGrid.Instance.CurrentPlayerNumber) return false;
         if (this is LStructure) return false;
-        int     randomValue       = Random.Range(1, 100);
-        LSquare thisCell          = (LSquare) Cell;
-        LSquare attackerCell      = (LSquare) attacker.Cell;
-        int     cellEvasionFactor = thisCell.EvasionFactor - attackerCell.HitChance;
-        int     evasionChance     = _evasionFactor         + cellEvasionFactor;
+        int randomValue = Random.Range(1, 100);
+        LSquare thisCell = (LSquare)Cell;
+        LSquare attackerCell = (LSquare)attacker.Cell;
+        int cellEvasionFactor = thisCell.EvasionFactor - attackerCell.HitChance;
+        int evasionChance = _evasionFactor + cellEvasionFactor;
         IsEvading = evasionChance >= randomValue;
         return IsEvading;
     }
@@ -344,8 +380,8 @@ public class LUnit : Unit
     protected virtual int CalculateDamage(AttackAction baseVal, Unit unitToAttack)
     {
         float totalFactorDamage = 0;
-        int   baseDamage        = baseVal.Damage;
-        
+        int baseDamage = baseVal.Damage;
+
         if (StatusEffectsController.IsStatusApplied<Weaken>())
         {
             float weakenedFactor = StatusEffectsController.GetStatus<Weaken>().weakenFactor;
@@ -366,16 +402,16 @@ public class LUnit : Unit
             totalFactorDamage += AttackSkillArray[i].GetDamageFactor();
         }
 
-        int factoredDamage = totalFactorDamage > 0 ? baseDamage * (int) totalFactorDamage : baseDamage;
+        int factoredDamage = totalFactorDamage > 0 ? baseDamage * (int)totalFactorDamage : baseDamage;
         return factoredDamage;
     }
 
     public override IEnumerator Move(Cell destinationCell, IList<Cell> path)
     {
-        _spriteRenderer.sortingOrder       += 10;
+        _spriteRenderer.sortingOrder += 10;
         _markerSpriteRenderer.sortingOrder += 10;
-        MaskSpriteRenderer.sortingOrder    += 10;
-        IsMoving                           =  true;
+        MaskSpriteRenderer.sortingOrder += 10;
+        IsMoving = true;
         yield return base.Move(destinationCell, path);
     }
 
@@ -390,8 +426,8 @@ public class LUnit : Unit
         {
             var currentCell = path[i];
             Vector3 destination_pos = new Vector3(currentCell.transform.localPosition.x,
-                                                  currentCell.transform.localPosition.y,
-                                                  CachedTransform.localPosition.z);
+                currentCell.transform.localPosition.y,
+                CachedTransform.localPosition.z);
 
             UpdateUnitDirection(destination_pos);
             OnMove?.Invoke(CurrentUnitDirection);
@@ -399,8 +435,8 @@ public class LUnit : Unit
             while (transform.localPosition != destination_pos)
             {
                 CachedTransform.localPosition = Vector3.MoveTowards(CachedTransform.localPosition,
-                                                                    destination_pos,
-                                                                    Time.deltaTime * movementAnimationSpeed);
+                    destination_pos,
+                    Time.deltaTime * movementAnimationSpeed);
                 yield return 0;
             }
         }
@@ -411,18 +447,18 @@ public class LUnit : Unit
     private void UpdateUnitDirection(Vector3 destination)
     {
         Vector3 direction = (CachedTransform.localPosition - destination).normalized;
-        direction.x           = Mathf.RoundToInt(direction.x);
-        direction.y           = Mathf.RoundToInt(direction.y);
-        direction.z           = Mathf.RoundToInt(direction.z);
+        direction.x = Mathf.RoundToInt(direction.x);
+        direction.y = Mathf.RoundToInt(direction.y);
+        direction.z = Mathf.RoundToInt(direction.z);
         _currentUnitDirection = GetMovementDirection(direction);
         FlipSpriteRenderer();
     }
 
     protected override void OnMoveFinished()
     {
-        _spriteRenderer.sortingOrder       -= 10;
+        _spriteRenderer.sortingOrder -= 10;
         _markerSpriteRenderer.sortingOrder -= 10;
-        MaskSpriteRenderer.sortingOrder    -= 10;
+        MaskSpriteRenderer.sortingOrder -= 10;
         OnIdle?.Invoke(CurrentUnitDirection);
         IsMoving = false;
         base.OnMoveFinished();
@@ -430,7 +466,7 @@ public class LUnit : Unit
 
     private UnitDirection GetMovementDirection(Vector3 moveDirection)
     {
-        UnitDirection unitDirection             = _currentUnitDirection;
+        UnitDirection unitDirection = _currentUnitDirection;
         if (moveDirection.x > 0f) unitDirection = UnitDirection.Left;
         if (moveDirection.x < 0f) unitDirection = UnitDirection.Right;
         //Move uncomment these lines if the unit has up and down idle/walking animations
@@ -453,8 +489,8 @@ public class LUnit : Unit
     {
         return base.IsCellTraversable(cell) || (cell.CurrentUnits.Count > 0 &&
                                                 !cell.CurrentUnits.Exists(u =>
-                                                                              !((LUnit) u).isStructure &&
-                                                                              u.PlayerNumber != PlayerNumber));
+                                                    !((LUnit)u).isStructure &&
+                                                    u.PlayerNumber != PlayerNumber));
     }
 
     public override void SetColor(Color color)
@@ -493,7 +529,10 @@ public class LUnit : Unit
         }
     }
 
-    protected virtual void DisplayUnitInformation() { OnAnyDisplayUnitInformation?.Invoke(this); }
+    protected virtual void DisplayUnitInformation()
+    {
+        OnAnyDisplayUnitInformation?.Invoke(this);
+    }
 
     protected virtual void HideUnitInformation() => OnAnyHideUnitInformation?.Invoke();
 

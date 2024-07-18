@@ -17,19 +17,19 @@ PrefabInstance:
     - target: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
         type: 3}
       propertyPath: m_Name
-      value: HumanCentaur
+      value: HumanEliteCentaur
       objectReference: {fileID: 0}
     - target: {fileID: 4528306360651456248, guid: ccbbcce10b821774dbc1040a93c307ff,
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 22100000, guid: 33019fa66274afd40af15c3a04ec6886,
+      objectReference: {fileID: 22100000, guid: f0e3b9d2747081849ab7407e80cbeeb9,
         type: 2}
     - target: {fileID: 4657058977376609712, guid: ccbbcce10b821774dbc1040a93c307ff,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1810569995, guid: b26cfb9e4c661d648aaecbe3116f2dd7,
+      objectReference: {fileID: -2122234647, guid: 73e84ce11bd4f9045858fa7ca087edb7,
         type: 3}
     - target: {fileID: 7663314018953413184, guid: ccbbcce10b821774dbc1040a93c307ff,
         type: 3}
@@ -106,7 +106,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
         type: 3}
       insertIndex: 3
-      addedObject: {fileID: -6615553539583980522}
+      addedObject: {fileID: 1382369582147737978}
     - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
         type: 3}
       insertIndex: -1
@@ -114,7 +114,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6533860442937272298}
+      addedObject: {fileID: 5740935549797404773}
   m_SourcePrefab: {fileID: 100100000, guid: ccbbcce10b821774dbc1040a93c307ff, type: 3}
 --- !u!212 &4142218637419872303 stripped
 SpriteRenderer:
@@ -128,7 +128,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8781227147151386015}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-6615553539583980522
+--- !u!114 &1382369582147737978
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,6 +151,7 @@ MonoBehaviour:
   _unitDetails: {fileID: 11400000, guid: ed5b12e3093982840bc5584d2e6ac28d, type: 2}
   _unitStats: {fileID: 11400000, guid: 7c017fd762a14c5408e90b74819d9c97, type: 2}
   _unitFaction: 1
+  _unitClassCounter: {fileID: 11400000, guid: c5fb04915eab48e43812601a65a9b172, type: 2}
   _markerSpriteRenderer: {fileID: 6842963054553972584}
   _maskSpriteRenderer: {fileID: 4142218637419872303}
   Offset: {x: 0, y: 0, z: -0.1}
@@ -170,7 +171,7 @@ MonoBehaviour:
   _retaliatePoints: 1
   _skillName: Retaliate
   _skillDescription: This unit counterattacks when attacked.
---- !u!114 &6533860442937272298
+--- !u!114 &5740935549797404773
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -22,11 +22,12 @@ public class Centaur : LUnit, IRanged
         if (_rapidShotSkill != null) _rapidShotSkill.AddAdditionalActionPoint();
         base.AttackActionPerformed(actionCost);
     }
-    
+
     protected override int Defend(Unit other, int damage)
     {
         float newDamage = damage;
-        if (other is IMounted) newDamage *= 1.5f;
+        if (other is LUnit lUnit && lUnit.UnitClassCounter != null)
+            newDamage *= UnitClassCounter.VSRangedFactor;
 
         return base.Defend(other, Mathf.RoundToInt(newDamage));
     }

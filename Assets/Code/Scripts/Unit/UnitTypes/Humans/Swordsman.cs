@@ -7,8 +7,8 @@ public class Swordsman : LUnit, ISwordInfantry
     protected override int Defend(Unit other, int damage)
     {
         float newDamage = damage;
-        if (other is IMonster) newDamage *= 1.5f;
-        if (other is IMounted) newDamage *= 1.25f;
+        if (other is LUnit lUnit && lUnit.UnitClassCounter != null)
+            newDamage *= lUnit.UnitClassCounter.VSSwordInfantryCounter;
 
         return base.Defend(other, Mathf.RoundToInt(newDamage));
     }

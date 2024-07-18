@@ -6,7 +6,8 @@ public class Cavalier : LUnit, IMounted
     protected override int Defend(Unit other, int damage)
     {
         float newDamage = damage;
-        if (other is ISpearInfantry) newDamage *= 1.5f;
+        if (other is LUnit lUnit && lUnit.UnitClassCounter != null)
+            newDamage *= lUnit.UnitClassCounter.VSCavalryFactor;
 
         return base.Defend(other, Mathf.RoundToInt(newDamage));
     }

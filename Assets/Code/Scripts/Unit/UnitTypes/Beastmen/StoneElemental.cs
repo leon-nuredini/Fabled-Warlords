@@ -10,7 +10,8 @@ public class StoneElemental : LUnit, IMage
         float defenceAmount = damage * defenceFactor;
         float newDamage = damage - defenceAmount;
         
-        if (other is IMonster) newDamage *= 1.5f;
+        if (other is LUnit lUnit && lUnit.UnitClassCounter != null)
+            newDamage *= lUnit.UnitClassCounter.VSMageFactor;
 
         if (StatusEffectsController.IsStatusApplied<Weaken>())
         {

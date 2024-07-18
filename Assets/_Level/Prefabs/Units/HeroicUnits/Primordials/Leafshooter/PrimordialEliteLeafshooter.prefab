@@ -155,6 +155,7 @@ MonoBehaviour:
   _unitDetails: {fileID: 11400000, guid: 5b35e418a61986b40b283e72b6ddcf97, type: 2}
   _unitStats: {fileID: 11400000, guid: ec4119624943b8a4c8235d670bbf1fa5, type: 2}
   _unitFaction: 2
+  _unitClassCounter: {fileID: 11400000, guid: 0cdcafceded2d354d9693559b61c0936, type: 2}
   _markerSpriteRenderer: {fileID: 6842963054553972584}
   _maskSpriteRenderer: {fileID: 4142218637419872303}
   Offset: {x: 0, y: 0, z: -0.1}
@@ -205,6 +206,7 @@ MonoBehaviour:
   _skillDescription: Has a chance to poison targets with each arrow, inflicting poison
     that deals damage over two turns.
   _durationInTurns: 2
+  _procChance: 50
 --- !u!114 &6631187944438703575 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2727943177912090696, guid: ccbbcce10b821774dbc1040a93c307ff,

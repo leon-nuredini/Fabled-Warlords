@@ -20,7 +20,8 @@ public class Druid : LUnit, IMage
     protected override int Defend(Unit other, int damage)
     {
         float newDamage = damage;
-        if (other is IMonster) newDamage *= 1.25f;
+        if (other is LUnit lUnit && lUnit.UnitClassCounter != null)
+            newDamage *= lUnit.UnitClassCounter.VSMageFactor;
 
         return base.Defend(other, Mathf.RoundToInt(newDamage));
     }

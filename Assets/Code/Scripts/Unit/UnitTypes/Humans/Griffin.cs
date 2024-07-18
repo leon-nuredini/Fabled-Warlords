@@ -7,7 +7,7 @@ using UnityEngine;
 public class Griffin : LUnit, IMonster
 {
     private SoarSkill _soarSkill;
-    
+
     #region Properties
 
     public SoarSkill SoarSkill => _soarSkill;
@@ -19,12 +19,12 @@ public class Griffin : LUnit, IMonster
         base.InitProperties();
         _soarSkill = GetComponent<SoarSkill>();
     }
-    
+
     protected override int Defend(Unit other, int damage)
     {
         float newDamage = damage;
-        if (other is ISpearInfantry) newDamage *= 1.5f;
-        if (other is IRanged) newDamage *= 1.25f;
+        if (other is LUnit lUnit && lUnit.UnitClassCounter != null)
+            newDamage *= lUnit.UnitClassCounter.VSMonsterFactor;
 
         return base.Defend(other, Mathf.RoundToInt(newDamage));
     }
@@ -41,7 +41,10 @@ public class Griffin : LUnit, IMonster
             if (CachedPaths.TryGetValue(cell, out var path))
             {
                 var pathCost = path.Sum(c => 1);
-                if (pathCost <= MovementPoints) { availableDestinations.Add(cell); }
+                if (pathCost <= MovementPoints)
+                {
+                    availableDestinations.Add(cell);
+                }
             }
         }
 
