@@ -1,4 +1,4 @@
-public class Militia : LUnit
+public class Militia : LUnit, ISpearInfantry
 {
 
 }

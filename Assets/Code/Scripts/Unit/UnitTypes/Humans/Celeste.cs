@@ -1,4 +1,4 @@
-public class Celeste : LUnit
+public class Celeste : LUnit, ISwordInfantry
 {
 
 }

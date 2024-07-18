@@ -1,4 +1,4 @@
-public class Goblin : LUnit
+public class Goblin : LUnit, ISwordInfantry
 {
     
 }

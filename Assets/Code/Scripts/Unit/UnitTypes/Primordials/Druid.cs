@@ -1,4 +1,4 @@
-public class Druid : LUnit
+public class Druid : LUnit, IMage
 {
     private PoisonHexSkill _poisonHexSkill;
     

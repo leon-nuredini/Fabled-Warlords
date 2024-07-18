@@ -1,4 +1,4 @@
-public class Crossbowman : LUnit
+public class Crossbowman : LUnit, IRanged
 {
 
 }

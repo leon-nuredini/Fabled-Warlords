@@ -1,4 +1,4 @@
-public interface IMounted : ILarge
+public interface IMounted
 {
 
 }

@@ -1,4 +1,4 @@
-public class Troll : LUnit
+public class Troll : LUnit, IMonster
 {
     private RegenerationSkill _regenerationSkill;
 

@@ -1,4 +1,4 @@
-public class Centaur : LUnit
+public class Centaur : LUnit, IRanged
 {
     private RapidShotSkill _rapidShotSkill;
 

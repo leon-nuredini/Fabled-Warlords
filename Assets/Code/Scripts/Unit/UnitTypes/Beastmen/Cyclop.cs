@@ -1,4 +1,4 @@
-public class Cyclop : LUnit
+public class Cyclop : LUnit, IMonster
 {
     private OverpowerSkill _overpowerSkill;
     

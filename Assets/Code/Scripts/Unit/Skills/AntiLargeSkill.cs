@@ -28,7 +28,7 @@ public class AntiLargeSkill : MonoBehaviour, IAttackSkill
 
     public int GetDamageFactor()
     {
-        if (_aggressorUnit != null && _aggressorUnit is ILarge)
+        if (_aggressorUnit != null && (_aggressorUnit is IMonster || _aggressorUnit is IMounted))
             return _attackPowerFactor;
         return 0;
     }

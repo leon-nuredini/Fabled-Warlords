@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TbsFramework.Cells;
 
-public class Pixie : LUnit
+public class Pixie : LUnit, IMage
 {
     private SleepSkill _sleepSkill;
     private SoarSkill _soarSkill;

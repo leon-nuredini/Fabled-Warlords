@@ -1,4 +1,4 @@
-public class Paladin : LUnit
+public class Paladin : LUnit, ISwordInfantry
 {
     private VictorsSmiteSkill _victorsSmiteSkill;
     

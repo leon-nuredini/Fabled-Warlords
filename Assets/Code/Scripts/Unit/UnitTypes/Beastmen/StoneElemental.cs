@@ -1,7 +1,7 @@
 using TbsFramework.Units;
 using UnityEngine;
 
-public class StoneElemental : LUnit
+public class StoneElemental : LUnit, IMage
 {
     protected override int Defend(Unit other, int damage)
     {

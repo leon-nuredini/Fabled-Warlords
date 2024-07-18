@@ -1,4 +1,4 @@
-public class Monk : LUnit
+public class Monk : LUnit, IMage
 {
     private HexSkill _hexSkill;
     

@@ -1,4 +1,4 @@
-public class Dwarf : LUnit
+public class Dwarf : LUnit, ISwordInfantry
 {
     
 }

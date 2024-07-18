@@ -2,7 +2,7 @@ using TbsFramework.Grid;
 using TbsFramework.Units;
 using UnityEngine;
 
-public class Swordsman : LUnit
+public class Swordsman : LUnit, ISwordInfantry
 {
     protected override int CalculateDamage(AttackAction baseVal, Unit unitToAttack)
     {

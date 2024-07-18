@@ -1,7 +1,7 @@
 using TbsFramework.Units;
 using UnityEngine;
 
-public class Pikeman : LUnit
+public class Pikeman : LUnit, ISpearInfantry
 {
     protected override int CalculateDamage(AttackAction baseVal, Unit unitToAttack)
     {
@@ -17,7 +17,7 @@ public class Pikeman : LUnit
         for (int i = 0; i < AttackSkillArray.Length; i++)
         {
             if (!AttackSkillArray[i].CanBeActivatedDuringEnemyTurn) continue;
-            if (unitToAttack is ILarge && AttackSkillArray[i] is AntiLargeSkill antiLargeSkill)
+            if (unitToAttack is IMonster && AttackSkillArray[i] is AntiLargeSkill antiLargeSkill)
             {
                 antiLargeSkill.AggressorUnit =  unitToAttack as LUnit;
                 totalFactorDamage            += AttackSkillArray[i].GetDamageFactor();

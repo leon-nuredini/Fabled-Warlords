@@ -1,6 +1,4 @@
-using Unity.Mathematics;
-
-public class Leafshooter : LUnit
+public class Leafshooter : LUnit, IRanged
 {
     private RapidShotSkill _rapidShotSkill;
     private PoisonSkill _poisonSkill;

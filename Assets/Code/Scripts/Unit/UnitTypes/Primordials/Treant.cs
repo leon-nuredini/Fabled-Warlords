@@ -1,4 +1,4 @@
-public class Treant : LUnit
+public class Treant : LUnit, IMonster
 {
     private RootGraspSkill _rootGraspSkill;
     

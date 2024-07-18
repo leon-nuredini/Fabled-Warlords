@@ -1,4 +1,4 @@
-public class StormElemental : LUnit
+public class StormElemental : LUnit, IMage
 {
     private ThunderStrikeSkill _thunderStrikeSkill;
     
