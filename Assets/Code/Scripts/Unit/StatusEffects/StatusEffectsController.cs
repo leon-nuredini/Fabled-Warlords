@@ -67,7 +67,7 @@ public class StatusEffectsController : MonoBehaviour
         for (int i = 0; i < _statusEffectList.Count; i++)
         {
             StatusEffect statusEffect = _statusEffectList[i];
-            if (statusEffect is T t)
+            if (statusEffect.StatusEffectType is T t)
                 return t;
         }
 

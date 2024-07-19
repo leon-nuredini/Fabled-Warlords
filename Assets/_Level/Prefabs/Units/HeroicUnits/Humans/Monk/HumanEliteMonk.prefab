@@ -111,6 +111,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2676643129880935384}
+    - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2562277934653561638}
   m_SourcePrefab: {fileID: 100100000, guid: ccbbcce10b821774dbc1040a93c307ff, type: 3}
 --- !u!212 &4142218637419872303 stripped
 SpriteRenderer:
@@ -167,6 +171,23 @@ MonoBehaviour:
   _retaliatePoints: 1
   _skillName: Retaliate
   _skillDescription: This unit counterattacks when attacked.
+--- !u!114 &2562277934653561638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5760130434938246255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9163c65107d53c548a983dea7ccd0a68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skillName: Hex
+  _skillDescription: Debuffs an enemy unit, reducing their attack power and defense
+    for one turn.
+  _durationInTurns: 1
+  _effect: {fileID: 9002746722681322606, guid: ae63256df1c309d49a71d8797e989d5d, type: 3}
 --- !u!114 &6631187944438703575 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2727943177912090696, guid: ccbbcce10b821774dbc1040a93c307ff,

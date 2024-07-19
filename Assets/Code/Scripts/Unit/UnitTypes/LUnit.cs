@@ -384,6 +384,7 @@ public class LUnit : Unit
 
         if (StatusEffectsController.IsStatusApplied<Weaken>())
         {
+            Debug.Log(StatusEffectsController.GetStatus<Weaken>());
             float weakenedFactor = StatusEffectsController.GetStatus<Weaken>().weakenFactor;
             baseDamage = Mathf.RoundToInt(baseDamage * weakenedFactor);
         }
