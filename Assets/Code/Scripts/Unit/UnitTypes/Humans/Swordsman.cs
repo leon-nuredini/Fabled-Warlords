@@ -24,14 +24,17 @@ public class Swordsman : LUnit, ISwordInfantry
             baseDamage = Mathf.RoundToInt(baseDamage * weakenedFactor);
         }
 
-        for (int i = 0; i < AttackSkillArray.Length; i++)
+        if (!IsEvaluating)
         {
-            if (IsRetaliating && !AttackSkillArray[i].CanBeActivatedDuringEnemyTurn) continue;
-            if (AttackSkillArray[i] is ParrySkill parrySkill)
+            for (int i = 0; i < AttackSkillArray.Length; i++)
             {
-                if (PlayerNumber == CellGrid.Instance.CurrentPlayerNumber) continue;
-                parrySkill.AggressorUnit = unitToAttack as LUnit;
-                totalFactorDamage += AttackSkillArray[i].GetDamageFactor();
+                if (IsRetaliating && !AttackSkillArray[i].CanBeActivatedDuringEnemyTurn) continue;
+                if (AttackSkillArray[i] is ParrySkill parrySkill)
+                {
+                    if (PlayerNumber == CellGrid.Instance.CurrentPlayerNumber) continue;
+                    parrySkill.AggressorUnit = unitToAttack as LUnit;
+                    totalFactorDamage += AttackSkillArray[i].GetDamageFactor();
+                }
             }
         }
 

@@ -20,6 +20,6 @@ public class HexSkill : MonoBehaviour, IStatusEffectSkill, ISpawnableEffect
     public void SpawnEffect(Transform targetTransform)
     {
         if (Effect == null) return;
-        LeanPool.Spawn(Effect, targetTransform.localPosition, targetTransform.rotation);
+        LeanPool.Spawn(Effect, targetTransform.localPosition, Effect.transform.rotation);
     }
 }

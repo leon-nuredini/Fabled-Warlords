@@ -384,23 +384,25 @@ public class LUnit : Unit
 
         if (StatusEffectsController.IsStatusApplied<Weaken>())
         {
-            Debug.Log(StatusEffectsController.GetStatus<Weaken>());
             float weakenedFactor = StatusEffectsController.GetStatus<Weaken>().weakenFactor;
             baseDamage = Mathf.RoundToInt(baseDamage * weakenedFactor);
         }
 
-        for (int i = 0; i < AttackSkillArray.Length; i++)
+        if (!IsEvaluating)
         {
-            if (_isRetaliating && !AttackSkillArray[i].CanBeActivatedDuringEnemyTurn) continue;
-            if (AttackSkillArray[i] is BackstabSkill backstabSkill)
-                backstabSkill.UnitToAttack = unitToAttack as LUnit;
-            if (AttackSkillArray[i] is SiegeBreakerSkill siegeBreakerSkill)
+            for (int i = 0; i < AttackSkillArray.Length; i++)
             {
-                if (unitToAttack is LStructure lStructure)
-                    siegeBreakerSkill.StructureToAttack = lStructure;
-            }
+                if (_isRetaliating && !AttackSkillArray[i].CanBeActivatedDuringEnemyTurn) continue;
+                if (AttackSkillArray[i] is BackstabSkill backstabSkill)
+                    backstabSkill.UnitToAttack = unitToAttack as LUnit;
+                if (AttackSkillArray[i] is SiegeBreakerSkill siegeBreakerSkill)
+                {
+                    if (unitToAttack is LStructure lStructure)
+                        siegeBreakerSkill.StructureToAttack = lStructure;
+                }
 
-            totalFactorDamage += AttackSkillArray[i].GetDamageFactor();
+                totalFactorDamage += AttackSkillArray[i].GetDamageFactor();
+            }
         }
 
         int factoredDamage = totalFactorDamage > 0 ? baseDamage * (int)totalFactorDamage : baseDamage;
