@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using Lean.Pool;
+using NaughtyAttributes;
 using UnityEngine;
 
 public class StatusEffectsController : MonoBehaviour
@@ -8,6 +10,8 @@ public class StatusEffectsController : MonoBehaviour
 
     [SerializeField] private List<StatusEffect> _statusEffectList;
 
+    private GameObject _spawnedStunEffect;
+
     #region Properties
 
     public List<StatusEffect> StatusEffectList => _statusEffectList;
@@ -15,8 +19,17 @@ public class StatusEffectsController : MonoBehaviour
     #endregion
 
     private void Awake()     => _lUnit = GetComponent<LUnit>();
-    private void OnEnable()  => _lUnit.OnTurnEndUnitReset += DecreaseStatusEffectDuration;
-    private void OnDisable() => _lUnit.OnTurnEndUnitReset -= DecreaseStatusEffectDuration;
+    private void OnEnable()  
+    {
+        _lUnit.OnTurnEndUnitReset += DecreaseStatusEffectDuration;
+        _lUnit.OnDie += ResetStatusEffects;
+    }   
+
+    private void OnDisable() 
+    {
+        _lUnit.OnTurnEndUnitReset -= DecreaseStatusEffectDuration;
+        _lUnit.OnDie -= ResetStatusEffects;
+    } 
 
     public void ApplyStatusEffect<T>(int turns)
     {
@@ -29,6 +42,7 @@ public class StatusEffectsController : MonoBehaviour
                 if (statusEffect.DurationInTurns < turns)
                     statusEffect.DurationInTurns = turns;
                 _statusEffectList[i] = statusEffect;
+                TryToSpawnStatusEffect(statusEffect.StatusEffectType);
             }
         }
     }
@@ -42,7 +56,26 @@ public class StatusEffectsController : MonoBehaviour
             {
                 statusEffect.DurationInTurns--;
                 if (statusEffect.DurationInTurns <= 0)
+                {
                     statusEffect.IsApplied = false;
+                    TryToDespawnStatusEffect(statusEffect.StatusEffectType);
+                }
+                    
+                _statusEffectList[i] = statusEffect;
+            }
+        }
+    }
+
+    public void ResetStatusEffects(UnitDirection unitDirection)
+    {
+        for (int i = 0; i < _statusEffectList.Count; i++)
+        {
+            StatusEffect statusEffect = _statusEffectList[i];
+            if (statusEffect.IsApplied)
+            {
+                statusEffect.DurationInTurns = 0;
+                statusEffect.IsApplied = false;
+                TryToDespawnStatusEffect(statusEffect.StatusEffectType); 
                 _statusEffectList[i] = statusEffect;
             }
         }
@@ -59,6 +92,33 @@ public class StatusEffectsController : MonoBehaviour
 
         return false;
     }
+
+    #region Effect spawning/despawning
+    private void TryToSpawnStatusEffect(StatusEffectType statusEffectType)
+    {
+        if (statusEffectType.Effect == null) return;
+        if (statusEffectType is Stun stun)
+        {
+            Vector3 spawnPosition = transform.localPosition;
+            spawnPosition.y += .8f;
+            if (_spawnedStunEffect == null)
+                _spawnedStunEffect = LeanPool.Spawn(stun.Effect, spawnPosition, Quaternion.identity);
+        }
+    }
+
+    private void TryToDespawnStatusEffect(StatusEffectType statusEffectType)
+    {
+        if (statusEffectType.Effect == null) return;
+        if (statusEffectType is Stun stun)
+        {
+            if (_spawnedStunEffect != null)
+            {
+                LeanPool.Despawn(_spawnedStunEffect);
+                _spawnedStunEffect = null;
+            }
+        }
+    }
+    #endregion
 
     #region Getters
 

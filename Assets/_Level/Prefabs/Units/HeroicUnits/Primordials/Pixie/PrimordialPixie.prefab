@@ -152,6 +152,7 @@ MonoBehaviour:
   AttackFactor: 0
   MovementAnimationSpeed: 0
   PlayerNumber: 0
+  IsEvaluating: 0
   _unitDetails: {fileID: 11400000, guid: 343403f26857d4c49b8461b609c90930, type: 2}
   _unitStats: {fileID: 11400000, guid: bc25a0368a238884ab9382e3461ea258, type: 2}
   _unitFaction: 2
@@ -205,7 +206,7 @@ MonoBehaviour:
   _skillName: Sleep
   _skillDescription: Has a chance to put an enemy to sleep for one turn.
   _durationInTurns: 1
-  _procChance: 75
+  _procChance: 40
 --- !u!114 &6631187944438703575 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2727943177912090696, guid: ccbbcce10b821774dbc1040a93c307ff,

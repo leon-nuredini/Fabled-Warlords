@@ -35,8 +35,9 @@ public class Pixie : LUnit, IMage
     protected override void ApplyDebuffsToEnemy(LUnit enemyUnit, bool isEnemyTurn = false)
     {
         if (SleepSkill == null) return;
-        float randomChance = UnityEngine.Random.Range(0f, 100f);
-        if (randomChance < SleepSkill.ProcChance) return;
+        if (enemyUnit.HitPoints <= 0) return;
+        float randomChance = Random.Range(0f, 100f);
+        if (randomChance > SleepSkill.ProcChance) return;
         enemyUnit.StatusEffectsController.ApplyStatusEffect<Stun>(SleepSkill.DurationInTurns);
     }
     

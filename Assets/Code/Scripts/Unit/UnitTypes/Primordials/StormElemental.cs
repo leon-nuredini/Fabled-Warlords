@@ -29,8 +29,9 @@ public class StormElemental : LUnit, IMage
     protected override void ApplyDebuffsToEnemy(LUnit enemyUnit, bool isEnemyTurn = false)
     {
         if (ThunderStrikeSkill == null) return;
-        float randomChance = UnityEngine.Random.Range(0f, 100f);
-        if (randomChance < ThunderStrikeSkill.ProcChance) return;
+        if (enemyUnit.HitPoints <= 0) return;
+        float randomChance = Random.Range(0f, 100f);
+        if (randomChance > ThunderStrikeSkill.ProcChance) return;
         enemyUnit.StatusEffectsController.ApplyStatusEffect<Stun>(ThunderStrikeSkill.DurationInTurns);
     }
 }

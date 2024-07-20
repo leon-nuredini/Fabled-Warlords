@@ -17,8 +17,9 @@ public class Satyr : Pikeman
     protected override void ApplyDebuffsToEnemy(LUnit enemyUnit, bool isEnemyTurn = false)
     {
         if (PoisonSkill == null) return;
+        if (enemyUnit.HitPoints <= 0) return;
         float randomChance = UnityEngine.Random.Range(0f, 100f);
-        if (randomChance < PoisonSkill.ProcChance) return;
+        if (randomChance > PoisonSkill.ProcChance) return;
         int extraTurn = isEnemyTurn ? 1 : 0;
         enemyUnit.StatusEffectsController.ApplyStatusEffect<Poison>(PoisonSkill.DurationInTurns + extraTurn);
     }

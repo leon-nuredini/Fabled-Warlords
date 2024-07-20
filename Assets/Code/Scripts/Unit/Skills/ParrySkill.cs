@@ -6,8 +6,6 @@ using Lean.Pool;
 
 public class ParrySkill : MonoBehaviour, IAttackSkill, ISpawnableEffect
 {
-    public event Action<Transform[]> OnParry;
-
     [SerializeField] private string _skillName = "Parry";
 
     [SerializeField] private string _skillDescription =

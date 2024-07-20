@@ -148,6 +148,7 @@ MonoBehaviour:
   AttackFactor: 0
   MovementAnimationSpeed: 0
   PlayerNumber: 0
+  IsEvaluating: 0
   _unitDetails: {fileID: 11400000, guid: efe877ee5f787bb4cbae65ba95ed64ef, type: 2}
   _unitStats: {fileID: 11400000, guid: 42544c887f0ecb9459ea5cb50439b0ed, type: 2}
   _unitFaction: 1
@@ -187,6 +188,7 @@ MonoBehaviour:
   _skillDescription: Prevents the enemy from moving or attacking for one turn after
     a successful hit.
   _durationInTurns: 1
+  _procChance: 35
 --- !u!114 &6631187944438703575 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2727943177912090696, guid: ccbbcce10b821774dbc1040a93c307ff,

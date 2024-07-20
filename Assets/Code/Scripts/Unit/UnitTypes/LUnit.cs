@@ -290,6 +290,7 @@ public class LUnit : Unit
         }
 
         if (CellGrid.Instance.CurrentPlayer.PlayerNumber == PlayerNumber) return;
+        if (StatusEffectsController.IsStatusApplied<Stun>()) return;
         if (_retaliateSkill == null) return;
         _retaliateSkill.AggressorUnit = Agressor as LUnit;
         if (!_retaliateSkill.IsInAttackRange()) return;
@@ -314,7 +315,6 @@ public class LUnit : Unit
         _isRetaliating = false;
         MarkAsAttacking(unitToAttack);
         unitToAttack.DefendHandler(this, attackAction.Damage);
-        ApplyDebuffsToEnemy(unitToAttack as LUnit, true);
     }
 
     public override void AttackHandler(Unit unitToAttack)

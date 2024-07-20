@@ -12,6 +12,7 @@ using TbsFramework.Grid;
 using TbsFramework.Players.AI.Actions;
 using TbsFramework.Players.AI.Evaluators;
 using TbsFramework.Units.Abilities;
+using TbsFramework.Players;
 
 namespace TbsFramework.Units
 {
@@ -214,8 +215,8 @@ namespace TbsFramework.Units
             Buffs.RemoveAll(b => b.timeLeft == 0);
             var name  = this.name;
             var state = UnitState;
-            SetState(new UnitStateMarkedAsFriendly(this));
             OnTurnStartEvent?.Invoke();
+            SetState(new UnitStateMarkedAsFriendly(this));
         }
 
         /// <summary>
