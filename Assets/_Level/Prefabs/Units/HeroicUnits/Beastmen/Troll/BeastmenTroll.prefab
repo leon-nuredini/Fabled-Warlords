@@ -156,6 +156,7 @@ MonoBehaviour:
   AttackFactor: 0
   MovementAnimationSpeed: 0
   PlayerNumber: 0
+  IsEvaluating: 0
   _unitDetails: {fileID: 11400000, guid: 13d6dc5d15c58da4284778ff3809e9ae, type: 2}
   _unitStats: {fileID: 11400000, guid: 20d3e13bcb2a549468f8ed6911a146ef, type: 2}
   _unitFaction: 1
@@ -206,7 +207,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 874ab82ea709cd2448dc3fbcb7d211a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healingVfx: {fileID: 160608, guid: 3c83b33bf94ceba43b3d880525e8afa4, type: 3}
+  _healingVfx: {fileID: 9002746722681322606, guid: d70910657135fa84582c9be452a18b1a,
+    type: 3}
 --- !u!114 &393923275112635436
 MonoBehaviour:
   m_ObjectHideFlags: 0
