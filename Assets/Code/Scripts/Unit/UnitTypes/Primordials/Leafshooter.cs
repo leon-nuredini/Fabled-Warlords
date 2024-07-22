@@ -41,8 +41,8 @@ public class Leafshooter : LUnit, IRanged
         if (enemyUnit.HitPoints <= 0) return;
         float randomChance = Random.Range(0f, 100f);
         if (randomChance > PoisonSkill.ProcChance) return;
+        if (PoisonSkill is ISpawnableEffect spawnableEffect) spawnableEffect.SpawnEffect(enemyUnit.transform);
         int extraTurn = isEnemyTurn ? 1 : 0;
-
         enemyUnit.StatusEffectsController.ApplyStatusEffect<Poison>(_poisonSkill.DurationInTurns + extraTurn);
     }
 }
