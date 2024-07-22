@@ -29,6 +29,7 @@ public class Druid : LUnit, IMage
     protected override void ApplyDebuffsToEnemy(LUnit enemyUnit, bool isEnemyTurn = false)
     {
         if (PoisonHexSkill == null) return;
+        if (PoisonHexSkill is ISpawnableEffect spawnableEffect) spawnableEffect.SpawnEffect(enemyUnit.transform);
         int extraTurn = isEnemyTurn ? 1 : 0;
         enemyUnit.StatusEffectsController.ApplyStatusEffect<Weaken>(PoisonHexSkill.DurationInTurns + extraTurn);
         enemyUnit.StatusEffectsController.ApplyStatusEffect<Poison>(PoisonHexSkill.DurationInTurns + extraTurn);

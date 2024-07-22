@@ -5,11 +5,20 @@ using UnityEngine;
 public struct StatusEffect
 {
     [SerializeField] private StatusEffectType _statusEffectType;
-    [SerializeField] private bool             _isApplied;
-    [SerializeField] private int              _durationInTurns;
+    [SerializeField] private bool _isApplied;
+    [SerializeField] private int _durationInTurns;
 
-    public bool IsApplied       { get => _isApplied;       set => _isApplied = value; }
-    public int  DurationInTurns { get => _durationInTurns; set => _durationInTurns = value; }
+    public bool IsApplied
+    {
+        get => _isApplied;
+        set => _isApplied = value;
+    }
 
-    public StatusEffectType StatusEffectType => _statusEffectType; 
+    public int DurationInTurns
+    {
+        get => _durationInTurns;
+        set => _durationInTurns = value;
+    }
+
+    public StatusEffectType StatusEffectType => _statusEffectType;
 }

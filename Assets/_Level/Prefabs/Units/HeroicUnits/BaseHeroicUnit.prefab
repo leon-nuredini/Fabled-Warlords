@@ -658,9 +658,11 @@ MonoBehaviour:
   AttackFactor: 15
   MovementAnimationSpeed: 7.5
   PlayerNumber: 0
+  IsEvaluating: 0
   _unitDetails: {fileID: 0}
   _unitStats: {fileID: 0}
   _unitFaction: 0
+  _unitClassCounter: {fileID: 0}
   _markerSpriteRenderer: {fileID: 2822131015226890999}
   _maskSpriteRenderer: {fileID: 4657058977376609712}
   Offset: {x: 0, y: 0, z: -0.1}
@@ -810,6 +812,7 @@ MonoBehaviour:
       type: 2}
     _isApplied: 0
     _durationInTurns: 0
+  _poisonedTintColor: {r: 0.49411765, g: 0.98039216, b: 0.5019608, a: 1}
 --- !u!114 &1373822999793160806
 MonoBehaviour:
   m_ObjectHideFlags: 0

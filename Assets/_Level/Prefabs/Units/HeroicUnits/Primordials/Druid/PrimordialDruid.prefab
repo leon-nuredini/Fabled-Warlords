@@ -148,6 +148,7 @@ MonoBehaviour:
   AttackFactor: 0
   MovementAnimationSpeed: 0
   PlayerNumber: 0
+  IsEvaluating: 0
   _unitDetails: {fileID: 11400000, guid: 2a0a79b8ab379d7468230ad3ce2b080b, type: 2}
   _unitStats: {fileID: 11400000, guid: bbb40efb3aa8f0c4e8812896035d5494, type: 2}
   _unitFaction: 2
@@ -187,6 +188,7 @@ MonoBehaviour:
   _skillDescription: Debuffs and poisons an enemy unit, reducing their attack power
     and defense for one turn.
   _durationInTurns: 1
+  _effect: {fileID: 9002746722681322606, guid: 48d374d02f58b3d46ad933f8be875eb3, type: 3}
 --- !u!114 &6631187944438703575 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2727943177912090696, guid: ccbbcce10b821774dbc1040a93c307ff,

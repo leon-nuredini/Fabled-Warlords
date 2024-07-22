@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Linq;
 using Lean.Pool;
-using NaughtyAttributes;
 using UnityEngine;
 
 public class StatusEffectsController : MonoBehaviour
@@ -18,18 +16,30 @@ public class StatusEffectsController : MonoBehaviour
 
     #endregion
 
-    private void Awake()     => _lUnit = GetComponent<LUnit>();
-    private void OnEnable()  
+    #region Poison
+
+    [SerializeField] private Color _poisonedTintColor;
+    private Color _startingColor;
+
+    #endregion
+
+    private void Awake()
+    {
+        _lUnit = GetComponent<LUnit>();
+        _startingColor = _lUnit.MaskSpriteRenderer.color;
+    }
+
+    private void OnEnable()
     {
         _lUnit.OnTurnEndUnitReset += DecreaseStatusEffectDuration;
         _lUnit.OnDie += ResetStatusEffects;
-    }   
+    }
 
-    private void OnDisable() 
+    private void OnDisable()
     {
         _lUnit.OnTurnEndUnitReset -= DecreaseStatusEffectDuration;
         _lUnit.OnDie -= ResetStatusEffects;
-    } 
+    }
 
     public void ApplyStatusEffect<T>(int turns)
     {
@@ -43,6 +53,7 @@ public class StatusEffectsController : MonoBehaviour
                     statusEffect.DurationInTurns = turns;
                 _statusEffectList[i] = statusEffect;
                 TryToSpawnStatusEffect(statusEffect.StatusEffectType);
+                TryToApplyStatusEffectColor(statusEffect);
             }
         }
     }
@@ -59,8 +70,9 @@ public class StatusEffectsController : MonoBehaviour
                 {
                     statusEffect.IsApplied = false;
                     TryToDespawnStatusEffect(statusEffect.StatusEffectType);
+                    TryToApplyStatusEffectColor(statusEffect);
                 }
-                    
+
                 _statusEffectList[i] = statusEffect;
             }
         }
@@ -75,7 +87,7 @@ public class StatusEffectsController : MonoBehaviour
             {
                 statusEffect.DurationInTurns = 0;
                 statusEffect.IsApplied = false;
-                TryToDespawnStatusEffect(statusEffect.StatusEffectType); 
+                TryToDespawnStatusEffect(statusEffect.StatusEffectType);
                 _statusEffectList[i] = statusEffect;
             }
         }
@@ -94,6 +106,7 @@ public class StatusEffectsController : MonoBehaviour
     }
 
     #region Effect spawning/despawning
+
     private void TryToSpawnStatusEffect(StatusEffectType statusEffectType)
     {
         if (statusEffectType.Effect == null) return;
@@ -118,7 +131,14 @@ public class StatusEffectsController : MonoBehaviour
             }
         }
     }
+
     #endregion
+
+    private void TryToApplyStatusEffectColor(StatusEffect statusEffect)
+    {
+        if (statusEffect.StatusEffectType is Poison)
+            _lUnit.MaskSpriteRenderer.material.color = statusEffect.IsApplied ? _poisonedTintColor : _startingColor;
+    }
 
     #region Getters
 
