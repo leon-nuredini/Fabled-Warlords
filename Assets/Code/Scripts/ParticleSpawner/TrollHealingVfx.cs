@@ -7,11 +7,11 @@ public class TrollHealingVfx : MonoBehaviour, IParticleSpawner
 
     public GameObject ParticleToSpawn => _healingVfx;
 
-    private AOEHealingSkill _aoeHealingSkill;
+    private RegenerationSkill _regenerationSkilll;
 
-    private void Awake() => _aoeHealingSkill = GetComponent<AOEHealingSkill>();
-    private void OnEnable() => _aoeHealingSkill.OnHeal += OnHeal;
-    private void OnDisable() => _aoeHealingSkill.OnHeal -= OnHeal;
+    private void Awake() => _regenerationSkilll = GetComponent<RegenerationSkill>();
+    private void OnEnable() => _regenerationSkilll.OnHeal += OnHeal;
+    private void OnDisable() => _regenerationSkilll.OnHeal -= OnHeal;
 
     private void OnHeal(Transform[] spawnPositionArray) => SpawnParticle(_healingVfx, spawnPositionArray);
 
