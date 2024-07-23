@@ -1,34 +1,14 @@
 using TbsFramework.Units;
+using UnityEngine;
 
-public class Pikeman : LUnit
+public class Pikeman : LUnit, ISpearInfantry
 {
     protected override int Defend(Unit other, int damage)
     {
-        int  newDamage                             = damage;
-        bool isRetalationResilenceActive           = TryUseRetaliationResilence();
-        if (isRetalationResilenceActive) newDamage /= 2;
-        if (newDamage <= 0) newDamage              =  1;
-        TempDamageReceived = newDamage;
-        Agressor           = other;
-        InvokeGetHitEvent();
-        return newDamage;
-    }
-    
-    protected override int CalculateDamage(AttackAction baseVal, Unit unitToAttack)
-    {
-        float totalFactorDamage = 0;
-        int   baseDamage        = baseVal.Damage;
-        for (int i = 0; i < AttackSkillArray.Length; i++)
-        {
-            if (!AttackSkillArray[i].CanBeActivatedDuringEnemyTurn) continue;
-            if (unitToAttack is ILarge && AttackSkillArray[i] is AntiLargeSkill antiLargeSkill)
-            {
-                antiLargeSkill.AggressorUnit =  unitToAttack as LUnit;
-                totalFactorDamage            += AttackSkillArray[i].GetDamageFactor();
-            }
-        }
-
-        int factoredDamage = totalFactorDamage > 0 ? baseDamage * (int) totalFactorDamage : baseDamage;
-        return factoredDamage;
+        float newDamage = damage;
+        if (other is LUnit lUnit && lUnit.UnitClassCounter != null)
+            newDamage *= lUnit.UnitClassCounter.VSSpearInfantryCounter;
+        
+        return base.Defend(other, Mathf.RoundToInt(newDamage));
     }
 }

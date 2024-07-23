@@ -1,5 +1,5 @@
 public interface IDefendSkill : ISkill
 {
-    public int DefenceAmount { get; }
-    int GetDefenceAmount();
+    public float DefenceAmount { get; }
+    float GetDefenceAmount();
 }

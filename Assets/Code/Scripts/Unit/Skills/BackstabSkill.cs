@@ -13,10 +13,14 @@ public class BackstabSkill : MonoBehaviour, IAttackSkill
     [BoxGroup("Damage Multiplier")] [SerializeField] [Range(1, 10)]
     private int _backstabDamageFactor = 3;
 
-    public string SkillName        => _skillName;
+    public string SkillName => _skillName;
     public string SkillDescription => _skillDescription;
 
-    public LUnit UnitToAttack { get => _unitToAttack; set => _unitToAttack = value; }
+    public LUnit UnitToAttack
+    {
+        get => _unitToAttack;
+        set => _unitToAttack = value;
+    }
 
     [field: SerializeField] public bool CanBeActivatedDuringEnemyTurn { get; set; } = true;
 
@@ -25,7 +29,8 @@ public class BackstabSkill : MonoBehaviour, IAttackSkill
     public int GetDamageFactor()
     {
         int factor = 0;
-        if (_lUnit.CurrentUnitDirection == _unitToAttack.CurrentUnitDirection)
+        if (Mathf.Approximately(_lUnit.transform.localPosition.y, _unitToAttack.transform.localPosition.y) &&
+            _lUnit.CurrentUnitDirection == _unitToAttack.CurrentUnitDirection)
             factor = _backstabDamageFactor;
 
         _unitToAttack = null;

@@ -6,11 +6,15 @@ public class Assassin : LUnit
     {
         float totalFactorDamage = 0;
         int   baseDamage        = baseVal.Damage;
-        for (int i = 0; i < AttackSkillArray.Length; i++)
+
+        if (!IsEvaluating)
         {
-            if (AttackSkillArray[i] is BackstabSkill backstabSkill)
-                backstabSkill.UnitToAttack = unitToAttack as LUnit;
-            totalFactorDamage += AttackSkillArray[i].GetDamageFactor();
+            for (int i = 0; i < AttackSkillArray.Length; i++)
+            {
+                if (AttackSkillArray[i] is BackstabSkill backstabSkill)
+                    backstabSkill.UnitToAttack = unitToAttack as LUnit;
+                totalFactorDamage += AttackSkillArray[i].GetDamageFactor();
+            }
         }
 
         int factoredDamage = totalFactorDamage > 0 ? baseDamage * (int) totalFactorDamage : baseDamage;

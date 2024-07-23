@@ -8,6 +8,7 @@ public class DamageTextSpawner : SceneSingleton<DamageTextSpawner>
 
     public void SpawnTextGameObject(Vector3 spawnPosition, string damage = "")
     {
+        if (_textGameObject == null) return;
         GameObject gObj = LeanPool.Spawn(_textGameObject, spawnPosition, Quaternion.identity);
         if (gObj.TryGetComponent(out DamageText damageText))
             damageText.UpdateTextValue(damage);

@@ -1,11 +1,11 @@
 using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
+using NaughtyAttributes;
+using Lean.Pool;
 
-public class ParrySkill : MonoBehaviour, IAttackSkill
+public class ParrySkill : MonoBehaviour, IAttackSkill, ISpawnableEffect
 {
-    public event Action<Transform[]> OnParry;
-
     [SerializeField] private string _skillName = "Parry";
 
     [SerializeField] private string _skillDescription =
@@ -14,6 +14,8 @@ public class ParrySkill : MonoBehaviour, IAttackSkill
     [SerializeField] [Range(0, 100)] private int     _parryChance          = 20;
     [SerializeField] [Range(0, 100)] private int     _parryDamageFactor    = 2;
     [SerializeField]                 private Vector3 _parryTextSpawnOffset = Vector3.zero;
+
+    [BoxGroup("Effect")][SerializeField] private GameObject _effect;
 
     private LUnit _aggressorUnit;
 
@@ -27,22 +29,28 @@ public class ParrySkill : MonoBehaviour, IAttackSkill
 
     public LUnit AggressorUnit { get => _aggressorUnit; set => _aggressorUnit = value; }
 
+    public GameObject Effect => _effect;
+
     #endregion
 
     public int GetDamageFactor()
     {
-        if (TryToParry())
+        int randomValue = Random.Range(1, 100);
+        bool isParrySuccessfull = randomValue <= _parryChance;
+
+        if (isParrySuccessfull)
         {
             ParryTextSpawner.Instance.SpawnTextGameObject(transform.position + _parryTextSpawnOffset);
+            SpawnEffect(transform);
             return _parryDamageFactor;
         }
 
         return 0;
     }
 
-    private bool TryToParry()
+    public void SpawnEffect(Transform targetTransform)
     {
-        int randomValue = Random.Range(1, 100);
-        return randomValue <= _parryChance;
+        if (Effect == null) return;
+        LeanPool.Spawn(Effect, targetTransform.localPosition, Effect.transform.localRotation);
     }
 }

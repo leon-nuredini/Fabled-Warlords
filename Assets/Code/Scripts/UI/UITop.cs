@@ -27,7 +27,6 @@ public class UITop : MonoBehaviour
     private int secondsToWait = 60;
 
     private bool _allowEndTurn = true;
-    private bool _allowTogglingUnitDetails = true;
 
     #region Properties
 

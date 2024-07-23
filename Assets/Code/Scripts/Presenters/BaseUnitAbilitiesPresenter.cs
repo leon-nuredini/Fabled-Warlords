@@ -61,6 +61,39 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
     [BoxGroup("Skill UI")] [SerializeField]
     private UIAbility _charge;
 
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _soar;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _victorsSmite;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _hex;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _rapidShot;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _overPower;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _stoneWill;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _poison;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _thunderStrike;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _sleep;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _poistonHex;
+
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _rootGrasp;
+
     protected void UpdateUnitAbilities(LUnit lUnit)
     {
         _stillStrike.gameObject.SetActive(false);
@@ -81,6 +114,17 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         _antiLarge.gameObject.SetActive(false);
         _parry.gameObject.SetActive(false);
         _charge.gameObject.SetActive(false);
+        _soar.gameObject.SetActive(false);
+        _victorsSmite.gameObject.SetActive(false);
+        _hex.gameObject.SetActive(false);
+        _rapidShot.gameObject.SetActive(false);
+        _overPower.gameObject.SetActive(false);
+        _stoneWill.gameObject.SetActive(false);
+        _poison.gameObject.SetActive(false);
+        _thunderStrike.gameObject.SetActive(false);
+        _sleep.gameObject.SetActive(false);
+        _poistonHex.gameObject.SetActive(false);
+        _rootGrasp.gameObject.SetActive(false);
 
         for (int i = 0; i < lUnit.AttackSkillArray.Length; i++)
         {
@@ -129,27 +173,57 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
                     _shieldWall.gameObject.SetActive(true);
                     _shieldWall.UpdateNameAndDescription(shieldwallSkill);
                     break;
+                case StoneWillSkill stoneWillSkill:
+                    _stoneWill.gameObject.SetActive(true);
+                    _stoneWill.UpdateNameAndDescription(stoneWillSkill);
+                    break;
             }
         }
 
-        UpdateAbilityText(lUnit.RetaliateSkill,             _retaliate);
-        UpdateAbilityText(lUnit.UnRetaliatableSkill,        _unRetaliatable);
-        UpdateAbilityText(lUnit.ValorSkill,                 _victoryValor);
+        UpdateAbilityText(lUnit.RetaliateSkill, _retaliate);
+        UpdateAbilityText(lUnit.UnRetaliatableSkill, _unRetaliatable);
+        UpdateAbilityText(lUnit.ValorSkill, _victoryValor);
         UpdateAbilityText(lUnit.RetaliationResilienceSkill, _retaliationResilience);
-        UpdateAbilityText(lUnit.AoeHealingSkill,            _massHealing);
-        UpdateAbilityText(lUnit.CapturerSkill,              _capturer);
+        UpdateAbilityText(lUnit.AoeHealingSkill, _massHealing);
+        UpdateAbilityText(lUnit.CapturerSkill, _capturer);
+
+        if (lUnit is Griffin griffin) UpdateAbilityText(griffin.SoarSkill, _soar);
+        if (lUnit is Paladin paladin) UpdateAbilityText(paladin.VictorsSmiteSkill, _victorsSmite);
+        if (lUnit is Monk monk) UpdateAbilityText(monk.HexSkill, _hex);
+        if (lUnit is Centaur centaur) UpdateAbilityText(centaur.RapidShotSkill, _rapidShot);
+        if (lUnit is Cyclop cyclop) UpdateAbilityText(cyclop.OverpowerSkill, _overPower);
+        if (lUnit is Leafshooter leafshooter)
+        {
+            UpdateAbilityText(leafshooter.RapidShotSkill, _rapidShot);
+            UpdateAbilityText(leafshooter.PoisonSkill, _poison);
+        }
+
+        if (lUnit is StormElemental stormElemental)
+            UpdateAbilityText(stormElemental.ThunderStrikeSkill, _thunderStrike);
+        if (lUnit is Satyr satyr) UpdateAbilityText(satyr.PoisonSkill, _poison);
+        if (lUnit is Pixie pixie)
+        {
+            UpdateAbilityText(pixie.SoarSkill, _soar);
+            UpdateAbilityText(pixie.SleepSkill, _sleep);
+        }
+
+        if (lUnit is Druid druid) UpdateAbilityText(druid.PoisonHexSkill, _poistonHex);
+        if (lUnit is Treant treant) UpdateAbilityText(treant.RootGraspSkill, _rootGrasp);
 
         if (lUnit is Stronghold stronghold)
         {
             UpdateAbilityText(stronghold.IncomeGenerationAbility, _taxIncome);
-            UpdateAbilityText(stronghold.RecruitUnitAbility,      _recruitUnit);
+            UpdateAbilityText(stronghold.RecruitUnitAbility, _recruitUnit);
         }
-        else if (lUnit is Barrack barrack) { UpdateAbilityText(barrack.RecruitUnitAbility, _recruitUnit); }
+        else if (lUnit is Barrack barrack)
+        {
+            UpdateAbilityText(barrack.RecruitUnitAbility, _recruitUnit);
+        }
 
         if (lUnit is Village village)
         {
             UpdateAbilityText(village.IncomeGenerationAbility, _taxIncome);
-            UpdateAbilityText(village.VillageHealingSkill,     _villageHealing);
+            UpdateAbilityText(village.VillageHealingSkill, _villageHealing);
         }
 
         FocusScrollRect();
@@ -162,12 +236,15 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
             uiAbility.gameObject.SetActive(true);
             uiAbility.UpdateNameAndDescription(skill);
         }
-        else { uiAbility.gameObject.SetActive(false); }
+        else
+        {
+            uiAbility.gameObject.SetActive(false);
+        }
     }
 
     private void FocusScrollRect()
     {
-        if (_scrollRect         == null) return;
+        if (_scrollRect == null) return;
         if (EventSystem.current == null) return;
         EventSystem.current.SetSelectedGameObject(_scrollRect.gameObject);
         _scrollRect.OnInitializePotentialDrag(new PointerEventData(EventSystem.current));

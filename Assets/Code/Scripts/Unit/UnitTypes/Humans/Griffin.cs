@@ -1,15 +1,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using TbsFramework.Cells;
+using TbsFramework.Units;
+using UnityEngine;
 
-public class Griffin : LUnit
+public class Griffin : LUnit, IMonster
 {
     private SoarSkill _soarSkill;
+
+    #region Properties
+
+    public SoarSkill SoarSkill => _soarSkill;
+
+    #endregion
 
     public override void InitProperties()
     {
         base.InitProperties();
         _soarSkill = GetComponent<SoarSkill>();
+    }
+
+    protected override int Defend(Unit other, int damage)
+    {
+        float newDamage = damage;
+        if (other is LUnit lUnit && lUnit.UnitClassCounter != null)
+            newDamage *= lUnit.UnitClassCounter.VSMonsterFactor;
+
+        return base.Defend(other, Mathf.RoundToInt(newDamage));
     }
 
     public override HashSet<Cell> GetAvailableDestinations(List<Cell> cells)
@@ -24,7 +41,10 @@ public class Griffin : LUnit
             if (CachedPaths.TryGetValue(cell, out var path))
             {
                 var pathCost = path.Sum(c => 1);
-                if (pathCost <= MovementPoints) { availableDestinations.Add(cell); }
+                if (pathCost <= MovementPoints)
+                {
+                    availableDestinations.Add(cell);
+                }
             }
         }
 

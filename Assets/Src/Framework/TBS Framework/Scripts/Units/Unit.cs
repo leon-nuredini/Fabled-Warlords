@@ -12,6 +12,7 @@ using TbsFramework.Grid;
 using TbsFramework.Players.AI.Actions;
 using TbsFramework.Players.AI.Evaluators;
 using TbsFramework.Units.Abilities;
+using TbsFramework.Players;
 
 namespace TbsFramework.Units
 {
@@ -75,6 +76,7 @@ namespace TbsFramework.Units
         public event Action OnHitpointsChange;
         
         public event Action OnTurnEndUnitReset;
+        public event Action OnTurnStartEvent;
 
         public UnitHighlighterAggregator UnitHighlighterAggregator;
 
@@ -213,6 +215,7 @@ namespace TbsFramework.Units
             Buffs.RemoveAll(b => b.timeLeft == 0);
             var name  = this.name;
             var state = UnitState;
+            OnTurnStartEvent?.Invoke();
             SetState(new UnitStateMarkedAsFriendly(this));
         }
 
@@ -357,11 +360,14 @@ namespace TbsFramework.Units
         /// </summary>
         protected virtual void DefenceActionPerformed() { }
 
+        public bool IsEvaluating;
+
         public int DryAttack(Unit other)
         {
+            IsEvaluating = true;
             int damage     = DealDamage(other).Damage;
             int realDamage = other.Defend(this, damage);
-
+            IsEvaluating = false;
             return realDamage;
         }
 

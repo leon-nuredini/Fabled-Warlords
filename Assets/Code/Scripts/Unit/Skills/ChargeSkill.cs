@@ -7,12 +7,12 @@ public class ChargeSkill : MonoBehaviour, IAttackSkill
     [SerializeField] private string _skillName = "Charge";
 
     [SerializeField] private string _skillDescription =
-        "Deals extra damage when attacking after moving at least three tiles away from its starting position.";
+        "Deals extra damage when attacking after moving at least four tiles away from its starting position.";
 
     [BoxGroup("Attack Amount")] [SerializeField] [Range(1, 5)]
-    private int _attackPowerFactor = 2;
+    private int _attackPowerFactor = 3;
 
-    [SerializeField] private int _totalTilesDistanceAmount = 3;
+    [SerializeField] private int _totalTilesDistanceAmount = 4;
 
     private bool _applyCharge;
 

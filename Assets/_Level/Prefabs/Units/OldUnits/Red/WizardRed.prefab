@@ -257,10 +257,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1525440379455384095}
-    - targetCorrespondingSourceObject: {fileID: 3903837526696178160, guid: 3aa54edd1404e194f823dd869d5b6f43,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 9085866933940463420}
   m_SourcePrefab: {fileID: 100100000, guid: 3aa54edd1404e194f823dd869d5b6f43, type: 3}
 --- !u!1 &798318646812673420 stripped
 GameObject:
@@ -286,7 +282,6 @@ MonoBehaviour:
   cell: {fileID: 0}
   AttackRange: 2
   AttackFactor: 35
-  DefenceFactor: 5
   MovementAnimationSpeed: 7.5
   PlayerNumber: 0
   _unitDetails: {fileID: 11400000, guid: 91e9d253e6303b24693a891daae0bc6f, type: 2}
@@ -354,18 +349,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _soundEvent: {fileID: 11400000, guid: 6af91cb38953ca24bad2ceb32ba19380, type: 2}
---- !u!114 &9085866933940463420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 798318646812673420}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 191c517e72f4f6144b52a5eed6ff2582, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1793167974146847796 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2727943177912090696, guid: 3aa54edd1404e194f823dd869d5b6f43,
