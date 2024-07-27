@@ -6,12 +6,12 @@ using UnityEngine;
 
 public class Pixie : LUnit, IMage
 {
-    private SleepSkill _sleepSkill;
+    private StunSkill _sunSkill;
     private SoarSkill _soarSkill;
     
     #region Properties
 
-    public SleepSkill SleepSkill => _sleepSkill;
+    public StunSkill StunSkill => _sunSkill;
     public SoarSkill SoarSkill => _soarSkill;
 
     #endregion
@@ -19,7 +19,7 @@ public class Pixie : LUnit, IMage
     public override void InitProperties()
     {
         base.InitProperties();
-        _sleepSkill = GetComponent<SleepSkill>();
+        _sunSkill = GetComponent<StunSkill>();
         _soarSkill = GetComponent<SoarSkill>();
     }
     
@@ -34,11 +34,11 @@ public class Pixie : LUnit, IMage
     
     protected override void ApplyDebuffsToEnemy(LUnit enemyUnit, bool isEnemyTurn = false)
     {
-        if (SleepSkill == null) return;
+        if (StunSkill == null) return;
         if (enemyUnit.HitPoints <= 0) return;
         float randomChance = Random.Range(0f, 100f);
-        if (randomChance > SleepSkill.ProcChance) return;
-        enemyUnit.StatusEffectsController.ApplyStatusEffect<Stun>(SleepSkill.DurationInTurns);
+        if (randomChance > StunSkill.ProcChance) return;
+        enemyUnit.StatusEffectsController.ApplyStatusEffect<Stun>(StunSkill.DurationInTurns);
     }
     
     public override HashSet<Cell> GetAvailableDestinations(List<Cell> cells)

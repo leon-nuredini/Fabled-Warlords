@@ -3,18 +3,18 @@ using UnityEngine;
 
 public class Treant : LUnit, IMonster
 {
-    private RootGraspSkill _rootGraspSkill;
+    private StunSkill _stunSkill;
 
     #region Properties
 
-    public RootGraspSkill RootGraspSkill => _rootGraspSkill;
+    public StunSkill StunSkill => _stunSkill;
 
     #endregion
 
     public override void InitProperties()
     {
         base.InitProperties();
-        _rootGraspSkill = GetComponent<RootGraspSkill>();
+        _stunSkill = GetComponent<StunSkill>();
     }
 
     protected override int Defend(Unit other, int damage)
@@ -28,7 +28,10 @@ public class Treant : LUnit, IMonster
 
     protected override void ApplyDebuffsToEnemy(LUnit enemyUnit, bool isEnemyTurn = false)
     {
-        if (RootGraspSkill == null) return;
-        enemyUnit.StatusEffectsController.ApplyStatusEffect<Stun>(RootGraspSkill.DurationInTurns);
+        if (StunSkill == null) return;
+        if (enemyUnit.HitPoints <= 0) return;
+        float randomChance = Random.Range(0f, 100f);
+        if (randomChance > StunSkill.ProcChance) return;
+        enemyUnit.StatusEffectsController.ApplyStatusEffect<Stun>(StunSkill.DurationInTurns);
     }
 }

@@ -74,7 +74,7 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
     private UIAbility _rapidShot;
 
     [BoxGroup("Skill UI")] [SerializeField]
-    private UIAbility _overPower;
+    private UIAbility _stun;
 
     [BoxGroup("Skill UI")] [SerializeField]
     private UIAbility _stoneWill;
@@ -86,13 +86,7 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
     private UIAbility _thunderStrike;
 
     [BoxGroup("Skill UI")] [SerializeField]
-    private UIAbility _sleep;
-
-    [BoxGroup("Skill UI")] [SerializeField]
     private UIAbility _poistonHex;
-
-    [BoxGroup("Skill UI")] [SerializeField]
-    private UIAbility _rootGrasp;
 
     protected void UpdateUnitAbilities(LUnit lUnit)
     {
@@ -118,13 +112,11 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         _victorsSmite.gameObject.SetActive(false);
         _hex.gameObject.SetActive(false);
         _rapidShot.gameObject.SetActive(false);
-        _overPower.gameObject.SetActive(false);
         _stoneWill.gameObject.SetActive(false);
         _poison.gameObject.SetActive(false);
         _thunderStrike.gameObject.SetActive(false);
-        _sleep.gameObject.SetActive(false);
+        _stun.gameObject.SetActive(false);
         _poistonHex.gameObject.SetActive(false);
-        _rootGrasp.gameObject.SetActive(false);
 
         for (int i = 0; i < lUnit.AttackSkillArray.Length; i++)
         {
@@ -191,7 +183,7 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         if (lUnit is Paladin paladin) UpdateAbilityText(paladin.VictorsSmiteSkill, _victorsSmite);
         if (lUnit is Monk monk) UpdateAbilityText(monk.HexSkill, _hex);
         if (lUnit is Centaur centaur) UpdateAbilityText(centaur.RapidShotSkill, _rapidShot);
-        if (lUnit is Cyclop cyclop) UpdateAbilityText(cyclop.OverpowerSkill, _overPower);
+        if (lUnit is Cyclop cyclop) UpdateAbilityText(cyclop.StunSkill, _stun);
         if (lUnit is Leafshooter leafshooter)
         {
             UpdateAbilityText(leafshooter.RapidShotSkill, _rapidShot);
@@ -204,11 +196,11 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         if (lUnit is Pixie pixie)
         {
             UpdateAbilityText(pixie.SoarSkill, _soar);
-            UpdateAbilityText(pixie.SleepSkill, _sleep);
+            UpdateAbilityText(pixie.StunSkill, _stun);
         }
 
         if (lUnit is Druid druid) UpdateAbilityText(druid.PoisonHexSkill, _poistonHex);
-        if (lUnit is Treant treant) UpdateAbilityText(treant.RootGraspSkill, _rootGrasp);
+        if (lUnit is Treant treant) UpdateAbilityText(treant.StunSkill, _stun);
 
         if (lUnit is Stronghold stronghold)
         {
