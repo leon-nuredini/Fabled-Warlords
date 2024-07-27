@@ -32,9 +32,6 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
     private UIAbility _alliedArmament;
 
     [BoxGroup("Skill UI")] [SerializeField]
-    private UIAbility _massHealing;
-
-    [BoxGroup("Skill UI")] [SerializeField]
     private UIAbility _retaliate;
 
     [BoxGroup("Skill UI")] [SerializeField]
@@ -87,6 +84,9 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
 
     [BoxGroup("Skill UI")] [SerializeField]
     private UIAbility _poistonHex;
+    
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _regenerate;
 
     protected void UpdateUnitAbilities(LUnit lUnit)
     {
@@ -98,7 +98,6 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         _retaliationResilience.gameObject.SetActive(false);
         _shieldWall.gameObject.SetActive(false);
         _alliedArmament.gameObject.SetActive(false);
-        _massHealing.gameObject.SetActive(false);
         _siegeBreaker.gameObject.SetActive(false);
         _retaliate.gameObject.SetActive(false);
         _capturer.gameObject.SetActive(false);
@@ -117,6 +116,7 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         _thunderStrike.gameObject.SetActive(false);
         _stun.gameObject.SetActive(false);
         _poistonHex.gameObject.SetActive(false);
+        _regenerate.gameObject.SetActive(false);
 
         for (int i = 0; i < lUnit.AttackSkillArray.Length; i++)
         {
@@ -176,7 +176,7 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         UpdateAbilityText(lUnit.UnRetaliatableSkill, _unRetaliatable);
         UpdateAbilityText(lUnit.ValorSkill, _victoryValor);
         UpdateAbilityText(lUnit.RetaliationResilienceSkill, _retaliationResilience);
-        UpdateAbilityText(lUnit.AoeHealingSkill, _massHealing);
+        UpdateAbilityText(lUnit.AoeHealingSkill, _regenerate);
         UpdateAbilityText(lUnit.CapturerSkill, _capturer);
 
         if (lUnit is Griffin griffin) UpdateAbilityText(griffin.SoarSkill, _soar);
@@ -184,6 +184,7 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         if (lUnit is Monk monk) UpdateAbilityText(monk.HexSkill, _hex);
         if (lUnit is Centaur centaur) UpdateAbilityText(centaur.RapidShotSkill, _rapidShot);
         if (lUnit is Cyclop cyclop) UpdateAbilityText(cyclop.StunSkill, _stun);
+        if (lUnit is Troll troll) UpdateAbilityText(troll.RegenerationSkill, _regenerate);
         if (lUnit is Leafshooter leafshooter)
         {
             UpdateAbilityText(leafshooter.RapidShotSkill, _rapidShot);
@@ -223,7 +224,7 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
 
     private void UpdateAbilityText(ISkill skill, UIAbility uiAbility)
     {
-        if (skill != null)
+        if (skill != null && uiAbility.IsVisible)
         {
             uiAbility.gameObject.SetActive(true);
             uiAbility.UpdateNameAndDescription(skill);

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -7,6 +5,10 @@ public class UIAbility : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _abilityNameText;
     [SerializeField] private TextMeshProUGUI _abilityDescriptionText;
+
+    [SerializeField] private bool _isVisible = true;
+
+    public bool IsVisible => _isVisible;
 
     public TextMeshProUGUI AbilityNameText { get => _abilityNameText; private set => _abilityNameText = value; }
 
