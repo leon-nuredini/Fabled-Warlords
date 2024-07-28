@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 623154123313656549}
   - component: {fileID: 4705923476876403628}
   - component: {fileID: 4358082031227498740}
+  - component: {fileID: -5191641385233997115}
+  - component: {fileID: -3149461872288100652}
   m_Layer: 0
   m_Name: TreantSpikes
   m_TagString: Untagged
@@ -71,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -97584627
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 609749656, guid: d177c27fdd7414f4eb53e3c47c544b54, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -106,3 +108,28 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-5191641385233997115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510883491541182589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5020d620fe5ce7646823abe9e636f6f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-3149461872288100652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510883491541182589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ab1ef6a1d54536409babb0071642c0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _despawnDelay: 0.5

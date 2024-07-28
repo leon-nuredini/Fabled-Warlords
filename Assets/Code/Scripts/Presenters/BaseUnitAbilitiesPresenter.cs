@@ -87,7 +87,7 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
     
     [BoxGroup("Skill UI")] [SerializeField]
     private UIAbility _regenerate;
-
+    
     protected void UpdateUnitAbilities(LUnit lUnit)
     {
         _stillStrike.gameObject.SetActive(false);
@@ -201,7 +201,7 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         }
 
         if (lUnit is Druid druid) UpdateAbilityText(druid.PoisonHexSkill, _poistonHex);
-        if (lUnit is Treant treant) UpdateAbilityText(treant.StunSkill, _stun);
+        if (lUnit is Treant treant) UpdateAbilityText(treant.RootGraspSkill, _stun);
 
         if (lUnit is Stronghold stronghold)
         {
