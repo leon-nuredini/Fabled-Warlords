@@ -1,4 +1,3 @@
-using System;
 using NaughtyAttributes;
 using TbsFramework.Grid;
 using TMPro;
@@ -7,11 +6,13 @@ using UnityEngine.UI;
 
 public class UnitDataPresenter : BaseUnitDataPresenter
 {
-    [SerializeField] private TextMeshProUGUI _factionText;
     [SerializeField] private TextMeshProUGUI _unitDescriptionText;
 
     [BoxGroup("Image Size")] [SerializeField]
     private Vector2 _unitImageSize = new Vector2(225f, 225f);
+
+    [BoxGroup("Unit Type Image")] [SerializeField]
+    private Image _unitTypeImage;
 
     [BoxGroup("Image Size")] [SerializeField]
     private Vector2 _structureImageSize = new Vector2(125f, 125f);
@@ -44,18 +45,18 @@ public class UnitDataPresenter : BaseUnitDataPresenter
 
     private void OnEnable()
     {
-        LUnit.OnAnyDisplayUnitInformation                 += UpdateUnitData;
-        LUnit.OnAnyHideUnitInformation                    += DisableUnitInformationPanel;
+        LUnit.OnAnyDisplayUnitInformation += UpdateUnitData;
+        LUnit.OnAnyHideUnitInformation += DisableUnitInformationPanel;
         ToggleUnitDetailsPresenter.OnAnyToggleUnitDetails += OnToggleUnitInformationPanel;
-        CellGrid.Instance.TurnEnded                       += OnTurnEnd;
+        CellGrid.Instance.TurnEnded += OnTurnEnd;
     }
 
     private void OnDisable()
     {
-        LUnit.OnAnyDisplayUnitInformation                 -= UpdateUnitData;
-        LUnit.OnAnyHideUnitInformation                    -= DisableUnitInformationPanel;
+        LUnit.OnAnyDisplayUnitInformation -= UpdateUnitData;
+        LUnit.OnAnyHideUnitInformation -= DisableUnitInformationPanel;
         ToggleUnitDetailsPresenter.OnAnyToggleUnitDetails -= OnToggleUnitInformationPanel;
-        CellGrid.Instance.TurnEnded                       -= OnTurnEnd;
+        CellGrid.Instance.TurnEnded -= OnTurnEnd;
     }
 
     protected override void UpdateUnitData(LUnit lUnit)
@@ -67,31 +68,14 @@ public class UnitDataPresenter : BaseUnitDataPresenter
         else
             UnitImage.rectTransform.sizeDelta = _unitImageSize;
 
-        _factionText.text         = $"<color=#E5B587><align=flush><b>Faction:</b></color> {lUnit.UnitDetails.Faction}";
         _unitDescriptionText.text = lUnit.UnitDetails.Description;
 
-        if (lUnit is LStructure lStructure)
-        {
-            string faction = String.Empty;
-            switch (lStructure.Faction)
-            {
-                case UnitFaction.Red:
-                    faction = "Loyalists";
-                    break;
-                case UnitFaction.Green:
-                    faction = "Rebels";
-                    break;
-                case UnitFaction.Blue:
-                    faction = "Arcanists";
-                    break;
-                case UnitFaction.None:
-                    faction = "Neutral";
-                    break;
-            }
-
-            _factionText.text = $"<color=#E5B587><align=flush><b>Faction:</b></color> {faction}";
-        }
-
+        Sprite unitTypeSprite = lUnit.UnitClassCounter.UnitTypeSprite;
+        if (unitTypeSprite != null) 
+            _unitTypeImage.sprite = lUnit.UnitClassCounter.UnitTypeSprite;
+        else
+            _unitTypeImage.enabled = false;
+        
         base.UpdateUnitData(lUnit);
     }
 
