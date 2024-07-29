@@ -16,7 +16,7 @@ public class Dwarf : LUnit, ISwordInfantry
         if (StatusEffectsController.IsStatusApplied<Weaken>())
         {
             float weakenedFactor = StatusEffectsController.GetStatus<Weaken>().weakenFactor;
-            newDamage = Mathf.RoundToInt(newDamage * weakenedFactor);
+            newDamage = Mathf.RoundToInt(newDamage + (newDamage * weakenedFactor));
         }
 
         bool isRetalationResilenceActive = TryUseRetaliationResilence();
