@@ -35,7 +35,7 @@ public class UnitCounterPresenter : MonoBehaviour
         if (counterValue >= 1.5f) image.color = _strongEffectiveColor;
         else if (counterValue >= 1.25f) image.color = _mediumEffectiveColor;
         else if (counterValue >= 1f) image.color = _neutralColor;
-        else if (counterValue <= .85f) image.color = _weakColor;
-        else if (counterValue <= .75f) image.color = _veryWeakColor;
+        else if (counterValue >= .75f) image.color = _weakColor;
+        else if (counterValue >= .5f) image.color = _veryWeakColor;
     }
 }
