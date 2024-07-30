@@ -15,8 +15,13 @@ public class UIUnitRecruitButton : MonoBehaviour
     [BoxGroup("Button Graphics")] [SerializeField]
     private GameObject[] _displayGraphics;
 
+    [BoxGroup("Name Text")] [SerializeField]
+    private TextMeshProUGUI _nameText;
+    
     [BoxGroup("Cost Text")] [SerializeField]
     private TextMeshProUGUI _costText;
+
+    [BoxGroup("Image")] [SerializeField] private Image _unitImage;
 
     [BoxGroup("Cost Text")] [SerializeField]
     private Color _whiteColor = Color.white;
@@ -96,6 +101,8 @@ public class UIUnitRecruitButton : MonoBehaviour
         int unitCost = _lUnit.UnitStats.Cost;
         _costText.text  = unitCost.ToString();
         _costText.color = CanRecruitUnit() ? _whiteColor : _redColor;
+        _nameText.text = _lUnit.UnitDetails.name;
+        _unitImage.sprite = _lUnit.UnitDetails.OverworldIcon;
     }
 
     public bool CanRecruitUnit()

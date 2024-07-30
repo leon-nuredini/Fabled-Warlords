@@ -6,6 +6,7 @@ public class UnitDetails : ScriptableObject
     [SerializeField] private string _unitName;
     [SerializeField] private string _faction;
     [SerializeField] private Sprite _icon;
+    [SerializeField] private Sprite _overworldIcon;
     [TextArea] [SerializeField] private string _description;
 
     public void Initialize(string unitName, string faction, Sprite icon, string description)
@@ -19,5 +20,6 @@ public class UnitDetails : ScriptableObject
     public string UnitName => _unitName;
     public string Faction => _faction;
     public Sprite Icon => _icon;
+    public Sprite OverworldIcon => _overworldIcon;
     public string Description => _description;
 }
