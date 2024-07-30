@@ -26,12 +26,6 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
     private UIAbility _retaliationResilience;
 
     [BoxGroup("Skill UI")] [SerializeField]
-    private UIAbility _shieldWall;
-
-    [BoxGroup("Skill UI")] [SerializeField]
-    private UIAbility _alliedArmament;
-
-    [BoxGroup("Skill UI")] [SerializeField]
     private UIAbility _retaliate;
 
     [BoxGroup("Skill UI")] [SerializeField]
@@ -96,8 +90,6 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         _victoryValor.gameObject.SetActive(false);
         _rage.gameObject.SetActive(false);
         _retaliationResilience.gameObject.SetActive(false);
-        _shieldWall.gameObject.SetActive(false);
-        _alliedArmament.gameObject.SetActive(false);
         _siegeBreaker.gameObject.SetActive(false);
         _retaliate.gameObject.SetActive(false);
         _capturer.gameObject.SetActive(false);
@@ -122,10 +114,6 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         {
             switch (lUnit.AttackSkillArray[i])
             {
-                case AlliedArmamentSkill alliedArmamentSkill:
-                    _alliedArmament.gameObject.SetActive(true);
-                    _alliedArmament.UpdateNameAndDescription(alliedArmamentSkill);
-                    break;
                 case BackstabSkill backstabSkill:
                     _backstab.gameObject.SetActive(true);
                     _backstab.UpdateNameAndDescription(backstabSkill);
@@ -161,10 +149,6 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         {
             switch (lUnit.DefendSkillArray[i])
             {
-                case ShieldwallSkill shieldwallSkill:
-                    _shieldWall.gameObject.SetActive(true);
-                    _shieldWall.UpdateNameAndDescription(shieldwallSkill);
-                    break;
                 case StoneWillSkill stoneWillSkill:
                     _stoneWill.gameObject.SetActive(true);
                     _stoneWill.UpdateNameAndDescription(stoneWillSkill);
