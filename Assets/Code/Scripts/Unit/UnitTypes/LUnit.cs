@@ -199,6 +199,8 @@ public class LUnit : Unit
     {
         base.OnTurnStart();
 
+        if (StatusEffectsController == null) return;
+        
         if (StatusEffectsController.IsStatusApplied<Stun>())
         {
             ActionPoints = 0;
@@ -224,7 +226,7 @@ public class LUnit : Unit
         //int  newDamage                             = damage - defenceAmount;
         int newDamage = damage;
 
-        if (StatusEffectsController.IsStatusApplied<Weaken>())
+        if (StatusEffectsController != null && StatusEffectsController.IsStatusApplied<Weaken>())
         {
             float weakenedFactor = StatusEffectsController.GetStatus<Weaken>().weakenFactor;
             newDamage = Mathf.RoundToInt(newDamage + (newDamage * weakenedFactor));
@@ -290,7 +292,7 @@ public class LUnit : Unit
         }
 
         if (CellGrid.Instance.CurrentPlayer.PlayerNumber == PlayerNumber) return;
-        if (StatusEffectsController.IsStatusApplied<Stun>()) return;
+        if (StatusEffectsController != null &&  StatusEffectsController.IsStatusApplied<Stun>()) return;
         if (_retaliateSkill == null) return;
         _retaliateSkill.AggressorUnit = Agressor as LUnit;
         if (!_retaliateSkill.IsInAttackRange()) return;
@@ -382,7 +384,7 @@ public class LUnit : Unit
         float totalFactorDamage = 0;
         int baseDamage = baseVal.Damage;
 
-        if (StatusEffectsController.IsStatusApplied<Weaken>())
+        if (StatusEffectsController != null && StatusEffectsController.IsStatusApplied<Weaken>())
         {
             float weakenedFactor = StatusEffectsController.GetStatus<Weaken>().weakenFactor;
             baseDamage = Mathf.RoundToInt(baseDamage * weakenedFactor);

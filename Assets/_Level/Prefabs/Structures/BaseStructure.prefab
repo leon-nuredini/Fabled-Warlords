@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 495888241895681460}
   - component: {fileID: 9001388902551101497}
   - component: {fileID: 9125644533904592567}
+  - component: {fileID: 5843565565227310802}
   - component: {fileID: 3697218677269460212}
   - component: {fileID: 253095215333597680}
   - component: {fileID: 564707518729564867}
@@ -174,6 +175,20 @@ MonoBehaviour:
   _maskSpriteRenderer: {fileID: 188630197391861407}
   Offset: {x: 0, y: 0, z: -0.01}
   isStructure: 1
+--- !u!114 &5843565565227310802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530339382701001553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823336eb9bed2a74f8c8a7d9a542c04e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _statusEffectList: []
+  _poisonedTintColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &3697218677269460212
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -43,6 +43,8 @@ public class StatusEffectsController : MonoBehaviour
 
     public void ApplyStatusEffect<T>(int turns)
     {
+        if (_lUnit is LStructure) return;
+        
         for (int i = 0; i < _statusEffectList.Count; i++)
         {
             StatusEffect statusEffect = _statusEffectList[i];
@@ -60,6 +62,8 @@ public class StatusEffectsController : MonoBehaviour
 
     private void DecreaseStatusEffectDuration()
     {
+        if (_lUnit is LStructure) return;
+        
         for (int i = 0; i < _statusEffectList.Count; i++)
         {
             StatusEffect statusEffect = _statusEffectList[i];
@@ -80,6 +84,8 @@ public class StatusEffectsController : MonoBehaviour
 
     public void ResetStatusEffects(UnitDirection unitDirection)
     {
+        if (_lUnit is LStructure) return;
+        
         for (int i = 0; i < _statusEffectList.Count; i++)
         {
             StatusEffect statusEffect = _statusEffectList[i];
@@ -95,6 +101,8 @@ public class StatusEffectsController : MonoBehaviour
 
     public bool IsStatusApplied<T>()
     {
+        if (_lUnit is LStructure) return false;
+        
         for (int i = 0; i < _statusEffectList.Count; i++)
         {
             StatusEffect statusEffect = _statusEffectList[i];
@@ -109,6 +117,7 @@ public class StatusEffectsController : MonoBehaviour
 
     private void TryToSpawnStatusEffect(StatusEffectType statusEffectType)
     {
+        if (_lUnit is LStructure) return;
         if (statusEffectType.Effect == null) return;
         if (statusEffectType is Stun stun)
         {
@@ -121,6 +130,7 @@ public class StatusEffectsController : MonoBehaviour
 
     private void TryToDespawnStatusEffect(StatusEffectType statusEffectType)
     {
+        if (_lUnit is LStructure) return;
         if (statusEffectType.Effect == null) return;
         if (statusEffectType is Stun stun)
         {
@@ -136,6 +146,7 @@ public class StatusEffectsController : MonoBehaviour
 
     private void TryToApplyStatusEffectColor(StatusEffect statusEffect)
     {
+        if (_lUnit is LStructure) return;
         if (statusEffect.StatusEffectType is Poison)
             _lUnit.MaskSpriteRenderer.material.color = statusEffect.IsApplied ? _poisonedTintColor : _startingColor;
     }
@@ -144,6 +155,7 @@ public class StatusEffectsController : MonoBehaviour
 
     public T GetStatus<T>() where T : class
     {
+        if (_lUnit is LStructure) return null;
         for (int i = 0; i < _statusEffectList.Count; i++)
         {
             StatusEffect statusEffect = _statusEffectList[i];
