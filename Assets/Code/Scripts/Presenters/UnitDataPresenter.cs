@@ -11,8 +11,8 @@ public class UnitDataPresenter : BaseUnitDataPresenter
     [BoxGroup("Image Size")] [SerializeField]
     private Vector2 _unitImageSize = new Vector2(225f, 225f);
 
-    [BoxGroup("Unit Type Image")] [SerializeField]
-    private Image _unitTypeImage;
+    /*[BoxGroup("Unit Type Image")] [SerializeField]
+    private Image _unitTypeImage;*/
 
     [BoxGroup("Image Size")] [SerializeField]
     private Vector2 _structureImageSize = new Vector2(125f, 125f);
@@ -72,9 +72,9 @@ public class UnitDataPresenter : BaseUnitDataPresenter
 
         Sprite unitTypeSprite = lUnit.UnitClassCounter.UnitTypeSprite;
         if (unitTypeSprite != null) 
-            _unitTypeImage.sprite = lUnit.UnitClassCounter.UnitTypeSprite;
+            UnitTypeImage.sprite = lUnit.UnitClassCounter.UnitTypeSprite;
         else
-            _unitTypeImage.enabled = false;
+            UnitTypeImage.enabled = false;
         
         base.UpdateUnitData(lUnit);
     }
