@@ -17,10 +17,10 @@ public class UnitCounterPresenter : MonoBehaviour
     [BoxGroup("Colors")] [SerializeField] private Color _weakColor;
     [BoxGroup("Colors")] [SerializeField] private Color _veryWeakColor;
     
-    private void OnEnable() => LUnit.OnAnyDisplayUnitInformation += UpdateCounterImages;
-    private void OnDisable() => LUnit.OnAnyDisplayUnitInformation -= UpdateCounterImages;
+    protected virtual void OnEnable() => LUnit.OnAnyDisplayUnitInformation += UpdateCounterImages;
+    protected virtual void OnDisable() => LUnit.OnAnyDisplayUnitInformation -= UpdateCounterImages;
 
-    private void UpdateCounterImages(LUnit lUnit)
+    protected void UpdateCounterImages(LUnit lUnit)
     {
         UpdateColor(_spearImage, lUnit.UnitClassCounter.VSSpearInfantryCounter);
         UpdateColor(_swordImage, lUnit.UnitClassCounter.VSSwordInfantryCounter);
@@ -30,7 +30,7 @@ public class UnitCounterPresenter : MonoBehaviour
         UpdateColor(_monsterImage, lUnit.UnitClassCounter.VSMonsterFactor);
     }
 
-    private void UpdateColor(Image image, float counterValue)
+    protected void UpdateColor(Image image, float counterValue)
     {
         if (counterValue >= 1.5f) image.color = _strongEffectiveColor;
         else if (counterValue >= 1.25f) image.color = _mediumEffectiveColor;

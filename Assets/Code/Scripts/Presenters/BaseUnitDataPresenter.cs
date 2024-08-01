@@ -6,6 +6,7 @@ public class BaseUnitDataPresenter : MonoBehaviour, IUnitPresenter
 {
     [SerializeField] private GameObject _unitInformationPanel;
     [SerializeField] private Image _unitImage;
+    [SerializeField] private Image _unitTypeImage;
     [SerializeField] private TextMeshProUGUI _unitNameText;
 
     #region Properties
@@ -22,12 +23,19 @@ public class BaseUnitDataPresenter : MonoBehaviour, IUnitPresenter
         set => _unitImage = value;
     }
 
+    protected Image UnitTypeImage
+    {
+        get => _unitTypeImage;
+        set => _unitTypeImage = value;
+    }
+
     #endregion
 
     protected virtual void UpdateUnitData(LUnit lUnit)
     {
         UnitDetails unitDetails = lUnit.UnitDetails;
         UnitImage.sprite = unitDetails.Icon;
+        UnitTypeImage.sprite = lUnit.UnitClassCounter.UnitTypeSprite;
         _unitNameText.text = unitDetails.UnitName;
         UnitInformationPanel.gameObject.SetActive(true);
     }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using System;
+using Lean.Pool;
 using NaughtyAttributes;
 using TbsFramework.Grid;
 using UnityEngine.UI;
@@ -16,7 +17,8 @@ public class UIRecruitment : MonoBehaviour
     [BoxGroup("Buttons")] [SerializeField] private Button _recruitButton;
     [BoxGroup("Buttons")] [SerializeField] private Button _closeButton;
 
-    [SerializeField] private GameObject          _recruitmentPanel;
+    [SerializeField] private GameObject _recruitmentPanel;
+    [SerializeField] private GameObject _recruitButtonsPanel;
     [SerializeField] private UIUnitRecruitButton _selectedUnitRecruitButton;
 
     private List<UIUnitRecruitButton> _unitRecruitButtonArray = new List<UIUnitRecruitButton>();
@@ -24,13 +26,18 @@ public class UIRecruitment : MonoBehaviour
     private bool _allowRecruitment = true;
 
     #region Properties
-    
-    public bool AllowRecruitment { get => _allowRecruitment; set => _allowRecruitment = value; }
-    
+
+    public bool AllowRecruitment
+    {
+        get => _allowRecruitment;
+        set => _allowRecruitment = value;
+    }
+
     #endregion
 
     private void Awake()
     {
+        SpawnUnitButtons();
         _unitRecruitButtonArray = GetComponentsInChildren<UIUnitRecruitButton>().ToList();
         _closeButton.onClick.AddListener(ClosePanel);
         _recruitButton.onClick.AddListener(ClosePanel);
@@ -38,11 +45,32 @@ public class UIRecruitment : MonoBehaviour
         ClosePanel();
     }
 
+    private void SpawnUnitButtons()
+    {
+        if (Factions.Instance == null)
+        {
+            Debug.LogWarning("Factions instance is null. Ensure the Factions gameObject exists in the scene.");
+            return;
+        }
+
+        PlayerFaction playerFaction = Factions.Instance._playerFaction;
+
+        if (playerFaction == null)
+        {
+            Debug.LogWarning("PlayerFaction is null! Assign a PlayerFaction in the Factions gameObject property.");
+            return;
+        }
+
+        GameObject recruitButtons = LeanPool.Spawn(playerFaction.FactionRecruitmentPanel, _recruitButtonsPanel.transform);
+
+        _selectedUnitRecruitButton = recruitButtons.GetComponentInChildren<UIUnitRecruitButton>();
+    }
+
     private void OnEnable()
     {
         RecruitmentController.OnAnyUpdateRecruitableUnits += UpdateButtons;
-        UITop.OnAnyRecruitButtonClicked                   += OpenRecruitmentPanel;
-        UITop.OnAnyMenuButtonClicked                      += ClosePanel;
+        UITop.OnAnyRecruitButtonClicked += OpenRecruitmentPanel;
+        UITop.OnAnyMenuButtonClicked += ClosePanel;
 
         for (int i = 0; i < _unitRecruitButtonArray.Count; i++)
             _unitRecruitButtonArray[i].OnButtonSelected += OnSelectButton;
@@ -53,8 +81,8 @@ public class UIRecruitment : MonoBehaviour
     private void OnDisable()
     {
         RecruitmentController.OnAnyUpdateRecruitableUnits -= UpdateButtons;
-        UITop.OnAnyRecruitButtonClicked                   -= OpenRecruitmentPanel;
-        UITop.OnAnyMenuButtonClicked                      -= ClosePanel;
+        UITop.OnAnyRecruitButtonClicked -= OpenRecruitmentPanel;
+        UITop.OnAnyMenuButtonClicked -= ClosePanel;
 
         for (int i = 0; i < _unitRecruitButtonArray.Count; i++)
             _unitRecruitButtonArray[i].OnButtonSelected -= OnSelectButton;
@@ -67,7 +95,7 @@ public class UIRecruitment : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
             OpenRecruitmentPanel();
     }
-    
+
     private void UpdateButtons(RecruitableUnits recruitableUnits)
     {
         for (int i = 0; i < _unitRecruitButtonArray.Count; i++)
@@ -106,7 +134,7 @@ public class UIRecruitment : MonoBehaviour
         _recruitButton.interactable = selectedButton.CanRecruitUnit();
         if (_recruitButton.TryGetComponent(out CanvasGroup canvasGroup))
             canvasGroup.alpha = _recruitButton.interactable ? 1f : 0.5f;
-        
+
         OnUpdateUnitDetails?.Invoke(selectedButton.LUnit);
     }
 
