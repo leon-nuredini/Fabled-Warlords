@@ -9,10 +9,10 @@ public class SwapColorAbility : Ability
     [BoxGroup("Unit Sprite Renderer")] [SerializeField]
     private SpriteRenderer _spriteRenderer;
 
-    [BoxGroup("Sprites")] [SerializeField] private Sprite _spriteRed;
-    [BoxGroup("Sprites")] [SerializeField] private Sprite _spriteGreen;
-    [BoxGroup("Sprites")] [SerializeField] private Sprite _spriteBlue;
-    [BoxGroup("Sprites")] [SerializeField] private Sprite _spriteNeutral;
+    [BoxGroup("Sprites")] [SerializeField] private Color _colorBlue;
+    [BoxGroup("Sprites")] [SerializeField] private Color _colorRed;
+    [BoxGroup("Sprites")] [SerializeField] private Color _colorGreen;
+    [BoxGroup("Sprites")] [SerializeField] private Color _colorNeutral;
 
     private ICapturable _capturable;
     private LUnit       _capturer;
@@ -40,14 +40,14 @@ public class SwapColorAbility : Ability
         UnitReference.PlayerNumber = _capturer.PlayerNumber;
         switch (_capturer.Faction)
         {
+            case UnitFaction.Blue:
+                _spriteRenderer.color = _colorBlue;
+                break;
             case UnitFaction.Red:
-                _spriteRenderer.sprite = _spriteRed;
+                _spriteRenderer.color = _colorRed;
                 break;
             case UnitFaction.Green:
-                _spriteRenderer.sprite = _spriteGreen;
-                break;
-            case UnitFaction.Blue:
-                _spriteRenderer.sprite = _spriteBlue;
+                _spriteRenderer.color = _colorGreen;
                 break;
         }
     }
@@ -55,6 +55,6 @@ public class SwapColorAbility : Ability
     private void AbandonStructure()
     {
         UnitReference.PlayerNumber = 99;
-        _spriteRenderer.sprite     = _spriteNeutral;
+        _spriteRenderer.color     = _colorNeutral;
     }
 }
