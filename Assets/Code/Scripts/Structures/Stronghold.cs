@@ -3,7 +3,6 @@ using System.Linq;
 using TbsFramework.Grid;
 using TbsFramework.Players;
 using TbsFramework.Units;
-using UnityEngine;
 
 public class Stronghold : LStructure
 {
