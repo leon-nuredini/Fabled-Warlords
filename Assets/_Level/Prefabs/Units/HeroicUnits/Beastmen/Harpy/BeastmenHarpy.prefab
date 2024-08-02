@@ -144,13 +144,14 @@ MonoBehaviour:
   Obstructable: 1
   Priority: 0
   cell: {fileID: 0}
-  AttackRange: 0
-  AttackFactor: 0
-  MovementAnimationSpeed: 0
+  AttackRange: 1
+  AttackFactor: 20
+  MovementAnimationSpeed: 9.5
   PlayerNumber: 0
+  IsEvaluating: 0
   _unitDetails: {fileID: 11400000, guid: 1c4370097f3f2664ebac576b357bce3d, type: 2}
   _unitStats: {fileID: 11400000, guid: 927c49ad6f8d5274bb1b406a473cf0a8, type: 2}
-  _unitFaction: 1
+  _unitFaction: 2
   _unitClassCounter: {fileID: 11400000, guid: c5fb04915eab48e43812601a65a9b172, type: 2}
   _markerSpriteRenderer: {fileID: 6842963054553972584}
   _maskSpriteRenderer: {fileID: 4142218637419872303}

@@ -17,7 +17,7 @@ PrefabInstance:
     - target: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
         type: 3}
       propertyPath: m_Name
-      value: HumanCentaur
+      value: BeastmenCentaur
       objectReference: {fileID: 0}
     - target: {fileID: 4528306360651456248, guid: ccbbcce10b821774dbc1040a93c307ff,
         type: 3}
@@ -144,13 +144,14 @@ MonoBehaviour:
   Obstructable: 1
   Priority: 0
   cell: {fileID: 0}
-  AttackRange: 0
-  AttackFactor: 0
-  MovementAnimationSpeed: 0
+  AttackRange: 3
+  AttackFactor: 20
+  MovementAnimationSpeed: 9.5
   PlayerNumber: 0
+  IsEvaluating: 0
   _unitDetails: {fileID: 11400000, guid: ed5b12e3093982840bc5584d2e6ac28d, type: 2}
   _unitStats: {fileID: 11400000, guid: 7c017fd762a14c5408e90b74819d9c97, type: 2}
-  _unitFaction: 1
+  _unitFaction: 2
   _unitClassCounter: {fileID: 11400000, guid: c5fb04915eab48e43812601a65a9b172, type: 2}
   _markerSpriteRenderer: {fileID: 6842963054553972584}
   _maskSpriteRenderer: {fileID: 4142218637419872303}

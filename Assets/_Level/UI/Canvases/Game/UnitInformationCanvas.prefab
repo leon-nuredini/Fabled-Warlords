@@ -2209,10 +2209,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unitInformationPanel: {fileID: 6905564779517170275}
   _unitImage: {fileID: 3738208750080401283}
+  _unitTypeImage: {fileID: 3322961568463736049}
   _unitNameText: {fileID: 5285666297413648121}
   _unitDescriptionText: {fileID: 3852851515210291015}
   _unitImageSize: {x: 135, y: 135}
-  _unitTypeImage: {fileID: 3322961568463736049}
   _structureImageSize: {x: 125, y: 125}
   _pinButton: {fileID: 5493580811651582918}
 --- !u!114 &987956952890082555
@@ -2284,6 +2284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ca5185e82a59684192d6027903c8e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _effectivePanel: {fileID: 2540177015947699105}
   _spearImage: {fileID: 3463311292639580446}
   _swordImage: {fileID: 2309613572495657944}
   _rangedImage: {fileID: 2343048438238277686}
@@ -2800,6 +2801,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2540177015947699105 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 166243428643362364, guid: b913bcd3dc3f13845a8e11142d383f4a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2381867700808545693}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3463311292639580446 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1233492928845505667, guid: b913bcd3dc3f13845a8e11142d383f4a,

@@ -170,7 +170,7 @@ MonoBehaviour:
   _unitDetails: {fileID: 0}
   _unitStats: {fileID: 0}
   _unitFaction: 0
-  _unitClassCounter: {fileID: 0}
+  _unitClassCounter: {fileID: 11400000, guid: 31aff4a9ad7c8bd488b9a2ac40493ad2, type: 2}
   _markerSpriteRenderer: {fileID: 2598853998256487059}
   _maskSpriteRenderer: {fileID: 188630197391861407}
   Offset: {x: 0, y: 0, z: -0.01}
@@ -272,6 +272,10 @@ MonoBehaviour:
   _colorRed: {r: 0.8784314, g: 0.078431375, b: 0.13333334, a: 1}
   _colorGreen: {r: 0.15294118, g: 0.59607846, b: 0.08235294, a: 1}
   _colorNeutral: {r: 0.77254903, g: 0.77254903, b: 0.77254903, a: 1}
+  _colorList:
+  - {r: 0.078431375, g: 0.3372549, b: 0.8784314, a: 1}
+  - {r: 0.8784314, g: 0.078431375, b: 0.13333334, a: 1}
+  - {r: 0.15294118, g: 0.59607846, b: 0.08235294, a: 1}
 --- !u!1 &1904070886258554941
 GameObject:
   m_ObjectHideFlags: 0

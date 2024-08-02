@@ -12,7 +12,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: d4b44eb3e2149c543b0640f7916ef8b3,
+      objectReference: {fileID: 21300000, guid: f5c540b0c76f6bb429c2a9cbdd4add79,
         type: 3}
     - target: {fileID: 530339382701001553, guid: a4b7d6887fce49e4eba8366d0d551eae,
         type: 3}
@@ -209,7 +209,7 @@ MonoBehaviour:
   _unitDetails: {fileID: 11400000, guid: e9ac2f784d5320a4f962a2d500232957, type: 2}
   _unitStats: {fileID: 11400000, guid: 4604d8ca11ae533449429b263840aed1, type: 2}
   _unitFaction: 1
-  _unitClassCounter: {fileID: 0}
+  _unitClassCounter: {fileID: 11400000, guid: 31aff4a9ad7c8bd488b9a2ac40493ad2, type: 2}
   _markerSpriteRenderer: {fileID: 6051905164392739038}
   _maskSpriteRenderer: {fileID: 8462952499465252050}
   Offset: {x: 0, y: 0, z: -0.01}
@@ -228,33 +228,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _skillName: Training Grounds
   _skillDescription: This structure contains a training ground for training new recruits.
-  _prefabsListRed:
-  - {fileID: 798318646812673420, guid: 47fdbd325d1477e469580acea511e6d7, type: 3}
-  - {fileID: 798318646812673420, guid: 9ef6c5dc86ed7f34099128e444966c85, type: 3}
-  - {fileID: 798318646812673420, guid: f122e53f922d03346a2d36287b01c438, type: 3}
-  - {fileID: 798318646812673420, guid: 2ea45b713f8fbe245b61d2e490177e5f, type: 3}
-  - {fileID: 798318646812673420, guid: df08ccc9ba87edb43a08eef3ce4fb4c7, type: 3}
-  - {fileID: 798318646812673420, guid: ff8adc953d3d41949a0998990c50ba57, type: 3}
-  - {fileID: 798318646812673420, guid: deaace21ed494e346b8acb04d5917b91, type: 3}
-  - {fileID: 798318646812673420, guid: cc2f13fb33250a540bd2b325098c3272, type: 3}
-  _prefabsListBlue:
-  - {fileID: 38949284265086835, guid: adecad0fe16f1df46a901783b7504399, type: 3}
-  - {fileID: 1707392440632061250, guid: 6fe27ba393f19ac48aa5e087ec09c1a7, type: 3}
-  - {fileID: 3016468892757153434, guid: cf112b650f5de8144ba7e3be43f95082, type: 3}
-  - {fileID: 5589417727694713071, guid: c9fcb851ca0a56b418586416da02a34c, type: 3}
-  - {fileID: 343605206614413951, guid: b1003c53fe62e404d87c6e267f4cc7a0, type: 3}
-  - {fileID: 589982037094417172, guid: ac714c71fdfe25b48a16a8be1f4d9028, type: 3}
-  - {fileID: 7608708966966462745, guid: e5811cb995fe1ce47baff0b3d45a4ff8, type: 3}
-  - {fileID: 7848292556443653485, guid: 9e9188eebfc34274cb95b87bcd0b1637, type: 3}
-  _prefabsListGreen:
-  - {fileID: 38949284265086835, guid: 546a9ee3a676c964293badeb9e01afef, type: 3}
-  - {fileID: 1707392440632061250, guid: f5dd4ce37efef304ba1b6d59616760f3, type: 3}
-  - {fileID: 3016468892757153434, guid: a4bc0905a7df5204a8b205623e2a34dc, type: 3}
-  - {fileID: 5589417727694713071, guid: bb7ce3111bf29934bac6113bb1ae150e, type: 3}
-  - {fileID: 343605206614413951, guid: a5d88e852ca65ca4eb7a45de541dc976, type: 3}
-  - {fileID: 589982037094417172, guid: e04266a0ebeb6804db8328eac9f500dc, type: 3}
-  - {fileID: 7608708966966462745, guid: 078a9265bf713544486fabaf70680a22, type: 3}
-  - {fileID: 7848292556443653485, guid: d95e172bf80a6e643b67863955bd0c3f, type: 3}
   _selectedPrefab: {fileID: 0}
   _recruitRange: 1
   _isDoneSelectingUnitsToRecruit: 0

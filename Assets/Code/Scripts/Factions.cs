@@ -1,10 +1,9 @@
 using Singleton;
-using UnityEngine;
 
 public class Factions : SceneSingleton<Factions>
 {
     public PlayerFaction _playerFaction;
-
+    
     public PlayerFaction PlayerFaction => _playerFaction;
 
     private void Awake()
