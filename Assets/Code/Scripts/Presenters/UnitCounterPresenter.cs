@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class UnitCounterPresenter : MonoBehaviour
 {
+    [BoxGroup("Section")] [SerializeField] private GameObject _effectivePanel;
+
     [BoxGroup("Images")] [SerializeField] private Image _spearImage;
     [BoxGroup("Images")] [SerializeField] private Image _swordImage;
     [BoxGroup("Images")] [SerializeField] private Image _rangedImage;
@@ -16,12 +18,23 @@ public class UnitCounterPresenter : MonoBehaviour
     [BoxGroup("Colors")] [SerializeField] private Color _neutralColor;
     [BoxGroup("Colors")] [SerializeField] private Color _weakColor;
     [BoxGroup("Colors")] [SerializeField] private Color _veryWeakColor;
-    
+
     protected virtual void OnEnable() => LUnit.OnAnyDisplayUnitInformation += UpdateCounterImages;
     protected virtual void OnDisable() => LUnit.OnAnyDisplayUnitInformation -= UpdateCounterImages;
 
     protected void UpdateCounterImages(LUnit lUnit)
     {
+        if (_effectivePanel != null)
+        {
+            _effectivePanel.SetActive(true);
+
+            if (lUnit is LStructure)
+            {
+                _effectivePanel.SetActive(false);
+                return;
+            }
+        }
+
         UpdateColor(_spearImage, lUnit.UnitClassCounter.VSSpearInfantryCounter);
         UpdateColor(_swordImage, lUnit.UnitClassCounter.VSSwordInfantryCounter);
         UpdateColor(_rangedImage, lUnit.UnitClassCounter.VSRangedFactor);

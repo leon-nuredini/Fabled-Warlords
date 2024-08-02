@@ -1,7 +1,7 @@
 public enum UnitFaction
 {
     None,
-    Red,
-    Green,
-    Blue
+    Human,
+    Beastmen,
+    Primordial
 }
