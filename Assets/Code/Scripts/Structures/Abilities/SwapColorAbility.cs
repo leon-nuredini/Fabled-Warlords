@@ -38,13 +38,13 @@ public class SwapColorAbility : Ability
         UnitReference.PlayerNumber = _capturer.PlayerNumber;
         switch (_capturer.Faction)
         {
-            case UnitFaction.Blue:
+            case UnitFaction.Human:
                 _spriteRenderer.color = _colorBlue;
                 break;
-            case UnitFaction.Red:
+            case UnitFaction.Beastmen:
                 _spriteRenderer.color = _colorRed;
                 break;
-            case UnitFaction.Green:
+            case UnitFaction.Primordial:
                 _spriteRenderer.color = _colorGreen;
                 break;
         }

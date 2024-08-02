@@ -17,13 +17,9 @@ public class RecruitUnitAbility : Ability, ISkill
     [BoxGroup] [SerializeField] private string _skillName;
     [BoxGroup] [SerializeField] private string _skillDescription;
 
-    [SerializeField] private List<GameObject> _prefabsListRed;
-    [SerializeField] private List<GameObject> _prefabsListBlue;
-    [SerializeField] private List<GameObject> _prefabsListGreen;
-
-    private List<LUnit> _redUnitList = new List<LUnit>();
-    private List<LUnit> _blueUnitList = new List<LUnit>();
-    private List<LUnit> _greenUnitList = new List<LUnit>();
+    private List<LUnit> _humanUnitList = new List<LUnit>();
+    private List<LUnit> _beastmenUnitList = new List<LUnit>();
+    private List<LUnit> _primordialUnitList = new List<LUnit>();
 
     [SerializeField] private GameObject _selectedPrefab;
 
@@ -44,14 +40,14 @@ public class RecruitUnitAbility : Ability, ISkill
             if (barrack != null)
                 switch (barrack.Faction)
                 {
-                    case UnitFaction.Red:
-                        unitsList = _prefabsListRed;
+                    case UnitFaction.Human:
+                        unitsList = RecruitmentController.Instance.HumanUnitList;
                         break;
-                    case UnitFaction.Green:
-                        unitsList = _prefabsListGreen;
+                    case UnitFaction.Beastmen:
+                        unitsList = RecruitmentController.Instance.BeastMenUnitList;
                         break;
-                    case UnitFaction.Blue:
-                        unitsList = _prefabsListBlue;
+                    case UnitFaction.Primordial:
+                        unitsList = RecruitmentController.Instance.PrimordialUnitList;
                         break;
                 }
 
@@ -78,9 +74,9 @@ public class RecruitUnitAbility : Ability, ISkill
 
     private void Awake()
     {
-        UpdateUnitList(_prefabsListRed, ref _redUnitList);
-        UpdateUnitList(_prefabsListBlue, ref _blueUnitList);
-        UpdateUnitList(_prefabsListGreen, ref _greenUnitList);
+        UpdateUnitList(RecruitmentController.Instance.HumanUnitList, ref _humanUnitList);
+        UpdateUnitList(RecruitmentController.Instance.BeastMenUnitList, ref _beastmenUnitList);
+        UpdateUnitList(RecruitmentController.Instance.PrimordialUnitList, ref _primordialUnitList);
     }
 
     private void Start() => OnAnyRegisterUnitRecruitAbility?.Invoke(this);
@@ -116,9 +112,9 @@ public class RecruitUnitAbility : Ability, ISkill
 
     private void UpdateRecruitableUnits(RecruitableUnits recruitableUnits)
     {
-        FilterUnitList(ref _redUnitList, recruitableUnits);
-        FilterUnitList(ref _blueUnitList, recruitableUnits);
-        FilterUnitList(ref _greenUnitList, recruitableUnits);
+        FilterUnitList(ref _humanUnitList, recruitableUnits);
+        FilterUnitList(ref _beastmenUnitList, recruitableUnits);
+        FilterUnitList(ref _primordialUnitList, recruitableUnits);
     }
 
     private void FilterUnitList(ref List<LUnit> unitList, RecruitableUnits recruitableUnits)
@@ -190,16 +186,16 @@ public class RecruitUnitAbility : Ability, ISkill
                 int wealth = EconomyController.Instance.GetCurrentWealth(cellGrid.CurrentPlayerNumber);
                 switch (unitFaction)
                 {
-                    case UnitFaction.Red:
-                        recruitableUnits = _redUnitList
+                    case UnitFaction.Human:
+                        recruitableUnits = _humanUnitList
                             .Where(unit => unit.Faction == unitFaction && wealth >= unit.UnitStats.Cost).ToList();
                         break;
-                    case UnitFaction.Green:
-                        recruitableUnits = _greenUnitList
+                    case UnitFaction.Beastmen:
+                        recruitableUnits = _beastmenUnitList
                             .Where(unit => unit.Faction == unitFaction && wealth >= unit.UnitStats.Cost).ToList();
                         break;
-                    case UnitFaction.Blue:
-                        recruitableUnits = _blueUnitList
+                    case UnitFaction.Primordial:
+                        recruitableUnits = _primordialUnitList
                             .Where(unit => unit.Faction == unitFaction && wealth >= unit.UnitStats.Cost).ToList();
                         break;
                 }

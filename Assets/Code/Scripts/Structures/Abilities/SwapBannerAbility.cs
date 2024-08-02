@@ -23,9 +23,9 @@ public class SwapBannerAbility : Ability
         if (_lStructure == null) return;
         
         UnitReference.PlayerNumber = _capturer.PlayerNumber;
-        _redBanner.SetActive(_capturer.Faction == UnitFaction.Red);
-        _greenBanner.SetActive(_capturer.Faction == UnitFaction.Green);
-        _blueBanner.SetActive(_capturer.Faction == UnitFaction.Blue);
+        _redBanner.SetActive(_capturer.Faction == UnitFaction.Human);
+        _greenBanner.SetActive(_capturer.Faction == UnitFaction.Beastmen);
+        _blueBanner.SetActive(_capturer.Faction == UnitFaction.Primordial);
 
         CellGrid.Instance.CheckGameFinished();
     }

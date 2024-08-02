@@ -6,12 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
+using Singleton;
 using TbsFramework.Example4;
 using TbsFramework.Players;
 using TbsFramework.Units.UnitStates;
 using Random = System.Random;
 
-public class RecruitmentController : MonoBehaviour
+public class RecruitmentController : SceneSingleton<RecruitmentController>
 {
     public static event Action                  OnAnyNewUnitRecruited;
     public static event Action<LUnit, int, int> OnAnyPurchaseUnit;
@@ -24,13 +25,25 @@ public class RecruitmentController : MonoBehaviour
     [BoxGroup("Allow Recruiting")] [SerializeField]
     private bool _allowAIRecruiting = true;
 
+    [BoxGroup("Faction Units")] [SerializeField] private FactionUnits _humanUnits;
+    [BoxGroup("Faction Units")] [SerializeField] private FactionUnits _beastmenUnits;
+    [BoxGroup("Faction Units")] [SerializeField] private FactionUnits _primordialUnits;
+
     private LUnit _selectedUnit;
 
     private List<RecruitUnitAbility> _recruitUnitAbilityList = new List<RecruitUnitAbility>();
     private List<LUnit>              _aiUnitsList            = new List<LUnit>();
     private List<Cell>               _aiCellsList            = new List<Cell>();
+    
+    #region Properties
 
-    private void Awake() => OnAnyUpdateRecruitableUnits?.Invoke(_recruitableUnits);
+    public List<GameObject> HumanUnitList => _humanUnits.UnitList;
+    public List<GameObject> BeastMenUnitList => _beastmenUnits.UnitList;
+    public List<GameObject> PrimordialUnitList => _primordialUnits.UnitList;
+    
+    #endregion
+
+    private void Start() => OnAnyUpdateRecruitableUnits?.Invoke(_recruitableUnits);
 
     private void OnEnable()
     {
