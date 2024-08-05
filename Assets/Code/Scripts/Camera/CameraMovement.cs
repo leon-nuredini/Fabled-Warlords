@@ -1,7 +1,9 @@
+using NaughtyAttributes;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
+    [Expandable]
     [SerializeField] private CameraSettings cameraSettings;
     private Camera _camera;
     private Vector3 _mouseScrollStartPos;
@@ -24,14 +26,11 @@ public class CameraMovement : MonoBehaviour
             _mouseScrollStartPos = _camera.ScreenToWorldPoint(Input.mousePosition);
         }
 
-        if (Input.GetMouseButton(2))
-        {
-            var movement = Vector3.zero;
-            movement = _camera.ScreenToWorldPoint(Input.mousePosition) - _mouseScrollStartPos;
-            _camera.transform.position -= movement;
+        if (!Input.GetMouseButton(2)) return;
+        var movement = _camera.ScreenToWorldPoint(Input.mousePosition) - _mouseScrollStartPos;
+        _camera.transform.position -= movement;
             
-            ClampCameraPosition();
-        }
+        ClampCameraPosition();
     }
 
     private void ZoomCamera()
@@ -47,13 +46,13 @@ public class CameraMovement : MonoBehaviour
 
     private void ClampCameraPosition()
     {
-        float camHeight = _camera.orthographicSize;
-        float camWidth = _camera.aspect * camHeight;
+        var camHeight = _camera.orthographicSize;
+        var camWidth = _camera.aspect * camHeight;
 
-        float minX = cameraSettings.minBounds.x + camWidth;
-        float maxX = cameraSettings.maxBounds.x - camWidth;
-        float minY = cameraSettings.minBounds.y + camHeight;
-        float maxY = cameraSettings.maxBounds.y - camHeight;
+        var minX = cameraSettings.minBounds.x + camWidth;
+        var maxX = cameraSettings.maxBounds.x - camWidth;
+        var minY = cameraSettings.minBounds.y + camHeight;
+        var maxY = cameraSettings.maxBounds.y - camHeight;
 
         var clampedPosition = _camera.transform.position;
         clampedPosition.x = Mathf.Clamp(clampedPosition.x, minX, maxX);
