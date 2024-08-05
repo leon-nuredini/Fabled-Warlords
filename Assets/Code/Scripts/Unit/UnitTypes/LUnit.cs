@@ -127,7 +127,14 @@ public class LUnit : Unit
         set => _isMoving = value;
     }
 
-    public UnitStats UnitStats => _unitStats;
+    public UnitStats UnitStats
+    {
+        get => _unitStats;
+        set
+        {
+            _unitStats = value;
+        }
+    }
 
     protected int TempDamageReceived
     {
@@ -200,7 +207,7 @@ public class LUnit : Unit
         base.OnTurnStart();
 
         if (StatusEffectsController == null) return;
-        
+
         if (StatusEffectsController.IsStatusApplied<Stun>())
         {
             ActionPoints = 0;
@@ -292,7 +299,7 @@ public class LUnit : Unit
         }
 
         if (CellGrid.Instance.CurrentPlayer.PlayerNumber == PlayerNumber) return;
-        if (StatusEffectsController != null &&  StatusEffectsController.IsStatusApplied<Stun>()) return;
+        if (StatusEffectsController != null && StatusEffectsController.IsStatusApplied<Stun>()) return;
         if (_retaliateSkill == null) return;
         _retaliateSkill.AggressorUnit = Agressor as LUnit;
         if (!_retaliateSkill.IsInAttackRange()) return;

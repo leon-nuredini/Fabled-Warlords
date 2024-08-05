@@ -4,6 +4,7 @@ using UnityEngine;
 public class SwapBuildingTypeAbility : Ability
 {
     [SerializeField] private Sprite _ruinsSprite;
+    [SerializeField] private StructureStats _newStructureStats;
 
     private bool _isBuildingTypeSwapped;
 
@@ -36,6 +37,7 @@ public class SwapBuildingTypeAbility : Ability
             stronghold.IsRuined = true;
             stronghold.MaskSpriteRenderer.sprite = _ruinsSprite;
             stronghold.IncomeGenerationAbility.IncomeAmount = 1;
+            stronghold.UnitStats = _newStructureStats;
         }
 
         UnitReference.PlayerNumber = capturer.PlayerNumber;

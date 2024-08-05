@@ -132,6 +132,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 65431307396649341}
+    - targetCorrespondingSourceObject: {fileID: 530339382701001553, guid: a4b7d6887fce49e4eba8366d0d551eae,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3583824959273505440}
     - targetCorrespondingSourceObject: {fileID: 7072729249540996489, guid: a4b7d6887fce49e4eba8366d0d551eae,
         type: 3}
       insertIndex: -1
@@ -231,6 +235,20 @@ MonoBehaviour:
   _selectedPrefab: {fileID: 0}
   _recruitRange: 1
   _isDoneSelectingUnitsToRecruit: 0
+--- !u!114 &3583824959273505440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8120113841336893724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d315ac6920f71749b83214fa5dca9d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ruinsSprite: {fileID: 21300000, guid: fc51e13447d6b584ca1394e19cf60b81, type: 3}
+  _newStructureStats: {fileID: 11400000, guid: e21e1e57c7ad2e24ca299bee69d59238, type: 2}
 --- !u!212 &8462952499465252050 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 188630197391861407, guid: a4b7d6887fce49e4eba8366d0d551eae,
