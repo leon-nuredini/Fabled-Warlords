@@ -69,7 +69,7 @@ public class LUnit : Unit
     public UnitDetails UnitDetails
     {
         get => _unitDetails;
-        protected set => _unitDetails = value;
+        set => _unitDetails = value;
     }
 
     private UnitDirection _currentUnitDirection = UnitDirection.Right;
