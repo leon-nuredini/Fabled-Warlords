@@ -38,8 +38,8 @@ public class SwapColorAbility : Ability
     private void CaptureStructure(LUnit capturer)
     {
         _capturer = capturer;
-        LStructure _lStructure = _capturable as LStructure;
-        if (_lStructure == null) return;
+        LStructure lStructure = _capturable as LStructure;
+        if (lStructure == null) return;
 
         UnitReference.PlayerNumber = _capturer.PlayerNumber;
         UpdateFlagColor(_capturer.PlayerNumber);

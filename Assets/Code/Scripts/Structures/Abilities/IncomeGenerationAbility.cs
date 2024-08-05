@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class IncomeGenerationAbility : Ability, ISkill
 {
-    [SerializeField] private int    _incomeAmount;
+    [SerializeField] private int _incomeAmount;
     [SerializeField] private string _skillName;
     [SerializeField] private string _skillDescription;
 
     private LUnit _lUnit;
     private EconomyController _economyController;
 
-    public string SkillName        => _skillName;
+    public string SkillName => _skillName;
     public string SkillDescription => _skillDescription;
+
+    #region Properties
+
+    public int IncomeAmount
+    {
+        get => _incomeAmount;
+        set => _incomeAmount = value;
+    }
+
+    #endregion
 
     private void Awake()
     {

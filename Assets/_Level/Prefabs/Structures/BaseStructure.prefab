@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 3318094084312813468}
   - component: {fileID: 1174886326406743001}
   - component: {fileID: 8358691229114144961}
+  - component: {fileID: 7028555684041792110}
   m_Layer: 9
   m_Name: BaseStructure
   m_TagString: Untagged
@@ -273,6 +274,19 @@ MonoBehaviour:
   - {r: 0.078431375, g: 0.3372549, b: 0.8784314, a: 1}
   - {r: 0.8784314, g: 0.078431375, b: 0.13333334, a: 1}
   - {r: 0.15294118, g: 0.59607846, b: 0.08235294, a: 1}
+--- !u!114 &7028555684041792110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530339382701001553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d315ac6920f71749b83214fa5dca9d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ruinsSprite: {fileID: 21300000, guid: fc51e13447d6b584ca1394e19cf60b81, type: 3}
 --- !u!1 &1763560490988203178
 GameObject:
   m_ObjectHideFlags: 0

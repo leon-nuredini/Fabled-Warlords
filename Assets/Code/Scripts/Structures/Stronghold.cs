@@ -6,38 +6,46 @@ using TbsFramework.Units;
 
 public class Stronghold : LStructure
 {
-    private RecruitUnitAbility      _recruitUnitAbility;
+    private RecruitUnitAbility _recruitUnitAbility;
     private IncomeGenerationAbility _incomeGenerationAbility;
+    private bool _isRuined;
 
     #region Properties
+
     public RecruitUnitAbility RecruitUnitAbility => _recruitUnitAbility;
 
     public IncomeGenerationAbility IncomeGenerationAbility => _incomeGenerationAbility;
+
+    public bool IsRuined
+    {
+        get => _isRuined;
+        set => _isRuined = value;
+    }
 
     #endregion
 
     public override void Initialize()
     {
         base.Initialize();
-        _recruitUnitAbility      = GetComponent<RecruitUnitAbility>();
+        _recruitUnitAbility = GetComponent<RecruitUnitAbility>();
         _incomeGenerationAbility = GetComponent<IncomeGenerationAbility>();
     }
 
     protected override void OnCapturedActionPerformed(LUnit aggressor)
     {
-        KillAllFriendlyUnits();
+        if (!IsRuined) KillAllFriendlyUnits();
         base.OnCapturedActionPerformed(aggressor);
     }
 
     private void KillAllFriendlyUnits()
     {
-        Player     player   = CellGrid.Instance.Players.First(player => player.PlayerNumber == PlayerNumber);
+        Player player = CellGrid.Instance.Players.First(player => player.PlayerNumber == PlayerNumber);
         List<Unit> unitList = CellGrid.Instance.GetPlayerUnits(player);
         for (int i = 0; i < unitList.Count; i++)
         {
             if (unitList[i] is Stronghold)
                 continue;
-            
+
             if (unitList[i] is LStructure lStructure)
             {
                 lStructure.AbandonStructure();

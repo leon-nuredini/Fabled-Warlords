@@ -5,6 +5,13 @@ using UnityEngine.UI;
 
 public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
 {
+    [BoxGroup("Position")] [SerializeField] private RectTransform _abilityPosition;
+    [BoxGroup("Position")] [SerializeField] private Vector2 _unitAbilityPosition;
+    [BoxGroup("Position")] [SerializeField] private Vector2 _structureAbilityPosition;
+    
+    [BoxGroup("Delta Size")] [SerializeField] private float _yUnitDeltaSize;
+    [BoxGroup("Delta Size")] [SerializeField] private float _yStructureDeltaSize;
+    
     [BoxGroup] [SerializeField] private ScrollRect _scrollRect;
 
     [BoxGroup("Skill UI")] [SerializeField]
@@ -78,12 +85,20 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
 
     [BoxGroup("Skill UI")] [SerializeField]
     private UIAbility _poistonHex;
-    
+
     [BoxGroup("Skill UI")] [SerializeField]
     private UIAbility _regenerate;
     
+    private void Awake()
+    {
+        _unitAbilityPosition.x = _abilityPosition.localPosition.x;
+        _structureAbilityPosition.x = _abilityPosition.localPosition.x;
+    }
+
     protected void UpdateUnitAbilities(LUnit lUnit)
     {
+        UpdatePositionAndSize(lUnit);
+
         _stillStrike.gameObject.SetActive(false);
         _backstab.gameObject.SetActive(false);
         _unRetaliatable.gameObject.SetActive(false);
@@ -190,7 +205,9 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         if (lUnit is Stronghold stronghold)
         {
             UpdateAbilityText(stronghold.IncomeGenerationAbility, _taxIncome);
-            UpdateAbilityText(stronghold.RecruitUnitAbility, _recruitUnit);
+
+            if (!stronghold.IsRuined)
+                UpdateAbilityText(stronghold.RecruitUnitAbility, _recruitUnit);
         }
         else if (lUnit is Barrack barrack)
         {
@@ -204,6 +221,20 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         }
 
         FocusScrollRect();
+    }
+    
+    private void UpdatePositionAndSize(LUnit lUnit)
+    {
+        Vector2 size = _abilityPosition.sizeDelta;
+        _abilityPosition.localPosition = _unitAbilityPosition;
+        size.y = _yUnitDeltaSize;
+        if (lUnit is LStructure)
+        {
+            _abilityPosition.localPosition = _structureAbilityPosition;
+            size.y = _yStructureDeltaSize;
+        }
+
+        _abilityPosition.sizeDelta = size;
     }
 
     private void UpdateAbilityText(ISkill skill, UIAbility uiAbility)
