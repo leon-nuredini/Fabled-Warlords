@@ -16,10 +16,23 @@ public class Stronghold : LStructure
 
     public IncomeGenerationAbility IncomeGenerationAbility => _incomeGenerationAbility;
 
+    private RecruitAIAction _recruitAIAction;
+
     public bool IsRuined
     {
         get => _isRuined;
-        set => _isRuined = value;
+        set
+        {
+            _isRuined = value;
+            if (_isRuined)
+            {
+                IncomeGenerationAbility.IncomeAmount = 1;
+                Destroy(RecruitUnitAbility);
+                _recruitUnitAbility = null;
+                Destroy(_recruitAIAction);
+                _recruitAIAction = null;
+            }
+        }
     }
 
     #endregion
@@ -29,6 +42,7 @@ public class Stronghold : LStructure
         base.Initialize();
         _recruitUnitAbility = GetComponent<RecruitUnitAbility>();
         _incomeGenerationAbility = GetComponent<IncomeGenerationAbility>();
+        _recruitAIAction = GetComponentInChildren<RecruitAIAction>();
     }
 
     protected override void OnCapturedActionPerformed(LUnit aggressor)
@@ -43,7 +57,7 @@ public class Stronghold : LStructure
         List<Unit> unitList = CellGrid.Instance.GetPlayerUnits(player);
         for (int i = 0; i < unitList.Count; i++)
         {
-            if (unitList[i] is Stronghold)
+            if (unitList[i] is Stronghold stronghold && !stronghold.IsRuined)
                 continue;
 
             if (unitList[i] is LStructure lStructure)

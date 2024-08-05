@@ -41,13 +41,13 @@ public class RecruitUnitAbility : Ability, ISkill
                 switch (barrack.Faction)
                 {
                     case UnitFaction.Human:
-                        unitsList = RecruitmentController.Instance.HumanUnitList;
+                        unitsList = _recruitmentController.HumanUnitList;
                         break;
                     case UnitFaction.Beastmen:
-                        unitsList = RecruitmentController.Instance.BeastMenUnitList;
+                        unitsList = _recruitmentController.BeastMenUnitList;
                         break;
                     case UnitFaction.Primordial:
-                        unitsList = RecruitmentController.Instance.PrimordialUnitList;
+                        unitsList = _recruitmentController.PrimordialUnitList;
                         break;
                 }
 
@@ -72,14 +72,18 @@ public class RecruitUnitAbility : Ability, ISkill
 
     #endregion
 
-    private void Awake()
-    {
-        UpdateUnitList(RecruitmentController.Instance.HumanUnitList, ref _humanUnitList);
-        UpdateUnitList(RecruitmentController.Instance.BeastMenUnitList, ref _beastmenUnitList);
-        UpdateUnitList(RecruitmentController.Instance.PrimordialUnitList, ref _primordialUnitList);
-    }
+    private RecruitmentController _recruitmentController;
 
-    private void Start() => OnAnyRegisterUnitRecruitAbility?.Invoke(this);
+    private void Awake() => _recruitmentController = FindObjectOfType<RecruitmentController>();
+
+    private void Start()
+    {
+        UpdateUnitList(_recruitmentController.HumanUnitList, ref _humanUnitList);
+        UpdateUnitList(_recruitmentController.BeastMenUnitList, ref _beastmenUnitList);
+        UpdateUnitList(_recruitmentController.PrimordialUnitList, ref _primordialUnitList);
+
+        OnAnyRegisterUnitRecruitAbility?.Invoke(this);
+    }
 
     private void UpdateUnitList(List<GameObject> gameObjects, ref List<LUnit> unitList)
     {
