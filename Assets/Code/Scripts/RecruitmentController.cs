@@ -12,9 +12,9 @@ using TbsFramework.Players;
 using TbsFramework.Units.UnitStates;
 using Random = System.Random;
 
-public class RecruitmentController : SceneSingleton<RecruitmentController>
+public class RecruitmentController : MonoBehaviour
 {
-    public static event Action                  OnAnyNewUnitRecruited;
+    public static event Action OnAnyNewUnitRecruited;
     public static event Action<LUnit, int, int> OnAnyPurchaseUnit;
 
     public static event Action<RecruitableUnits> OnAnyUpdateRecruitableUnits;
@@ -25,22 +25,27 @@ public class RecruitmentController : SceneSingleton<RecruitmentController>
     [BoxGroup("Allow Recruiting")] [SerializeField]
     private bool _allowAIRecruiting = true;
 
-    [BoxGroup("Faction Units")] [SerializeField] private FactionUnits _humanUnits;
-    [BoxGroup("Faction Units")] [SerializeField] private FactionUnits _beastmenUnits;
-    [BoxGroup("Faction Units")] [SerializeField] private FactionUnits _primordialUnits;
+    [BoxGroup("Faction Units")] [SerializeField]
+    private FactionUnits _humanUnits;
+
+    [BoxGroup("Faction Units")] [SerializeField]
+    private FactionUnits _beastmenUnits;
+
+    [BoxGroup("Faction Units")] [SerializeField]
+    private FactionUnits _primordialUnits;
 
     private LUnit _selectedUnit;
 
     private List<RecruitUnitAbility> _recruitUnitAbilityList = new List<RecruitUnitAbility>();
-    private List<LUnit>              _aiUnitsList            = new List<LUnit>();
-    private List<Cell>               _aiCellsList            = new List<Cell>();
-    
+    private List<LUnit> _aiUnitsList = new List<LUnit>();
+    private List<Cell> _aiCellsList = new List<Cell>();
+
     #region Properties
 
     public List<GameObject> HumanUnitList => _humanUnits.UnitList;
     public List<GameObject> BeastMenUnitList => _beastmenUnits.UnitList;
     public List<GameObject> PrimordialUnitList => _primordialUnits.UnitList;
-    
+
     #endregion
 
     private void Start() => OnAnyUpdateRecruitableUnits?.Invoke(_recruitableUnits);
@@ -48,21 +53,21 @@ public class RecruitmentController : SceneSingleton<RecruitmentController>
     private void OnEnable()
     {
         RecruitUnitAbility.OnAnyRegisterUnitRecruitAbility += OnRegisterAIRecruitAbility;
-        RecruitUnitAbility.OnAnyAIRecruitUnit              += OnAIRecruitUnits;
-        UIUnitRecruitButton.OnAnySelectUnit                += OnSelectUnit;
-        UITutorial.OnAnyAllowRecruitment                   += EnableAIRecruitment;
-        LSquare.OnAnyRecruitUnit                           += OnRecruitUnitAtCell;
-        CellGrid.Instance.TurnEnded                        += OnTurnEnd;
+        RecruitUnitAbility.OnAnyAIRecruitUnit += OnAIRecruitUnits;
+        UIUnitRecruitButton.OnAnySelectUnit += OnSelectUnit;
+        UITutorial.OnAnyAllowRecruitment += EnableAIRecruitment;
+        LSquare.OnAnyRecruitUnit += OnRecruitUnitAtCell;
+        CellGrid.Instance.TurnEnded += OnTurnEnd;
     }
 
     private void OnDisable()
     {
         RecruitUnitAbility.OnAnyRegisterUnitRecruitAbility -= OnRegisterAIRecruitAbility;
-        RecruitUnitAbility.OnAnyAIRecruitUnit              -= OnAIRecruitUnits;
-        UIUnitRecruitButton.OnAnySelectUnit                -= OnSelectUnit;
-        UITutorial.OnAnyAllowRecruitment                   -= EnableAIRecruitment;
-        LSquare.OnAnyRecruitUnit                           -= OnRecruitUnitAtCell;
-        CellGrid.Instance.TurnEnded                        -= OnTurnEnd;
+        RecruitUnitAbility.OnAnyAIRecruitUnit -= OnAIRecruitUnits;
+        UIUnitRecruitButton.OnAnySelectUnit -= OnSelectUnit;
+        UITutorial.OnAnyAllowRecruitment -= EnableAIRecruitment;
+        LSquare.OnAnyRecruitUnit -= OnRecruitUnitAtCell;
+        CellGrid.Instance.TurnEnded -= OnTurnEnd;
     }
 
     private void EnableAIRecruitment() => _allowAIRecruiting = true;
@@ -98,7 +103,7 @@ public class RecruitmentController : SceneSingleton<RecruitmentController>
                 if (_aiCellsList.Count == 0) break;
                 LUnit lUnit = aiRecruitUnitList[i];
                 OnSelectUnit(lUnit);
-                int  cellIndex    = UnityEngine.Random.Range(0, _aiCellsList.Count);
+                int cellIndex = UnityEngine.Random.Range(0, _aiCellsList.Count);
                 Cell selectedCell = _aiCellsList[cellIndex];
                 OnRecruitUnitAtCell(selectedCell);
                 _aiCellsList.Remove(selectedCell);
@@ -126,8 +131,8 @@ public class RecruitmentController : SceneSingleton<RecruitmentController>
         //todo: Refactor this spaghetti code
         for (int i = 0; i < lUnitList.Count; i++)
         {
-            SpawnCondition[] _spawnConditionArray  = lUnitList[i].GetComponentsInChildren<SpawnCondition>();
-            bool[]           areConditionsMetArray = new bool[_spawnConditionArray.Length];
+            SpawnCondition[] _spawnConditionArray = lUnitList[i].GetComponentsInChildren<SpawnCondition>();
+            bool[] areConditionsMetArray = new bool[_spawnConditionArray.Length];
 
             for (int j = 0; j < _spawnConditionArray.Length; j++)
             {
@@ -147,7 +152,7 @@ public class RecruitmentController : SceneSingleton<RecruitmentController>
 
         lUnitList = tempUnitList;
         //todo: Refactor this spaghetti code
-        
+
         List<LUnit> selectedUnitsList = new List<LUnit>();
         while (lUnitList.Count > 0)
         {
@@ -183,7 +188,7 @@ public class RecruitmentController : SceneSingleton<RecruitmentController>
 
     private void OnRecruitUnitAtCell(Cell cell, Player player = null)
     {
-        var  unitGO      = Instantiate(_selectedUnit);
+        var unitGO = Instantiate(_selectedUnit);
         Unit spawnedUnit = unitGO.GetComponent<Unit>();
         CellGrid.Instance.AddUnit(spawnedUnit.transform, cell, CellGrid.Instance.CurrentPlayer);
         spawnedUnit.OnTurnStart();
@@ -193,6 +198,7 @@ public class RecruitmentController : SceneSingleton<RecruitmentController>
             spawnedUnit.ActionPoints = 0;
             CellGrid.Instance.UpdateCurrentPlayerUnits();
         }
+
         OnAnyNewUnitRecruited?.Invoke();
         if (spawnedUnit is LUnit lUnit)
             OnAnyPurchaseUnit?.Invoke(lUnit, lUnit.PlayerNumber, -lUnit.UnitStats.Cost);
