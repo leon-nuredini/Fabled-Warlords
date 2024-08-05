@@ -19,6 +19,7 @@ public class BaseUnitStatsPresenter : MonoBehaviour, IUnitPresenter
 
     private void Awake()
     {
+        if (_statsPosition == null) return;
         _unitStatPosition.x = _statsPosition.localPosition.x;
         _structureStatPosition.x = _statsPosition.localPosition.x;
     }
@@ -42,6 +43,7 @@ public class BaseUnitStatsPresenter : MonoBehaviour, IUnitPresenter
 
     private void UpdatePosition(LUnit lUnit)
     {
+        if (_statsPosition == null) return;
         _statsPosition.localPosition = _unitStatPosition;
         if (lUnit is LStructure)
             _statsPosition.localPosition = _structureStatPosition;

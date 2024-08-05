@@ -5,13 +5,21 @@ using UnityEngine.UI;
 
 public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
 {
-    [BoxGroup("Position")] [SerializeField] private RectTransform _abilityPosition;
-    [BoxGroup("Position")] [SerializeField] private Vector2 _unitAbilityPosition;
-    [BoxGroup("Position")] [SerializeField] private Vector2 _structureAbilityPosition;
-    
-    [BoxGroup("Delta Size")] [SerializeField] private float _yUnitDeltaSize;
-    [BoxGroup("Delta Size")] [SerializeField] private float _yStructureDeltaSize;
-    
+    [BoxGroup("Position")] [SerializeField]
+    private RectTransform _abilityPosition;
+
+    [BoxGroup("Position")] [SerializeField]
+    private Vector2 _unitAbilityPosition;
+
+    [BoxGroup("Position")] [SerializeField]
+    private Vector2 _structureAbilityPosition;
+
+    [BoxGroup("Delta Size")] [SerializeField]
+    private float _yUnitDeltaSize;
+
+    [BoxGroup("Delta Size")] [SerializeField]
+    private float _yStructureDeltaSize;
+
     [BoxGroup] [SerializeField] private ScrollRect _scrollRect;
 
     [BoxGroup("Skill UI")] [SerializeField]
@@ -88,7 +96,7 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
 
     [BoxGroup("Skill UI")] [SerializeField]
     private UIAbility _regenerate;
-    
+
     private void Awake()
     {
         _unitAbilityPosition.x = _abilityPosition.localPosition.x;
@@ -222,9 +230,11 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
 
         FocusScrollRect();
     }
-    
+
     private void UpdatePositionAndSize(LUnit lUnit)
     {
+        if (_abilityPosition == null) return;
+
         Vector2 size = _abilityPosition.sizeDelta;
         _abilityPosition.localPosition = _unitAbilityPosition;
         size.y = _yUnitDeltaSize;

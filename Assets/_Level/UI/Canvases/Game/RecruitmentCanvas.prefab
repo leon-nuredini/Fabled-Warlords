@@ -801,8 +801,8 @@ GameObject:
   - component: {fileID: 6726686408502255041}
   - component: {fileID: 1528742849251823496}
   - component: {fileID: 14817780684158691}
-  - component: {fileID: 9109130152487565893}
   - component: {fileID: 8835098981412436798}
+  - component: {fileID: 9109130152487565893}
   m_Layer: 5
   m_Name: RecruitmentCanvas
   m_TagString: Untagged
@@ -938,8 +938,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2719255584710a340a573cf83bae601c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _statsPosition: {fileID: 0}
+  _unitStatPosition: {x: 0, y: 0}
+  _structureStatPosition: {x: 0, y: 0}
   _hpText: {fileID: 1036723435844121863}
-  _defText: {fileID: 0}
   _atkText: {fileID: 8825342250561691213}
   _rangeText: {fileID: 9169795123757772610}
   _evasionText: {fileID: 6029533734146746573}
@@ -957,6 +959,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f916734861adb40b92ca2d3a9f5f18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _abilityPosition: {fileID: 0}
+  _unitAbilityPosition: {x: 0, y: 0}
+  _structureAbilityPosition: {x: 0, y: 0}
+  _yUnitDeltaSize: 0
+  _yStructureDeltaSize: 0
   _scrollRect: {fileID: 0}
   _stillStrike: {fileID: 8690321292399856607}
   _backstab: {fileID: 7934743319280349658}
@@ -983,6 +990,30 @@ MonoBehaviour:
   _thunderStrike: {fileID: 6967691858316024471}
   _poistonHex: {fileID: 2262662624296377710}
   _regenerate: {fileID: 4968073469840581184}
+--- !u!114 &8835098981412436798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254574931573452865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e80bb2be10932843af447ca04579b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _effectivePanel: {fileID: 0}
+  _spearImage: {fileID: 385296559922587292}
+  _swordImage: {fileID: 1532801834999774298}
+  _rangedImage: {fileID: 1570859379975374772}
+  _mountedImage: {fileID: 7197798845436720639}
+  _mageImage: {fileID: 3875414961186006572}
+  _monsterImage: {fileID: 5075962851906344959}
+  _strongEffectiveColor: {r: 0.2901961, g: 0.9607843, b: 0.2509804, a: 1}
+  _mediumEffectiveColor: {r: 0.7647059, g: 0.9607843, b: 0.2509804, a: 1}
+  _neutralColor: {r: 0.9607843, g: 0.9411765, b: 0.2509804, a: 1}
+  _weakColor: {r: 0.9607843, g: 0.6117647, b: 0.2509804, a: 1}
+  _veryWeakColor: {r: 0.9607843, g: 0.3254902, b: 0.2509804, a: 1}
 --- !u!114 &9109130152487565893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -999,29 +1030,6 @@ MonoBehaviour:
   _buttonArray:
   - {fileID: 1725863080568214235}
   - {fileID: 7384178923519011447}
---- !u!114 &8835098981412436798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1254574931573452865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e80bb2be10932843af447ca04579b33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spearImage: {fileID: 385296559922587292}
-  _swordImage: {fileID: 1532801834999774298}
-  _rangedImage: {fileID: 1570859379975374772}
-  _mountedImage: {fileID: 7197798845436720639}
-  _mageImage: {fileID: 3875414961186006572}
-  _monsterImage: {fileID: 5075962851906344959}
-  _strongEffectiveColor: {r: 0.2901961, g: 0.9607843, b: 0.2509804, a: 1}
-  _mediumEffectiveColor: {r: 0.7647059, g: 0.9607843, b: 0.2509804, a: 1}
-  _neutralColor: {r: 0.9607843, g: 0.9411765, b: 0.2509804, a: 1}
-  _weakColor: {r: 0.9607843, g: 0.6117647, b: 0.2509804, a: 1}
-  _veryWeakColor: {r: 0.9607843, g: 0.3254902, b: 0.2509804, a: 1}
 --- !u!1 &1743068409202677438
 GameObject:
   m_ObjectHideFlags: 0
