@@ -17,11 +17,6 @@ public class RecruitmentController : MonoBehaviour
     public static event Action OnAnyNewUnitRecruited;
     public static event Action<LUnit, int, int> OnAnyPurchaseUnit;
 
-    public static event Action<RecruitableUnits> OnAnyUpdateRecruitableUnits;
-
-    [BoxGroup("Recruitable Units")] [SerializeField]
-    private RecruitableUnits _recruitableUnits;
-
     [BoxGroup("Allow Recruiting")] [SerializeField]
     private bool _allowAIRecruiting = true;
 
@@ -42,13 +37,15 @@ public class RecruitmentController : MonoBehaviour
 
     #region Properties
 
+    public FactionUnits HumanUnits => _humanUnits;
+    public FactionUnits BeastmenUnits => _beastmenUnits;
+    public FactionUnits PrimordialUnits => _primordialUnits;
+    
     public List<GameObject> HumanUnitList => _humanUnits.UnitList;
     public List<GameObject> BeastMenUnitList => _beastmenUnits.UnitList;
     public List<GameObject> PrimordialUnitList => _primordialUnits.UnitList;
 
     #endregion
-
-    private void Start() => OnAnyUpdateRecruitableUnits?.Invoke(_recruitableUnits);
 
     private void OnEnable()
     {

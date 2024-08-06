@@ -25,6 +25,8 @@ public class UIRecruitment : MonoBehaviour
 
     private bool _allowRecruitment = true;
 
+    private RecruitmentController _recruitmentController;
+
     #region Properties
 
     public bool AllowRecruitment
@@ -38,7 +40,6 @@ public class UIRecruitment : MonoBehaviour
     private void Awake()
     {
         SpawnUnitButtons();
-        _unitRecruitButtonArray = GetComponentsInChildren<UIUnitRecruitButton>().ToList();
         _closeButton.onClick.AddListener(ClosePanel);
         _recruitButton.onClick.AddListener(ClosePanel);
         _recruitButton.onClick.AddListener(OnClickRecruitButton);
@@ -53,7 +54,7 @@ public class UIRecruitment : MonoBehaviour
             return;
         }
 
-        PlayerFaction playerFaction = Factions.Instance._playerFaction;
+        PlayerFaction playerFaction = Factions.Instance.PlayerFaction;
 
         if (playerFaction == null)
         {
@@ -61,14 +62,19 @@ public class UIRecruitment : MonoBehaviour
             return;
         }
 
-        GameObject recruitButtons = LeanPool.Spawn(playerFaction.FactionRecruitmentPanel, _recruitButtonsPanel.transform);
+        GameObject recruitButtons =
+            LeanPool.Spawn(playerFaction.FactionRecruitmentPanel, _recruitButtonsPanel.transform);
 
         _selectedUnitRecruitButton = recruitButtons.GetComponentInChildren<UIUnitRecruitButton>();
+        _unitRecruitButtonArray = GetComponentsInChildren<UIUnitRecruitButton>().ToList();
+        if (_recruitmentController == null)
+            _recruitmentController = FindObjectOfType<RecruitmentController>();
+        UpdateButtons();
     }
 
     private void OnEnable()
     {
-        RecruitmentController.OnAnyUpdateRecruitableUnits += UpdateButtons;
+        //RecruitmentController.OnAnyUpdateRecruitableUnits += UpdateButtons;
         UITop.OnAnyRecruitButtonClicked += OpenRecruitmentPanel;
         UITop.OnAnyMenuButtonClicked += ClosePanel;
 
@@ -80,7 +86,7 @@ public class UIRecruitment : MonoBehaviour
 
     private void OnDisable()
     {
-        RecruitmentController.OnAnyUpdateRecruitableUnits -= UpdateButtons;
+        //RecruitmentController.OnAnyUpdateRecruitableUnits -= UpdateButtons;
         UITop.OnAnyRecruitButtonClicked -= OpenRecruitmentPanel;
         UITop.OnAnyMenuButtonClicked -= ClosePanel;
 
@@ -96,10 +102,26 @@ public class UIRecruitment : MonoBehaviour
             OpenRecruitmentPanel();
     }
 
-    private void UpdateButtons(RecruitableUnits recruitableUnits)
+    private void UpdateButtons()
     {
-        for (int i = 0; i < _unitRecruitButtonArray.Count; i++)
-            _unitRecruitButtonArray[i].UpdateButton(recruitableUnits);
+        switch (Factions.Instance.PlayerFaction.FactionType)
+        {
+            case FactionType.Human:
+                for (int i = 0; i < _unitRecruitButtonArray.Count; i++)
+                    _unitRecruitButtonArray[i]
+                        .UpdateButton(_recruitmentController.HumanUnits.RecruitableUnitList);
+                break;
+            case FactionType.Beastmen:
+                for (int i = 0; i < _unitRecruitButtonArray.Count; i++)
+                    _unitRecruitButtonArray[i]
+                        .UpdateButton(_recruitmentController.BeastmenUnits.RecruitableUnitList);
+                break;
+            case FactionType.Primordial:
+                for (int i = 0; i < _unitRecruitButtonArray.Count; i++)
+                    _unitRecruitButtonArray[i]
+                        .UpdateButton(_recruitmentController.PrimordialUnits.RecruitableUnitList);
+                break;
+        }
     }
 
     private void OnTurnEnded(object sender, bool isNetworkInvoked) => ClosePanel();

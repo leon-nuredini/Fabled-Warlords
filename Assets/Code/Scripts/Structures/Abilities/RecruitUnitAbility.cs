@@ -17,6 +17,8 @@ public class RecruitUnitAbility : Ability, ISkill
     [BoxGroup] [SerializeField] private string _skillName;
     [BoxGroup] [SerializeField] private string _skillDescription;
 
+    private RecruitmentController _recruitmentController;
+    
     private List<LUnit> _humanUnitList = new List<LUnit>();
     private List<LUnit> _beastmenUnitList = new List<LUnit>();
     private List<LUnit> _primordialUnitList = new List<LUnit>();
@@ -72,8 +74,6 @@ public class RecruitUnitAbility : Ability, ISkill
 
     #endregion
 
-    private RecruitmentController _recruitmentController;
-
     private void Awake() => _recruitmentController = FindObjectOfType<RecruitmentController>();
 
     private void Start()
@@ -94,7 +94,6 @@ public class RecruitUnitAbility : Ability, ISkill
 
     private void OnEnable()
     {
-        RecruitmentController.OnAnyUpdateRecruitableUnits += UpdateRecruitableUnits;
         UIRecruitment.OnAnyClickRecruitButton += Act;
         RecruitmentController.OnAnyNewUnitRecruited += UnmarkCells;
         LUnit.OnAnyUnitClicked += UnmarkCells;
@@ -105,20 +104,12 @@ public class RecruitUnitAbility : Ability, ISkill
 
     private void OnDisable()
     {
-        RecruitmentController.OnAnyUpdateRecruitableUnits -= UpdateRecruitableUnits;
         UIRecruitment.OnAnyClickRecruitButton -= Act;
         RecruitmentController.OnAnyNewUnitRecruited -= UnmarkCells;
         LUnit.OnAnyUnitClicked -= UnmarkCells;
         LSquare.OnAnyClickCell -= UnmarkCells;
         UITop.OnAnyRecruitButtonClicked -= UnmarkCells;
         UITop.OnAnyMenuButtonClicked -= UnmarkCells;
-    }
-
-    private void UpdateRecruitableUnits(RecruitableUnits recruitableUnits)
-    {
-        FilterUnitList(ref _humanUnitList, recruitableUnits);
-        FilterUnitList(ref _beastmenUnitList, recruitableUnits);
-        FilterUnitList(ref _primordialUnitList, recruitableUnits);
     }
 
     private void FilterUnitList(ref List<LUnit> unitList, RecruitableUnits recruitableUnits)
