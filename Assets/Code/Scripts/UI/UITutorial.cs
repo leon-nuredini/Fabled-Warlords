@@ -272,11 +272,11 @@ public class UITutorial : MonoBehaviour
 
         switch (newUnit)
         {
-            case Archer archer:
+            case Crossbowman archer:
                 _isArcherRecruited = true;
                 _archerButton.interactable = false;
                 break;
-            case Spearman spearman:
+            case Militia spearman:
                 _isSpearmanRecruited = true;
                 _spearmanButton.interactable = false;
                 break;
