@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TbsFramework.Grid;
 using TbsFramework.Players;
 using UnityEngine.UI;
@@ -99,6 +100,7 @@ public class UITutorial : MonoBehaviour
         RecruitmentController.OnAnyPurchaseUnit += NewUnitPurchased;
         TerrainDescriptionPresenter.OnAnyOpenTerrainDescriptionPanel += DisableTutorialElements;
         TerrainDescriptionPresenter.OnAnyCloseTerrainDescriptionPanel += OnInspectTile;
+        UIRecruitment.OnAnyAddUnitButtons += UpdateRecruitButtons;
     }
 
     private void OnDisable()
@@ -107,6 +109,7 @@ public class UITutorial : MonoBehaviour
         RecruitmentController.OnAnyPurchaseUnit -= NewUnitPurchased;
         TerrainDescriptionPresenter.OnAnyOpenTerrainDescriptionPanel -= DisableTutorialElements;
         TerrainDescriptionPresenter.OnAnyCloseTerrainDescriptionPanel -= OnInspectTile;
+        UIRecruitment.OnAnyAddUnitButtons -= UpdateRecruitButtons;
     }
 
     private void Update()
@@ -291,6 +294,12 @@ public class UITutorial : MonoBehaviour
     {
         if (_tutorialPart == TutorialPart.InspectTerrain)
             AdvanceTutorial();
+    }
+
+    private void UpdateRecruitButtons(List<UIUnitRecruitButton> unitRecruitButtons)
+    {
+        _spearmanButton = unitRecruitButtons[0].GetComponent<Button>();
+        _archerButton = unitRecruitButtons[0].GetComponent<Button>();
     }
 
     private void UpdateTutorialData()

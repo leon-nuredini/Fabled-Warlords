@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class UIRecruitment : MonoBehaviour
 {
     public event Action<LUnit> OnUpdateUnitDetails;
+    public static event Action<List<UIUnitRecruitButton>> OnAnyAddUnitButtons;
 
     public static event Action OnAnyOpenRecruitmentPanel;
     public static event Action OnAnyClickRecruitButton;
@@ -70,11 +71,11 @@ public class UIRecruitment : MonoBehaviour
         if (_recruitmentController == null)
             _recruitmentController = FindObjectOfType<RecruitmentController>();
         UpdateButtons();
+        OnAnyAddUnitButtons?.Invoke(_unitRecruitButtonArray);
     }
 
     private void OnEnable()
     {
-        //RecruitmentController.OnAnyUpdateRecruitableUnits += UpdateButtons;
         UITop.OnAnyRecruitButtonClicked += OpenRecruitmentPanel;
         UITop.OnAnyMenuButtonClicked += ClosePanel;
 
@@ -86,7 +87,6 @@ public class UIRecruitment : MonoBehaviour
 
     private void OnDisable()
     {
-        //RecruitmentController.OnAnyUpdateRecruitableUnits -= UpdateButtons;
         UITop.OnAnyRecruitButtonClicked -= OpenRecruitmentPanel;
         UITop.OnAnyMenuButtonClicked -= ClosePanel;
 
