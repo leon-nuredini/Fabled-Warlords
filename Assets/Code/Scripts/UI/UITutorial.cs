@@ -60,6 +60,9 @@ public class UITutorial : MonoBehaviour
 
     [BoxGroup("Unit Details")] [SerializeField]
     private GameObject _unitDetailsButtonImage;
+    
+    [BoxGroup("Unit Types")] [SerializeField]
+    private GameObject _unitTypeImages;
 
     [BoxGroup("Terrain Details")] [SerializeField]
     private TerrainDescriptionPresenter _terrainDescriptionPresenter;
@@ -85,6 +88,7 @@ public class UITutorial : MonoBehaviour
         _objectivePanel.SetActive(false);
         _upperToolbarImages.SetActive(false);
         _unitDetailsButtonImage.SetActive(false);
+        _unitTypeImages.SetActive(false);
     }
 
     private void Start()
@@ -179,36 +183,46 @@ public class UITutorial : MonoBehaviour
                 _lockTutorial = true;
                 _objectivePanel.SetActive(true);
                 break;
-            case TutorialPart.UnitAbilities:
+            case TutorialPart.UnitTypes:
                 _selectedTutorialData = _tutorialDataArray[9];
                 _lockTutorial = false;
                 _objectivePanel.SetActive(false);
+                _unitTypeImages.SetActive(true);
+                break;
+            case TutorialPart.UnitAffinities:
+                _selectedTutorialData = _tutorialDataArray[10];
+                _lockTutorial = false;
+                _unitTypeImages.SetActive(false);
+                break;
+            case TutorialPart.UnitAbilities:
+                _selectedTutorialData = _tutorialDataArray[11];
+                _lockTutorial = false;
                 break;
             case TutorialPart.TopUI:
-                _selectedTutorialData = _tutorialDataArray[10];
+                _selectedTutorialData = _tutorialDataArray[12];
                 _lockTutorial = false;
                 _upperToolbarImages.SetActive(true);
                 break;
             case TutorialPart.TerainTypes:
-                _selectedTutorialData = _tutorialDataArray[11];
+                _selectedTutorialData = _tutorialDataArray[13];
                 _lockTutorial = false;
                 _upperToolbarImages.SetActive(false);
                 break;
             case TutorialPart.InspectTerrain:
-                _selectedTutorialData = _tutorialDataArray[12];
+                _selectedTutorialData = _tutorialDataArray[14];
                 _lockTutorial = true;
                 _objectivePanel.SetActive(true);
                 OnAnyInspectTile?.Invoke();
                 break;
             case TutorialPart.ToggleUnitDetails:
-                _selectedTutorialData = _tutorialDataArray[13];
+                _selectedTutorialData = _tutorialDataArray[15];
                 _unitDetailsButtonImage.SetActive(true);
                 _lockTutorial = false;
                 _objectivePanel.SetActive(false);
                 OnAnyToggleUnitDetails?.Invoke();
                 break;
             case TutorialPart.DefeatEnemy:
-                _selectedTutorialData = _tutorialDataArray[14];
+                _selectedTutorialData = _tutorialDataArray[16];
                 _unitDetailsButtonImage.SetActive(false);
                 _lockTutorial = false;
                 break;
@@ -272,11 +286,11 @@ public class UITutorial : MonoBehaviour
 
         switch (newUnit)
         {
-            case Crossbowman archer:
+            case Crossbowman:
                 _isArcherRecruited = true;
                 _archerButton.interactable = false;
                 break;
-            case Militia spearman:
+            case Militia:
                 _isSpearmanRecruited = true;
                 _spearmanButton.interactable = false;
                 break;
