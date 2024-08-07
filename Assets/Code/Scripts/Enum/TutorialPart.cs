@@ -9,6 +9,8 @@ public enum TutorialPart
     CaptureVillage,
     Villages,
     RecruitingUnits,
+    UnitTypes,
+    UnitAffinities,
     UnitAbilities,
     TopUI,
     TerainTypes,
