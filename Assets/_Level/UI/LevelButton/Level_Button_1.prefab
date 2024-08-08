@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 34.48, y: 0}
+  m_AnchoredPosition: {x: 10.76, y: 0}
+  m_SizeDelta: {x: 40, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &2308910534828693522
 CanvasRenderer:
@@ -190,7 +190,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 398.44, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3874997855011114906
 CanvasRenderer:
@@ -218,6 +218,7 @@ MonoBehaviour:
   - {fileID: 2357171437002453228}
   - {fileID: 7937363885499127990}
   _text: {fileID: 2320235002329545919}
+  _iconImage: {fileID: 205733753240061273}
   _disabledTextColor: {r: 0.9607843, g: 0.39607844, b: 0.39607844, a: 1}
 --- !u!114 &8633830830112969467
 MonoBehaviour:
@@ -297,8 +298,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000015258789, y: 0}
-  m_SizeDelta: {x: 73.957, y: 326}
+  m_AnchoredPosition: {x: -0.1189, y: 0}
+  m_SizeDelta: {x: 59.6826, y: 397.9178}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4464766641785683227
 CanvasRenderer:
@@ -372,8 +373,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 33.01, y: 0}
-  m_SizeDelta: {x: -2.941, y: 0}
+  m_AnchoredPosition: {x: 29.4713, y: 0}
+  m_SizeDelta: {x: -58.9425, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7383944625452952920
 CanvasRenderer:
@@ -403,9 +404,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'I: Battle Training
-
-'
+  m_text: 'I: Attack on Brighthaven'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: de07e0ee7143d8d44a06c72e19903d15, type: 2}
   m_sharedMaterial: {fileID: -8089520461102388568, guid: de07e0ee7143d8d44a06c72e19903d15,
@@ -433,8 +432,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
