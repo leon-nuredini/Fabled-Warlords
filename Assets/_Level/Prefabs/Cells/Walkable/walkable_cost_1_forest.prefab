@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 100
-  m_Sprite: {fileID: -116711112, guid: a6a4ff2df9e5d0f429bb96f476f0abe9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 42368aef56bc1d04fa900c55b53c93e5, type: 3}
   m_Color: {r: 0.3018868, g: 0.10881579, b: 0, a: 0.41960785}
   m_FlipX: 0
   m_FlipY: 0
@@ -132,6 +132,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1809048282035578020, guid: d55c08330af2e804ba5fa57fc3cfbc86,
         type: 3}
+      propertyPath: _offsetCoord.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1809048282035578020, guid: d55c08330af2e804ba5fa57fc3cfbc86,
+        type: 3}
+      propertyPath: _offsetCoord.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1809048282035578020, guid: d55c08330af2e804ba5fa57fc3cfbc86,
+        type: 3}
       propertyPath: TileDefenceFactor
       value: 0
       objectReference: {fileID: 0}
@@ -176,15 +186,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: walkable_cost_1_forest
       objectReference: {fileID: 0}
+    - target: {fileID: 3674024071306178025, guid: d55c08330af2e804ba5fa57fc3cfbc86,
+        type: 3}
+      propertyPath: red
+      value: 
+      objectReference: {fileID: 21300000, guid: 12a48fde36f070541b729e338b99e2d8,
+        type: 3}
+    - target: {fileID: 3674024071306178025, guid: d55c08330af2e804ba5fa57fc3cfbc86,
+        type: 3}
+      propertyPath: blue
+      value: 
+      objectReference: {fileID: 21300000, guid: 403a9ef507ccc3a4582dc4f9e5283bc5,
+        type: 3}
+    - target: {fileID: 3674024071306178025, guid: d55c08330af2e804ba5fa57fc3cfbc86,
+        type: 3}
+      propertyPath: green
+      value: 
+      objectReference: {fileID: 21300000, guid: 56036ef9d25d0a743a5c122096ac87d1,
+        type: 3}
     - target: {fileID: 4218660190137142724, guid: d55c08330af2e804ba5fa57fc3cfbc86,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4218660190137142724, guid: d55c08330af2e804ba5fa57fc3cfbc86,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 4.8
       objectReference: {fileID: 0}
     - target: {fileID: 4218660190137142724, guid: d55c08330af2e804ba5fa57fc3cfbc86,
         type: 3}
@@ -236,7 +264,8 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3306190931273563418, guid: d55c08330af2e804ba5fa57fc3cfbc86, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4218660190137142724, guid: d55c08330af2e804ba5fa57fc3cfbc86,

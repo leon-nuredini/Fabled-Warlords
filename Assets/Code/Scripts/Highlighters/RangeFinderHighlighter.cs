@@ -13,6 +13,6 @@ public class RangeFinderHighlighter : CellHighlighter
     {
         if (_spriteRenderer != null) _spriteRenderer.color = _color;
         _rangeFinderAnimatorController.gameObject.SetActive(true);
-        _rangeFinderAnimatorController.PlayAnimation(_rangeFinderType);
+        _rangeFinderAnimatorController.ChangeCellSprite(_rangeFinderType);
     }
 }
