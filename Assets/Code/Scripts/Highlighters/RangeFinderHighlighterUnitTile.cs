@@ -12,6 +12,6 @@ public class RangeFinderHighlighterUnitTile : UnitHighlighter
     public override void Apply(Unit unit, Unit otherUnit)
     {
         if (_spriteRenderer != null) _spriteRenderer.color = _color;
-        _rangeFinderAnimatorController.PlayAnimation(_rangeFinderType);
+        _rangeFinderAnimatorController.ChangeCellSprite(_rangeFinderType);
     }
 }
