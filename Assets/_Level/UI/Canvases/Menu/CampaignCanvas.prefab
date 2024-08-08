@@ -565,6 +565,7 @@ MonoBehaviour:
   _playButton: {fileID: 7550537286499191132}
   _cancelButton: {fileID: 5915667357143410018}
   _levelDescriptionText: {fileID: 8106296735928697386}
+  _scrollRect: {fileID: 5214894060075127682}
   _unlockAllLevels: 0
 --- !u!114 &3477430735051309933
 MonoBehaviour:
@@ -1171,7 +1172,7 @@ GameObject:
   - component: {fileID: 5214894060075127682}
   - component: {fileID: 8617125104962509026}
   m_Layer: 5
-  m_Name: LevelsPanel
+  m_Name: LevelsScrollRect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1595,8 +1596,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5063027628469008951}
   m_HandleRect: {fileID: 3523402679628690185}
   m_Direction: 2
-  m_Value: 1.0000005
-  m_Size: 0.53415024
+  m_Value: 1.0000006
+  m_Size: 0.5341503
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

@@ -15,9 +15,15 @@ public class UILevelButton : MonoBehaviour
     [SerializeField] private Color _disabledTextColor;
 
     private Button _button;
+    private RectTransform _rectTransform;
+
+    #region Properties
 
     public LevelDetails LevelDetails => _levelDetails;
     public Button Button => _button;
+    public RectTransform RectTransform => _rectTransform;
+
+    #endregion
 
     private void Awake()
     {
@@ -25,6 +31,7 @@ public class UILevelButton : MonoBehaviour
         _button.onClick.AddListener(SelectLevelButton);
         _titleText.text = LevelDetails.LevelName;
         _iconImage.sprite = _levelDetails.LevelIcon;
+        _rectTransform = GetComponent<RectTransform>();
     }
 
     public void SelectLevelButton()
