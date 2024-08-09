@@ -11,7 +11,7 @@ public class TwoDCameraDrag : MonoBehaviour
     [Header("Camera Movement")] [HideInInspector]
     public Dc2dZoomTarget ztTarget;
 
-    [HideInInspector]public bool dcTranslate = false;
+    [HideInInspector] public bool dcTranslate = false;
     [HideInInspector] public bool dcZoom = false;
     [Range(0.1f, 10f)] [HideInInspector] public float dcZoomTargetIn = 4f;
     [Range(0.01f, 1f)] [HideInInspector] public float dcZoomTranslateSpeed = 0.5f;
@@ -26,7 +26,7 @@ public class TwoDCameraDrag : MonoBehaviour
     [Range(0.01f, 1f)] [HideInInspector] public float lerpSpeed = 0.5f;
     [HideInInspector] public Vector3 offset = new Vector3(0, 0, -10);
 
-    public CameraBounds bounds;
+    private CameraBounds bounds;
     [HideInInspector] public Dc2dDolly dollyRail;
 
 
@@ -55,6 +55,8 @@ public class TwoDCameraDrag : MonoBehaviour
         {
             _cam = Camera.main;
         }
+
+        AddCameraBounds();
     }
 
     private void LateUpdate()
@@ -229,7 +231,8 @@ public class TwoDCameraDrag : MonoBehaviour
         var go = new GameObject("CameraBounds");
         var cb = go.AddComponent<CameraBounds>();
         cb.guiColour = new Color(0, 0, 1f, 0.1f);
-        cb.pointa = new Vector3(20, 20, 0);
+        cb.pointa = new Vector3(cameraData.cameraBoundsX, cameraData.cameraBoundsY, 0);
+        go.transform.position = cameraData.boundaryObjectPosition;
         this.bounds = cb;
 #if UNITY_EDITOR
         EditorUtility.SetDirty(this);
