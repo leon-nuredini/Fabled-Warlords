@@ -1,36 +1,27 @@
-using System;
-using NaughtyAttributes;
 using UnityEngine;
 
 public class RangeFinderAnimatorController : MonoBehaviour
 {
-    [Header("Cell Range Visuals")]
-    
-    [HorizontalLine(color: EColor.Red)]
-    [SerializeField] private Sprite red;
-    
-    [HorizontalLine(color: EColor.Green)]
-    [SerializeField] private Sprite green; 
-    
-    [HorizontalLine(color: EColor.Blue)]
-    [SerializeField] private Sprite blue;
-    
-    private SpriteRenderer _spriteRenderer;
+    private Animator _animator;
 
-    private void Awake()
-    {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-    }
+    private void Awake() => _animator = GetComponent<Animator>();
 
-    public void ChangeCellSprite(RangeFinderType rangeFinderType)
+    public void PlayAnimation(RangeFinderType rangeFinderType)
     {
-        _spriteRenderer.sprite = rangeFinderType switch
+        switch (rangeFinderType)
         {
-            RangeFinderType.None => null,
-            RangeFinderType.Red => red,
-            RangeFinderType.Green => green,
-            RangeFinderType.Blue => blue,
-            _ => _spriteRenderer.sprite
-        };
+            case RangeFinderType.None:
+                _animator.SetInteger("int", 3);
+                break;
+            case RangeFinderType.Red:
+                _animator.SetInteger("int", 0);
+                break;
+            case RangeFinderType.Green:
+                _animator.SetInteger("int", 1);
+                break;
+            case RangeFinderType.Blue:
+                _animator.SetInteger("int", 2);
+                break;
+        }
     }
 }
