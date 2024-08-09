@@ -1,9 +1,17 @@
+using System;
 using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
 
 public class TwoDCameraDrag : MonoBehaviour
 {
+    public static event Action OnAnyMoveCameraLeft;
+    public static event Action OnAnyMoveCameraRight;
+    public static event Action OnAnyMoveCameraUp;
+    public static event Action OnAnyMoveCameraDown;
+    public static event Action OnAnyZoomCameraIn;
+    public static event Action OnAnyZoomCameraOut;
+    
     private Camera _cam;
     [Expandable]
     public CameraData cameraData;
@@ -11,7 +19,7 @@ public class TwoDCameraDrag : MonoBehaviour
     [Header("Camera Movement")] [HideInInspector]
     public Dc2dZoomTarget ztTarget;
 
-    [HideInInspector] public bool dcTranslate = false;
+    [HideInInspector]public bool dcTranslate = false;
     [HideInInspector] public bool dcZoom = false;
     [Range(0.1f, 10f)] [HideInInspector] public float dcZoomTargetIn = 4f;
     [Range(0.01f, 1f)] [HideInInspector] public float dcZoomTranslateSpeed = 0.5f;
@@ -26,7 +34,7 @@ public class TwoDCameraDrag : MonoBehaviour
     [Range(0.01f, 1f)] [HideInInspector] public float lerpSpeed = 0.5f;
     [HideInInspector] public Vector3 offset = new Vector3(0, 0, -10);
 
-    private CameraBounds bounds;
+    public CameraBounds bounds;
     [HideInInspector] public Dc2dDolly dollyRail;
 
 
@@ -55,7 +63,7 @@ public class TwoDCameraDrag : MonoBehaviour
         {
             _cam = Camera.main;
         }
-
+        
         AddCameraBounds();
     }
 
@@ -273,6 +281,18 @@ public class TwoDCameraDrag : MonoBehaviour
                 x = -x;
                 y = -y;
             }
+            
+            if (x < 0)
+                OnAnyMoveCameraLeft?.Invoke();
+            
+            if (x > 0)
+                OnAnyMoveCameraRight?.Invoke();
+
+            if (y > 0)
+                OnAnyMoveCameraUp?.Invoke();
+            
+            if (y < 0)
+                OnAnyMoveCameraDown?.Invoke();
 
             transform.Translate(x, y, 0);
         }
@@ -302,6 +322,11 @@ public class TwoDCameraDrag : MonoBehaviour
 
     private void ZoomOrthoCamera(Vector3 zoomTowards, float amount)
     {
+        if (amount > 0)
+            OnAnyZoomCameraIn?.Invoke();
+        else if (amount < 0)
+            OnAnyZoomCameraOut?.Invoke();
+        
         // Calculate how much we will have to move towards the zoomTowards position
         float multiplier = (1.0f / _cam.orthographicSize * amount);
         // Move camera
