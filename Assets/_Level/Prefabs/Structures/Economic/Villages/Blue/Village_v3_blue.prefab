@@ -113,18 +113,6 @@ PrefabInstance:
         type: 3}
       insertIndex: 3
       addedObject: {fileID: -6091154891878531228}
-    - targetCorrespondingSourceObject: {fileID: 530339382701001553, guid: a4b7d6887fce49e4eba8366d0d551eae,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3593244276734914390}
-    - targetCorrespondingSourceObject: {fileID: 530339382701001553, guid: a4b7d6887fce49e4eba8366d0d551eae,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2585369741873828695}
-    - targetCorrespondingSourceObject: {fileID: 530339382701001553, guid: a4b7d6887fce49e4eba8366d0d551eae,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -9030231783251197489}
   m_SourcePrefab: {fileID: 100100000, guid: a4b7d6887fce49e4eba8366d0d551eae, type: 3}
 --- !u!212 &1543188279142912860 stripped
 SpriteRenderer:
@@ -173,49 +161,6 @@ MonoBehaviour:
   _maskSpriteRenderer: {fileID: 3739215068479770448}
   Offset: {x: 0, y: 0, z: -0.01}
   isStructure: 1
---- !u!114 &3593244276734914390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3901910283185644190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab10edd95a1aa9e409adeb15f26bb4b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _skillName: Healing
-  _skillDescription: Heals a random nearby unit at the start of each turn.
-  _aoeHealingBuff: {fileID: 11400000, guid: 065f0c09dd41c2d4d8623e0b47577af3, type: 2}
-  Range: 1
-  unitsInRangeArray: []
---- !u!114 &2585369741873828695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3901910283185644190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c6e752bb1eb76c4b94b735f0594f5f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _healingVfx: {fileID: 160608, guid: 3c83b33bf94ceba43b3d880525e8afa4, type: 3}
---- !u!114 &-9030231783251197489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3901910283185644190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 835ecad459dd1cc4181d550d479ceec4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _soundEvent: {fileID: 11400000, guid: 6af91cb38953ca24bad2ceb32ba19380, type: 2}
 --- !u!114 &8010575646955625234 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6796268814559163101, guid: a4b7d6887fce49e4eba8366d0d551eae,
