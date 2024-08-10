@@ -13,14 +13,14 @@ namespace TbsFramework.Units.Abilities
         private WaitForSeconds _waitAIAttackDuration;
         private WaitForSeconds _waitHumanAttackDuration;
 
-        public Unit UnitToAttack   { get; set; }
-        public int  UnitToAttackID { get; set; }
+        public Unit UnitToAttack { get; set; }
+        public int UnitToAttackID { get; set; }
 
         List<Unit> inAttackRange;
 
         private void Awake()
         {
-            _waitAIAttackDuration    = new WaitForSeconds(0.5f);
+            _waitAIAttackDuration = new WaitForSeconds(0.5f);
             _waitHumanAttackDuration = new WaitForSeconds(0.1f);
         }
 
@@ -40,7 +40,7 @@ namespace TbsFramework.Units.Abilities
 
         public override void Display(CellGrid cellGrid)
         {
-            var unit       = GetComponent<Unit>();
+            var unit = GetComponent<Unit>();
             var enemyUnits = cellGrid.GetEnemyUnits(cellGrid.CurrentPlayer);
             inAttackRange = enemyUnits.Where(u => UnitReference.IsUnitAttackable(u, UnitReference.Cell)).ToList();
             inAttackRange.ForEach(u => u.MarkAsReachableEnemy());
@@ -50,7 +50,7 @@ namespace TbsFramework.Units.Abilities
         {
             if (UnitReference.IsUnitAttackable(unit, UnitReference.Cell))
             {
-                UnitToAttack   = unit;
+                UnitToAttack = unit;
                 UnitToAttackID = UnitToAttack.UnitID;
                 StartCoroutine(HumanExecute(cellGrid));
             }
@@ -70,13 +70,19 @@ namespace TbsFramework.Units.Abilities
         {
             inAttackRange.ForEach(u =>
             {
-                if (u != null) { u.UnMark(); }
+                if (u != null)
+                {
+                    u.UnMark();
+                }
             });
         }
 
         public override bool CanPerform(CellGrid cellGrid)
         {
-            if (UnitReference.ActionPoints <= 0) { return false; }
+            if (UnitReference.ActionPoints <= 0)
+            {
+                return false;
+            }
 
             var enemyUnits = cellGrid.GetEnemyUnits(cellGrid.CurrentPlayer);
             inAttackRange = enemyUnits.Where(u => UnitReference.IsUnitAttackable(u, UnitReference.Cell)).ToList();
@@ -92,14 +98,14 @@ namespace TbsFramework.Units.Abilities
             return actionParameters;
         }
 
-        public override IEnumerator Apply(CellGrid                    cellGrid,
-                                          IDictionary<string, string> actionParams,
-                                          bool                        isNetworkInvoked = false)
+        public override IEnumerator Apply(CellGrid cellGrid,
+            IDictionary<string, string> actionParams,
+            bool isNetworkInvoked = false)
         {
             var targetID = int.Parse(actionParams["target_id"]);
-            var target   = cellGrid.Units.Find(u => u.UnitID == targetID);
+            var target = cellGrid.Units.Find(u => u.UnitID == targetID);
 
-            UnitToAttack   = target;
+            UnitToAttack = target;
             UnitToAttackID = targetID;
             yield return StartCoroutine(RemoteExecute(cellGrid));
         }
