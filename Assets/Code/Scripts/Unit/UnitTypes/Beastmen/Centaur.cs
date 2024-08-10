@@ -17,11 +17,11 @@ public class Centaur : LUnit, IRanged
         _rapidShotSkill = GetComponent<RapidShotSkill>();
     }
 
-    protected override void AttackActionPerformed(float actionCost)
+    /*protected override void AttackActionPerformed(float actionCost)
     {
         if (_rapidShotSkill != null) _rapidShotSkill.AddAdditionalActionPoint();
         base.AttackActionPerformed(actionCost);
-    }
+    }*/
 
     protected override int Defend(Unit other, int damage)
     {

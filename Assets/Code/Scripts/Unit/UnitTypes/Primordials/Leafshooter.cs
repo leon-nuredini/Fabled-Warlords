@@ -29,11 +29,11 @@ public class Leafshooter : LUnit, IRanged
         return base.Defend(other, Mathf.RoundToInt(newDamage));
     }
     
-    protected override void AttackActionPerformed(float actionCost)
+    /*protected override void AttackActionPerformed(float actionCost)
     {
         if (_rapidShotSkill != null) _rapidShotSkill.AddAdditionalActionPoint();
         base.AttackActionPerformed(actionCost);
-    }
+    }*/
     
     protected override void ApplyDebuffsToEnemy(LUnit enemyUnit, bool isEnemyTurn = false)
     {
