@@ -34,7 +34,7 @@ public class TwoDCameraDrag : MonoBehaviour
     [Range(0.01f, 1f)] [HideInInspector] public float lerpSpeed = 0.5f;
     [HideInInspector] public Vector3 offset = new Vector3(0, 0, -10);
 
-    public CameraBounds bounds;
+    private  CameraBounds bounds;
     [HideInInspector] public Dc2dDolly dollyRail;
 
 
