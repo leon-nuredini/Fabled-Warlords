@@ -71,4 +71,10 @@ public class Griffin : LUnit, IMonster
 
         return ret;
     }
+    
+    protected override void UpdateMovementPoints(IList<Cell> path)
+    {
+        var totalMovementCost = path.Sum(h => 1);
+        MovementPoints -= totalMovementCost;
+    }
 }

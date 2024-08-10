@@ -8,21 +8,21 @@ public class Pixie : LUnit, IMage
 {
     private StunSkill _sunSkill;
     private SoarSkill _soarSkill;
-    
+
     #region Properties
 
     public StunSkill StunSkill => _sunSkill;
     public SoarSkill SoarSkill => _soarSkill;
 
     #endregion
-    
+
     public override void InitProperties()
     {
         base.InitProperties();
         _sunSkill = GetComponent<StunSkill>();
         _soarSkill = GetComponent<SoarSkill>();
     }
-    
+
     protected override int Defend(Unit other, int damage)
     {
         float newDamage = damage;
@@ -31,7 +31,7 @@ public class Pixie : LUnit, IMage
 
         return base.Defend(other, Mathf.RoundToInt(newDamage));
     }
-    
+
     protected override void ApplyDebuffsToEnemy(LUnit enemyUnit, bool isEnemyTurn = false)
     {
         if (isEnemyTurn) return;
@@ -41,7 +41,7 @@ public class Pixie : LUnit, IMage
         if (randomChance > StunSkill.ProcChance) return;
         enemyUnit.StatusEffectsController.ApplyStatusEffect<Stun>(StunSkill.DurationInTurns);
     }
-    
+
     public override HashSet<Cell> GetAvailableDestinations(List<Cell> cells)
     {
         if (_soarSkill == null) return base.GetAvailableDestinations(cells);
@@ -54,7 +54,10 @@ public class Pixie : LUnit, IMage
             if (CachedPaths.TryGetValue(cell, out var path))
             {
                 var pathCost = path.Sum(c => 1);
-                if (pathCost <= MovementPoints) { availableDestinations.Add(cell); }
+                if (pathCost <= MovementPoints)
+                {
+                    availableDestinations.Add(cell);
+                }
             }
         }
 
@@ -80,5 +83,11 @@ public class Pixie : LUnit, IMage
         }
 
         return ret;
+    }
+
+    protected override void UpdateMovementPoints(IList<Cell> path)
+    {
+        var totalMovementCost = path.Sum(h => 1);
+        MovementPoints -= totalMovementCost;
     }
 }
