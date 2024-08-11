@@ -78,6 +78,7 @@ public class UITutorial : MonoBehaviour
     private bool _lockTutorial;
     private bool _isArcherRecruited;
     private bool _isSpearmanRecruited;
+    private bool _isCameraTutorialFinished;
 
     private void Awake()
     {
@@ -108,6 +109,7 @@ public class UITutorial : MonoBehaviour
         TerrainDescriptionPresenter.OnAnyOpenTerrainDescriptionPanel += DisableTutorialElements;
         TerrainDescriptionPresenter.OnAnyCloseTerrainDescriptionPanel += OnInspectTile;
         UIRecruitment.OnAnyAddUnitButtons += UpdateRecruitButtons;
+        UICameraControlsTutorial.OnAnyCameraTutorialFinished += CameraTutorialFinished;
     }
 
     private void OnDisable()
@@ -117,6 +119,7 @@ public class UITutorial : MonoBehaviour
         TerrainDescriptionPresenter.OnAnyOpenTerrainDescriptionPanel -= DisableTutorialElements;
         TerrainDescriptionPresenter.OnAnyCloseTerrainDescriptionPanel -= OnInspectTile;
         UIRecruitment.OnAnyAddUnitButtons -= UpdateRecruitButtons;
+        UICameraControlsTutorial.OnAnyCameraTutorialFinished -= CameraTutorialFinished;
     }
 
     private void Update()
@@ -225,16 +228,23 @@ public class UITutorial : MonoBehaviour
                 OnAnyToggleUnitDetails?.Invoke();
                 break;
             case TutorialPart.DefeatEnemy:
+                _lockTutorial = true;
+                if (!_isCameraTutorialFinished)
+                {
+                    if (_cameraMovementTutorialCanvas != null && !_cameraMovementTutorialCanvas.activeSelf)
+                        _cameraMovementTutorialCanvas.SetActive(true);
+                    _isInCoroutine = false;
+                    yield break;
+                }
                 _selectedTutorialData = _tutorialDataArray[16];
                 _unitDetailsButtonImage.SetActive(false);
                 _lockTutorial = false;
                 break;
             default:
+                if (!_isCameraTutorialFinished) break;
                 _isTutorialFinished = true;
                 _objectivePanel.SetActive(false);
                 gameObject.SetActive(false);
-                if (_cameraMovementTutorialCanvas != null)
-                    _cameraMovementTutorialCanvas.SetActive(true);
                 break;
         }
 
@@ -280,6 +290,14 @@ public class UITutorial : MonoBehaviour
             _tutorialPart = TutorialPart.CaptureVillage;
         if (_tutorialPart == TutorialPart.CaptureVillage)
             AdvanceTutorial();
+    }
+
+    private void CameraTutorialFinished()
+    {
+        _isCameraTutorialFinished = true;
+        _lockTutorial = false;
+        _tutorialPart = TutorialPart.DefeatEnemy;
+        UpdateTutorialPart();
     }
 
     private void NewUnitPurchased(LUnit newUnit, int playerNumber, int cost)

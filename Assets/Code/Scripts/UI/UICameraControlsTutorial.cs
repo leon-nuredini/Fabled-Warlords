@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using NaughtyAttributes;
 using TMPro;
@@ -5,6 +6,8 @@ using UnityEngine;
 
 public class UICameraControlsTutorial : MonoBehaviour
 {
+    public static event Action OnAnyCameraTutorialFinished;
+    
     [BoxGroup("Panel")] [SerializeField] private GameObject _panel;
     [BoxGroup("Panel")] [SerializeField] private GameObject _objectives;
 
@@ -44,6 +47,7 @@ public class UICameraControlsTutorial : MonoBehaviour
     private IEnumerator HidePanel()
     {
         yield return _wait;
+        OnAnyCameraTutorialFinished?.Invoke();
         gameObject.SetActive(false);
     }
 
