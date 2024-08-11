@@ -50,6 +50,7 @@ public class LUnit : Unit
     private AOEHealingSkill _aoeHealingSkill;
     private CapturerSkill _capturerSkill;
     private StatusEffectsController _statusEffectsController;
+    private PrisonerAbility _prisonerAbility;
 
     public Vector3 Offset;
 
@@ -130,10 +131,7 @@ public class LUnit : Unit
     public UnitStats UnitStats
     {
         get => _unitStats;
-        set
-        {
-            _unitStats = value;
-        }
+        set { _unitStats = value; }
     }
 
     protected int TempDamageReceived
@@ -177,6 +175,23 @@ public class LUnit : Unit
 
     public virtual void InitProperties()
     {
+        UpdateUnitStats();
+
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _attackSkillArray = GetComponents<IAttackSkill>();
+        _defendSkillArray = GetComponents<IDefendSkill>();
+        _retaliateSkill = GetComponent<RetaliateSkill>();
+        _unRetaliatableSkill = GetComponent<UnRetaliatableSkill>();
+        _victoryValorSkill = GetComponent<VictoryValorSkill>();
+        _capturerSkill = GetComponent<CapturerSkill>();
+        _retaliationResilienceSkill = GetComponent<RetaliationResilienceSkill>();
+        _aoeHealingSkill = GetComponent<AOEHealingSkill>();
+        _statusEffectsController = GetComponent<StatusEffectsController>();
+        _prisonerAbility = GetComponent<PrisonerAbility>();
+    }
+
+    public void UpdateUnitStats()
+    {
         HitPoints = _unitStats.HitPoints;
         MovementPoints = _unitStats.MovementPoints;
         ActionPoints = _unitStats.ActionPoints;
@@ -189,17 +204,6 @@ public class LUnit : Unit
         TotalHitPoints = HitPoints;
         TotalMovementPoints = MovementPoints;
         TotalActionPoints = ActionPoints;
-
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _attackSkillArray = GetComponents<IAttackSkill>();
-        _defendSkillArray = GetComponents<IDefendSkill>();
-        _retaliateSkill = GetComponent<RetaliateSkill>();
-        _unRetaliatableSkill = GetComponent<UnRetaliatableSkill>();
-        _victoryValorSkill = GetComponent<VictoryValorSkill>();
-        _capturerSkill = GetComponent<CapturerSkill>();
-        _retaliationResilienceSkill = GetComponent<RetaliationResilienceSkill>();
-        _aoeHealingSkill = GetComponent<AOEHealingSkill>();
-        _statusEffectsController = GetComponent<StatusEffectsController>();
     }
 
     public override void OnTurnStart()
@@ -509,6 +513,12 @@ public class LUnit : Unit
     {
         if (_markerSpriteRenderer != null)
             _markerSpriteRenderer.color = color;
+    }
+
+    public override bool IsUnitAttackable(Unit other, Cell otherCell, Cell sourceCell)
+    {
+        if (_prisonerAbility != null && _prisonerAbility.IsPrisoner) return false;
+        return base.IsUnitAttackable(other, otherCell, sourceCell);
     }
 
     #region MouseEvents

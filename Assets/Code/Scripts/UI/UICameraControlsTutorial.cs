@@ -1,11 +1,13 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
 
 public class UICameraControlsTutorial : MonoBehaviour
 {
+    public static event Action OnAnyCameraTutorialFinished;
+    
     [BoxGroup("Panel")] [SerializeField] private GameObject _panel;
     [BoxGroup("Panel")] [SerializeField] private GameObject _objectives;
 
@@ -30,7 +32,7 @@ public class UICameraControlsTutorial : MonoBehaviour
     {
         _panel.SetActive(false);
         _objectives.SetActive(false);
-        _wait = new WaitForSeconds(.75f);
+        _wait = new WaitForSeconds(.5f);
     }
 
     private void Start() => StartCoroutine(ShowPanel());
@@ -40,6 +42,13 @@ public class UICameraControlsTutorial : MonoBehaviour
         yield return _wait;
         _panel.SetActive(true);
         _objectives.SetActive(true);
+    }
+
+    private IEnumerator HidePanel()
+    {
+        yield return _wait;
+        OnAnyCameraTutorialFinished?.Invoke();
+        gameObject.SetActive(false);
     }
 
     public void OnMoveLeft()
@@ -105,6 +114,6 @@ public class UICameraControlsTutorial : MonoBehaviour
         if (!_zoomCameraIn) return;
         if (!_zoomCameraOut) return;
 
-        gameObject.SetActive(false);
+        StartCoroutine(HidePanel());
     }
 }
