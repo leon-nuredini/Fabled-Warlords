@@ -25,7 +25,10 @@ public class CameraData : ScriptableObject
     public bool zoomEnabled;
     public float maxZoom;
     public float minZoom;
-    public float zoomStepSize;
+    [Range(0.01f,1f)]
+    public float mouseScrollStepSize = 0.15f;
+    [Range(0.01f,1f)]
+    public float keyboardScrollStepSize = 0.15f;
     public bool linkedZoomDrag;
     public bool zoomToMouse;
     [Header("Zoom")]
