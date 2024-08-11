@@ -67,6 +67,9 @@ public class UITutorial : MonoBehaviour
     [BoxGroup("Terrain Details")] [SerializeField]
     private TerrainDescriptionPresenter _terrainDescriptionPresenter;
 
+    [BoxGroup("CameraMovementTutorialCanvas")] [SerializeField]
+    private GameObject _cameraMovementTutorialCanvas;
+
     private TutorialData _selectedTutorialData;
     private WaitForSeconds _wait;
 
@@ -230,6 +233,8 @@ public class UITutorial : MonoBehaviour
                 _isTutorialFinished = true;
                 _objectivePanel.SetActive(false);
                 gameObject.SetActive(false);
+                if (_cameraMovementTutorialCanvas != null)
+                    _cameraMovementTutorialCanvas.SetActive(true);
                 break;
         }
 

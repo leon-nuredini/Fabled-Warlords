@@ -12,21 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df349e9269c8cfc4480dc361e646b5f5, type: 3}
   m_Name: SmallLevel
   m_EditorClassIdentifier: 
-  dragEnabled: 0
+  dragEnabled: 1
   dragSpeed: -0.06
   mouseButton: 2
   enableEdgeScroll: 0
   edgeBoundary: 20
   edgeSpeed: 1
-  keyboardInput: 0
+  keyboardInput: 1
   inverseKeyboard: 0
-  zoomEnabled: 0
-  maxZoom: 0
-  minZoom: 12
-  zoomStepSize: 0
-  linkedZoomDrag: 0
-  zoomToMouse: 0
-  clampCamera: 0
-  cameraBoundsX: 0
-  cameraBoundsY: 0
-  boundaryObjectPosition: {x: 0, y: 0, z: 0}
+  zoomEnabled: 1
+  maxZoom: 11.5
+  minZoom: 8
+  zoomStepSize: 0.5
+  linkedZoomDrag: 1
+  zoomToMouse: 1
+  clampCamera: 1
+  cameraBoundsX: 40.79535
+  cameraBoundsY: 23.1938
+  boundaryObjectPosition: {x: -0.80794924, y: -0.825381, z: 0}
