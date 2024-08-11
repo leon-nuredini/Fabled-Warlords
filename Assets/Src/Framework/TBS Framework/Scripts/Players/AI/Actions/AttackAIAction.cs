@@ -29,6 +29,7 @@ namespace TbsFramework.Players.AI.Actions
             executionTime.Add("precalculate", new Dictionary<string, float>());
             executionTime.Add("evaluate", new Dictionary<string, float>());
         }
+
         public override bool ShouldExecute(Player player, Unit unit, CellGrid cellGrid)
         {
             if (unit.GetComponent<AttackAbility>() == null)
@@ -37,17 +38,42 @@ namespace TbsFramework.Players.AI.Actions
             }
 
             var enemyUnits = cellGrid.GetEnemyUnits(player);
+            var tempUnits = new List<Unit>();
+            
+            for (int i = 0; i < enemyUnits.Count; i++)
+            {
+                if (enemyUnits[i].TryGetComponent(out PrisonerAbility prisonerAbility))
+                    if (prisonerAbility.IsPrisoner)
+                        tempUnits.Add(enemyUnits[i]);
+            }
+            
+            for (int i = 0; i < tempUnits.Count; i++)
+                enemyUnits.Remove(tempUnits[i]);
+            
             if (enemyUnits.Count == 0) return false;
             var isEnemyinRange = enemyUnits.Select(u => unit.IsUnitAttackable(u, unit.Cell))
-                                           .Aggregate((result, next) => result || next);
+                .Aggregate((result, next) => result || next);
 
             return isEnemyinRange && unit.ActionPoints > 0;
         }
+
         public override void Precalculate(Player player, Unit unit, CellGrid cellGrid)
         {
             var enemyUnits = cellGrid.GetEnemyUnits(player);
+            var tempUnits = new List<Unit>();
+            
+            for (int i = 0; i < enemyUnits.Count; i++)
+            {
+                if (enemyUnits[i].TryGetComponent(out PrisonerAbility prisonerAbility))
+                    if (prisonerAbility.IsPrisoner)
+                        tempUnits.Add(enemyUnits[i]);
+            }
+            
+            for (int i = 0; i < tempUnits.Count; i++)
+                enemyUnits.Remove(tempUnits[i]);
+            
             var enemiesInRange = enemyUnits.Where(e => unit.IsUnitAttackable(e, unit.Cell))
-                                           .ToList();
+                .ToList();
 
             unitDebugInfo = new Dictionary<Unit, string>();
             enemyUnits.ForEach(u => unitDebugInfo[u] = "");
@@ -79,33 +105,43 @@ namespace TbsFramework.Players.AI.Actions
                 stopWatch.Reset();
 
                 var weightedScore = score * e.Weight;
-                unitDebugInfo[u] += string.Format("{0:+0.00;-0.00} * {1:+0.00;-0.00} = {2:+0.00;-0.00} : {3}\n", e.Weight, score, weightedScore, e.GetType().ToString());
+                unitDebugInfo[u] += string.Format("{0:+0.00;-0.00} * {1:+0.00;-0.00} = {2:+0.00;-0.00} : {3}\n",
+                    e.Weight, score, weightedScore, e.GetType().ToString());
 
                 return weightedScore;
             }).DefaultIfEmpty(0f).Aggregate((result, next) => result + next))).ToList();
             unitScores.ToList().ForEach(s => unitDebugInfo[s.unit] += string.Format("Total: {0:0.00}", s.value));
 
             var (topUnit, maxValue) = unitScores.OrderByDescending(o => o.value)
-                                                .First();
+                .First();
 
             Target = topUnit;
+            /*if (Target.TryGetComponent(out PrisonerAbility prisonerAbility))
+            {
+                if (prisonerAbility.IsPrisoner) Target = null;
+            }*/
         }
+
         public override IEnumerator Execute(Player player, Unit unit, CellGrid cellGrid)
         {
+            if (Target == null) yield break;
             unit.GetComponent<AttackAbility>().UnitToAttack = Target;
             unit.GetComponent<AttackAbility>().UnitToAttackID = Target.UnitID;
             yield return StartCoroutine(unit.GetComponent<AttackAbility>().AIExecute(cellGrid));
             yield return new WaitForSeconds(0.5f);
         }
+
         public override void CleanUp(Player player, Unit unit, CellGrid cellGrid)
         {
             foreach (var enemy in cellGrid.GetEnemyUnits(player))
             {
                 enemy.UnMark();
             }
+
             Target = null;
             unitScores = null;
         }
+
         public override void ShowDebugInfo(Player player, Unit unit, CellGrid cellGrid)
         {
             (cellGrid.cellGridState as CellGridStateAITurn).UnitDebugInfo = unitDebugInfo;
@@ -140,14 +176,14 @@ namespace TbsFramework.Players.AI.Actions
                 sum += precalculateTime + evaluateTime;
 
                 sb.AppendFormat("total: {0}ms\tprecalculate: {1}ms\tevaluate: {2}ms\t:{3}\n",
-                                (precalculateTime + evaluateTime).ToString().PadLeft(4),
-                                precalculateTime.ToString().PadLeft(4),
-                                evaluateTime.ToString().PadLeft(4),
-                                e.GetType().Name);
+                    (precalculateTime + evaluateTime).ToString().PadLeft(4),
+                    precalculateTime.ToString().PadLeft(4),
+                    evaluateTime.ToString().PadLeft(4),
+                    e.GetType().Name);
             }
+
             sb.AppendFormat("sum: {0}ms", sum.ToString().PadLeft(4));
             UnityEngine.Debug.Log(sb.ToString());
-
         }
     }
 }

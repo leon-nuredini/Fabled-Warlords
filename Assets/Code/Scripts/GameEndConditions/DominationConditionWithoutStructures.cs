@@ -10,14 +10,19 @@ namespace TbsFramework.Grid.GameResolvers
         {
             List<Unit> allUnits = cellGrid.Units;
             List<Unit> unitsOnly = new List<Unit>();
-            
+
             for (int i = 0; i < allUnits.Count; i++)
             {
                 if (allUnits[i] is LStructure)
                     continue;
+
+                if (allUnits[i].TryGetComponent(out PrisonerAbility prisonerAbility))
+                    if (prisonerAbility.IsPrisoner)
+                        continue;
+                
                 unitsOnly.Add(allUnits[i]);
             }
-            
+
             var playersAlive = unitsOnly.Select(u => u.PlayerNumber).Distinct().ToList();
             if (playersAlive.Count == 1)
             {
@@ -27,6 +32,7 @@ namespace TbsFramework.Grid.GameResolvers
 
                 return new GameResult(true, playersAlive, playersDead);
             }
+
             return new GameResult(false, null, null);
         }
     }
