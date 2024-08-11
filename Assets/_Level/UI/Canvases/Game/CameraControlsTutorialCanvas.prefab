@@ -486,8 +486,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2838990418682057287}
   - {fileID: 2003714017630854296}
+  - {fileID: 2838990418682057287}
   m_Father: {fileID: 670953842295778505}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -541,7 +541,7 @@ GameObject:
   - component: {fileID: 6566515268890719034}
   - component: {fileID: 8156875858137380482}
   m_Layer: 5
-  m_Name: 2.Camera_Zoom_Out
+  m_Name: 1.Camera_Zoom_Out
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1014,7 +1014,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2. Zoom In or Out
+  m_text: 2. Zoom out & in.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: de07e0ee7143d8d44a06c72e19903d15, type: 2}
   m_sharedMaterial: {fileID: -8089520461102388568, guid: de07e0ee7143d8d44a06c72e19903d15,
@@ -1366,7 +1366,7 @@ GameObject:
   - component: {fileID: 7923543807212922262}
   - component: {fileID: 3470107230159813195}
   m_Layer: 5
-  m_Name: 1.Camera_Zoom_In
+  m_Name: 2.Camera_Zoom_In
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
