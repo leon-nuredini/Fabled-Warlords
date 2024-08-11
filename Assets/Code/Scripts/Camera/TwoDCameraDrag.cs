@@ -1,7 +1,9 @@
 using System;
+using Lean.Touch;
 using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
+using CW.Common;
 
 public class TwoDCameraDrag : MonoBehaviour
 {
@@ -51,6 +53,7 @@ public class TwoDCameraDrag : MonoBehaviour
 
     [HideInInspector] public Dc2dSnapBox snapTarget;
 
+    
     private void Start()
     {
         if (_cam != null) return;
@@ -338,11 +341,15 @@ public class TwoDCameraDrag : MonoBehaviour
     }
     
     private void ZoomControl()
+{
+    var zoomInput = Input.GetAxis("Mouse ScrollWheel");
+    var keyboardZoomInput = Input.GetAxis("Camera Zoom");
+    
+    var pinchRatio = LeanGesture.GetPinchRatio();
+
+    if (cameraData.zoomEnabled)
     {
-        var zoomInput = Input.GetAxis("Mouse ScrollWheel");
-        var keyboardZoomInput = Input.GetAxis("Camera Zoom");
-        
-        if (cameraData.zoomEnabled && zoomInput != 0)
+        if (zoomInput != 0)
         {
             if (cameraData.zoomToMouse)
             {
@@ -374,7 +381,6 @@ public class TwoDCameraDrag : MonoBehaviour
         
         if (keyboardZoomInput != 0)
         {
-
             if (keyboardZoomInput > 0 && cameraData.minZoom < _cam.orthographicSize)
             {
                 _cam.orthographicSize -= cameraData.keyboardScrollStepSize;
@@ -387,8 +393,22 @@ public class TwoDCameraDrag : MonoBehaviour
 
             ClampZoom();
         }
+        
+        if (pinchRatio > 0)
+        {
+            if (pinchRatio > 1 && cameraData.minZoom < _cam.orthographicSize) 
+            {
+                _cam.orthographicSize -= cameraData.pinchZoomStepSize * (pinchRatio - 1);
+            }
+            else if (pinchRatio < 1 && cameraData.maxZoom > _cam.orthographicSize) 
+            {
+                _cam.orthographicSize += cameraData.pinchZoomStepSize * (1 - pinchRatio);
+            }
+            
+            ClampZoom();
+        }
     }
-
+}
 
 
     private bool _lfxmax = false;

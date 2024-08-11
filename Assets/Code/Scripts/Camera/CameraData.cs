@@ -29,6 +29,8 @@ public class CameraData : ScriptableObject
     public float mouseScrollStepSize = 0.15f;
     [Range(0.01f,1f)]
     public float keyboardScrollStepSize = 0.15f;
+    [Range(0.5f,5f)]
+    public float pinchZoomStepSize = 3f;
     public bool linkedZoomDrag;
     public bool zoomToMouse;
     [Header("Zoom")]
