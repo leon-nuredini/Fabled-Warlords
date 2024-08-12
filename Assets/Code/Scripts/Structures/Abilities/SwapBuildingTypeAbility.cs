@@ -40,6 +40,7 @@ public class SwapBuildingTypeAbility : Ability
             stronghold.IncomeGenerationAbility.IncomeAmount = 1;
             stronghold.UnitStats = _newStructureStats;
             stronghold.UnitDetails = _newStructureDetails;
+            stronghold.UpdateUnitStats();
         }
 
         UnitReference.PlayerNumber = capturer.PlayerNumber;
