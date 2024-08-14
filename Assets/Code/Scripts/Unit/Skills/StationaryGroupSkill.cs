@@ -4,6 +4,7 @@ using TbsFramework.Units.Abilities;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using NaughtyAttributes;
 using TbsFramework.Grid;
 using TbsFramework.Players;
 using TbsFramework.Units;
@@ -18,9 +19,36 @@ public class StationaryGroupSkill : Ability
 
     [SerializeField] private int _alertRange = 3;
 
-    private LUnit _lUnit;
+    [BoxGroup("Attack after X amount of turns")] [SerializeField]
+    private bool _canAttackAfterSomeTurns;
 
-    private void Awake() => _lUnit = GetComponent<LUnit>();
+    [BoxGroup("Attack after X amount of turns")] [ShowIf("_canAttackAfterSomeTurns")] [SerializeField]
+    private int _turnsToWaitBeforeAttack = 15;
+
+    private int _turnsPassed;
+
+    private LUnit _lUnit;
+    private MoveAbility _moveAbility;
+
+    public bool IsStationary
+    {
+        get => _isStationary;
+        set
+        {
+            _isStationary = value;
+            if (_moveAbility != null)
+                _moveAbility.CanMove = !_isStationary;
+        }
+    }
+
+    private void Awake()
+    {
+        _lUnit = GetComponent<LUnit>();
+        _moveAbility = GetComponent<MoveAbility>();
+        
+        if (!IsStationary)
+            _moveAbility.CanMove = false;
+    }
 
     private void OnEnable()
     {
@@ -35,7 +63,7 @@ public class StationaryGroupSkill : Ability
 
     public override IEnumerator Act(CellGrid cellGrid, bool isNetworkInvoked = false)
     {
-        if (!_isStationary) yield break;
+        if (!IsStationary) yield break;
 
         Player player = CellGrid.Instance.Players.First(player => player.PlayerNumber == 0);
         var humanPlayerUnitList = cellGrid.GetPlayerUnits(player);
@@ -59,27 +87,33 @@ public class StationaryGroupSkill : Ability
         if (unitsInRange.Count > 0)
         {
             OnUnitAlerted?.Invoke();
-            _isStationary = false;
+            IsStationary = false;
         }
 
-        if (_isStationary)
+        if (IsStationary)
             UnitReference.SetMovementPoints(0);
 
         yield return 0;
     }
 
-    private void Alert() => _isStationary = false;
-    private void Alert(UnitDirection direction) => _isStationary = false;
+    private void Alert() => IsStationary = false;
+    private void Alert(UnitDirection direction) => IsStationary = false;
 
     public override void OnTurnStart(CellGrid cellGrid)
     {
-        if (!_isStationary) return;
+        if (_canAttackAfterSomeTurns)
+        {
+            _turnsPassed++;
+            if (_turnsPassed >= _turnsToWaitBeforeAttack)
+                Alert();
+        }
+        if (!IsStationary) return;
         StartCoroutine(Act(cellGrid, false));
     }
 
     public override void OnTurnEnd(CellGrid cellGrid)
     {
-        if (!_isStationary) return;
+        if (!IsStationary) return;
         StartCoroutine(Act(cellGrid, false));
     }
 }

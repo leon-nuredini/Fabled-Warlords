@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using NaughtyAttributes;
+using TbsFramework.Grid;
 using TbsFramework.Units.Abilities;
 using UnityEngine;
 
@@ -13,6 +14,9 @@ public class PrisonerAbility : Ability
     [BoxGroup("Graphics")] [SerializeField]
     private SpriteRenderer _mask;
 
+    [BoxGroup("Prisoner Color Tolerance Amount")] [SerializeField]
+    private float _prisonerColorTintAmount = 0f;
+
     private readonly string _colorChangeTolerance = "_ColorChangeTolerance";
 
     private Material _material;
@@ -24,10 +28,8 @@ public class PrisonerAbility : Ability
     private void Awake()
     {
         _material = _mask.material;
-        _material.SetFloat(_colorChangeTolerance, 0f);
+        _material.SetFloat(_colorChangeTolerance, _prisonerColorTintAmount);
     }
-
-    //private void Start() => UnitReference.PlayerNumber = 1;
 
     private void OnEnable()
     {
@@ -54,6 +56,25 @@ public class PrisonerAbility : Ability
         {
             lUnit.UnitStats = _releasedUnitStats;
             lUnit.UpdateUnitStats();
+        }
+
+        UnitReference.PlayerNumber = 0;
+    }
+
+    public override void OnTurnStart(CellGrid cellGrid)
+    {
+        base.OnTurnStart(cellGrid);
+        if (cellGrid.CurrentPlayerNumber != 0) return;
+        UnitReference.PlayerNumber = 0;
+    }
+
+    public override void OnTurnEnd(CellGrid cellGrid)
+    {
+        base.OnTurnEnd(cellGrid);
+        if (_isPrisoner && cellGrid.CurrentPlayerNumber == 0)
+        {
+            UnitReference.PlayerNumber = 1;
+            return;
         }
 
         UnitReference.PlayerNumber = 0;
