@@ -5,6 +5,7 @@ using TbsFramework.Cells;
 using TbsFramework.Grid;
 using TbsFramework.Grid.GridStates;
 using System;
+using UnityEngine;
 
 namespace TbsFramework.Units.Abilities
 {
@@ -15,9 +16,21 @@ namespace TbsFramework.Units.Abilities
         public HashSet<Cell> availableDestinations;
         private List<Cell> _movePath = new List<Cell>();
 
+        [SerializeField] private bool _canMove = true;
+
+        #region Properties
+
+        public bool CanMove
+        {
+            get => _canMove;
+            set => _canMove = value;
+        }
+
+        #endregion
+
         public override IEnumerator Act(CellGrid cellGrid, bool isNetworkInvoked = false)
         {
-            if (UnitReference.ActionPoints > 0 && availableDestinations.Contains(Destination))
+            if (UnitReference.ActionPoints > 0 && availableDestinations.Contains(Destination) && CanMove)
             {
                 var path = UnitReference.FindPath(cellGrid.Cells, Destination);
                 yield return UnitReference.Move(Destination, path);

@@ -19,7 +19,7 @@ public class RapidShotSkill : MonoBehaviour, ISkill
         _lUnit = GetComponent<LUnit>();
     }
 
-    private void OnEnable() => _lUnit.OnTurnEndUnitReset += ResetActionPointAdded;
+    /*private void OnEnable() => _lUnit.OnTurnEndUnitReset += ResetActionPointAdded;
     private void OnDisable() => _lUnit.OnTurnEndUnitReset -= ResetActionPointAdded;
 
     public void AddAdditionalActionPoint()
@@ -29,5 +29,5 @@ public class RapidShotSkill : MonoBehaviour, ISkill
         _isActionPointAdded = true;
     }
 
-    private void ResetActionPointAdded() => _isActionPointAdded = false;
+    private void ResetActionPointAdded() => _isActionPointAdded = false;*/
 }

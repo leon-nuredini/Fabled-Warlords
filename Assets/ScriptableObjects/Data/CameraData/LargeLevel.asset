@@ -23,7 +23,11 @@ MonoBehaviour:
   zoomEnabled: 1
   maxZoom: 17.5
   minZoom: 12
-  zoomStepSize: 0.5
+  mouseScrollStepSize: 0.35
+  keyboardScrollStepSize: 0.15
   linkedZoomDrag: 1
   zoomToMouse: 1
   clampCamera: 1
+  cameraBoundsX: 0
+  cameraBoundsY: 0
+  boundaryObjectPosition: {x: 0, y: 0, z: 0}

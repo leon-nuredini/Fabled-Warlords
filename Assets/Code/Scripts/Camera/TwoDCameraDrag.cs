@@ -34,7 +34,7 @@ public class TwoDCameraDrag : MonoBehaviour
     [Range(0.01f, 1f)] [HideInInspector] public float lerpSpeed = 0.5f;
     [HideInInspector] public Vector3 offset = new Vector3(0, 0, -10);
 
-    public CameraBounds bounds;
+    private  CameraBounds bounds;
     [HideInInspector] public Dc2dDolly dollyRail;
 
 
@@ -336,39 +336,59 @@ public class TwoDCameraDrag : MonoBehaviour
         // Limit zoom
         _cam.orthographicSize = Mathf.Clamp(_cam.orthographicSize, cameraData.minZoom, cameraData.maxZoom);
     }
-
-    // managae zooming
+    
     private void ZoomControl()
     {
-        if (cameraData.zoomToMouse)
+        var zoomInput = Input.GetAxis("Mouse ScrollWheel");
+        var keyboardZoomInput = Input.GetAxis("Camera Zoom");
+        
+        if (cameraData.zoomEnabled && zoomInput != 0)
         {
-            if (Input.GetAxis("Mouse ScrollWheel") > 0 && cameraData.minZoom < _cam.orthographicSize) // forward
+            if (cameraData.zoomToMouse)
             {
-                ZoomOrthoCamera(_cam.ScreenToWorldPoint(Input.mousePosition), cameraData.zoomStepSize);
+                if (zoomInput > 0 && cameraData.minZoom < _cam.orthographicSize)
+                {
+                    ZoomOrthoCamera(_cam.ScreenToWorldPoint(Input.mousePosition), cameraData.mouseScrollStepSize);
+                }
+
+                if (zoomInput < 0 && cameraData.maxZoom > _cam.orthographicSize)
+                {
+                    ZoomOrthoCamera(_cam.ScreenToWorldPoint(Input.mousePosition), -cameraData.mouseScrollStepSize);
+                }
+            }
+            else
+            {
+                if (zoomInput > 0 && cameraData.minZoom < _cam.orthographicSize)
+                {
+                    _cam.orthographicSize -= cameraData.mouseScrollStepSize;
+                }
+
+                if (zoomInput < 0 && cameraData.maxZoom > _cam.orthographicSize)
+                {
+                    _cam.orthographicSize += cameraData.mouseScrollStepSize;
+                }
             }
 
-            if (Input.GetAxis("Mouse ScrollWheel") < 0 &&
-                cameraData.maxZoom > _cam.orthographicSize) // back            
-            {
-                ZoomOrthoCamera(_cam.ScreenToWorldPoint(Input.mousePosition), -cameraData.zoomStepSize);
-            }
+            ClampZoom();
         }
-        else
+        
+        if (keyboardZoomInput != 0)
         {
-            if (Input.GetAxis("Mouse ScrollWheel") > 0 && cameraData.minZoom < _cam.orthographicSize) // forward
+
+            if (keyboardZoomInput > 0 && cameraData.minZoom < _cam.orthographicSize)
             {
-                _cam.orthographicSize = _cam.orthographicSize - cameraData.zoomStepSize;
+                _cam.orthographicSize -= cameraData.keyboardScrollStepSize;
             }
 
-            if (Input.GetAxis("Mouse ScrollWheel") < 0 &&
-                cameraData.maxZoom > _cam.orthographicSize) // back            
+            if (keyboardZoomInput < 0 && cameraData.maxZoom > _cam.orthographicSize)
             {
-                _cam.orthographicSize = _cam.orthographicSize + cameraData.zoomStepSize;
+                _cam.orthographicSize += cameraData.keyboardScrollStepSize;
             }
+
+            ClampZoom();
         }
-
-        ClampZoom();
     }
+
 
 
     private bool _lfxmax = false;
@@ -396,14 +416,14 @@ public class TwoDCameraDrag : MonoBehaviour
         if (_tr.x > boundsMaxX && _bl.x < boundsMinX)
         {
             Debug.Log("User tried to zoom out past x axis bounds - locked to bounds");
-            _cam.orthographicSize = _cam.orthographicSize - cameraData.zoomStepSize; // zoomControl in to compensate
+            _cam.orthographicSize = _cam.orthographicSize - cameraData.mouseScrollStepSize; // zoomControl in to compensate
             ClampZoom();
         }
 
         if (_tr.y > boundsMaxY && _bl.y < boundsMinY)
         {
             Debug.Log("User tried to zoom out past y axis bounds - locked to bounds");
-            _cam.orthographicSize = _cam.orthographicSize - cameraData.zoomStepSize; // zoomControl in to compensate
+            _cam.orthographicSize = _cam.orthographicSize - cameraData.mouseScrollStepSize; // zoomControl in to compensate
             ClampZoom();
         }
 
@@ -416,7 +436,7 @@ public class TwoDCameraDrag : MonoBehaviour
         {
             if (_lfxmin)
             {
-                _cam.orthographicSize = _cam.orthographicSize - cameraData.zoomStepSize; // zoomControl in to compensate
+                _cam.orthographicSize = _cam.orthographicSize - cameraData.mouseScrollStepSize; // zoomControl in to compensate
                 ClampZoom();
             }
             else
@@ -431,7 +451,7 @@ public class TwoDCameraDrag : MonoBehaviour
         {
             if (_lfymin)
             {
-                _cam.orthographicSize = _cam.orthographicSize - cameraData.zoomStepSize; // zoomControl in to compensate
+                _cam.orthographicSize = _cam.orthographicSize - cameraData.mouseScrollStepSize; // zoomControl in to compensate
                 ClampZoom();
             }
             else
@@ -446,7 +466,7 @@ public class TwoDCameraDrag : MonoBehaviour
         {
             if (_lfxmax)
             {
-                _cam.orthographicSize = _cam.orthographicSize - cameraData.zoomStepSize; // zoomControl in to compensate
+                _cam.orthographicSize = _cam.orthographicSize - cameraData.mouseScrollStepSize; // zoomControl in to compensate
                 ClampZoom();
             }
             else
@@ -461,7 +481,7 @@ public class TwoDCameraDrag : MonoBehaviour
         {
             if (_lfymax)
             {
-                _cam.orthographicSize = _cam.orthographicSize - cameraData.zoomStepSize; // zoomControl in to compensate
+                _cam.orthographicSize = _cam.orthographicSize - cameraData.mouseScrollStepSize; // zoomControl in to compensate
                 ClampZoom();
             }
             else

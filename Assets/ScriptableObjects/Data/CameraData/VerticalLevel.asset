@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df349e9269c8cfc4480dc361e646b5f5, type: 3}
+  m_Name: VerticalLevel
+  m_EditorClassIdentifier: 
+  dragEnabled: 1
+  dragSpeed: -0.06
+  mouseButton: 2
+  enableEdgeScroll: 0
+  edgeBoundary: 20
+  edgeSpeed: 1
+  keyboardInput: 1
+  inverseKeyboard: 0
+  zoomEnabled: 1
+  maxZoom: 15.5
+  minZoom: 8
+  mouseScrollStepSize: 0.35
+  keyboardScrollStepSize: 0.15
+  linkedZoomDrag: 1
+  zoomToMouse: 1
+  clampCamera: 1
+  cameraBoundsX: 34.25685
+  cameraBoundsY: 55.47155
+  boundaryObjectPosition: {x: -1.334884, y: -2.250135, z: 0}
