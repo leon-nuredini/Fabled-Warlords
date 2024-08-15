@@ -21,7 +21,8 @@ public class UITop : MonoBehaviour
     [BoxGroup("Buttons")] [SerializeField] private Button _endTurnButton;
 
     private WaitForSeconds _waitSixtySeconds;
-    private CanvasGroup    _endTurnCanvasGroup;
+    private CanvasGroup _endTurnCanvasGroup;
+    private RecruitmentController _recruitmentController;
 
     private int secondsPassed;
     private int secondsToWait = 60;
@@ -30,17 +31,25 @@ public class UITop : MonoBehaviour
 
     #region Properties
 
-    public bool AllowEndTurn { get => _allowEndTurn; set => _allowEndTurn = value; }
-    
+    public bool AllowEndTurn
+    {
+        get => _allowEndTurn;
+        set => _allowEndTurn = value;
+    }
+
     #endregion
 
     private void Awake()
     {
-        _waitSixtySeconds   = new WaitForSeconds(secondsToWait);
+        _waitSixtySeconds = new WaitForSeconds(secondsToWait);
+        _recruitmentController = FindObjectOfType<RecruitmentController>();
         _endTurnCanvasGroup = _endTurnButton.GetComponent<CanvasGroup>();
         _menuButton.onClick.AddListener(OpenSettingsPanel);
         _recruitButton.onClick.AddListener(OpenRecruitmentPanel);
         _endTurnButton.onClick.AddListener(EndTurn);
+
+        if (_recruitmentController != null)
+            _recruitmentController.OnAllowPlayerRecruitment += UpdateRecruitmentButton;
     }
 
     private void OnEnable()
@@ -61,10 +70,18 @@ public class UITop : MonoBehaviour
         StartCoroutine(UpdateTimePassed());
     }
 
-    void Update()
+    private void Update()
     {
         if (!AllowEndTurn) return;
-        if (Input.GetKeyDown(KeyCode.M)) { EndTurn(); }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            EndTurn();
+        }
+    }
+
+    private void UpdateRecruitmentButton(bool isRecruitmentAllowed)
+    {
+        _recruitButton.gameObject.SetActive(isRecruitmentAllowed);
     }
 
     private IEnumerator UpdateTimePassed()
@@ -78,7 +95,7 @@ public class UITop : MonoBehaviour
         }
     }
 
-    private void OpenSettingsPanel()    => OnAnyMenuButtonClicked?.Invoke();
+    private void OpenSettingsPanel() => OnAnyMenuButtonClicked?.Invoke();
     private void OpenRecruitmentPanel() => OnAnyRecruitButtonClicked?.Invoke();
 
     private void EndTurn()
@@ -93,13 +110,13 @@ public class UITop : MonoBehaviour
     private void EnableEndTurnButton(object sender, EventArgs eventArgs)
     {
         if (CellGrid.Instance.CurrentPlayer is AIPlayer) return;
-        _endTurnCanvasGroup.alpha   = 1f;
+        _endTurnCanvasGroup.alpha = 1f;
         _endTurnButton.interactable = true;
     }
 
     private void DisableEndTurnButton()
     {
-        _endTurnCanvasGroup.alpha   = .5f;
+        _endTurnCanvasGroup.alpha = .5f;
         _endTurnButton.interactable = false;
     }
 }

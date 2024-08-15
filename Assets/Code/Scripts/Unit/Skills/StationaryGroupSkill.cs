@@ -54,6 +54,7 @@ public class StationaryGroupSkill : Ability
     {
         for (int i = 0; i < _unitGroupList.Count; i++)
         {
+            if (_unitGroupList[i] == null) continue;
             _unitGroupList[i].OnDie += Alert;
             _unitGroupList[i].OnGetHit += Alert;
             if (_unitGroupList[i].TryGetComponent(out StationaryGroupSkill _stationaryGroupSkill))

@@ -70,6 +70,7 @@ public class UIRecruitment : MonoBehaviour
         _unitRecruitButtonArray = GetComponentsInChildren<UIUnitRecruitButton>().ToList();
         if (_recruitmentController == null)
             _recruitmentController = FindObjectOfType<RecruitmentController>();
+        _recruitmentController.OnAllowPlayerRecruitment += UpdateRecruitmentState;
         UpdateButtons();
         OnAnyAddUnitButtons?.Invoke(_unitRecruitButtonArray);
     }
@@ -95,6 +96,8 @@ public class UIRecruitment : MonoBehaviour
 
         if (CellGrid.Instance != null) CellGrid.Instance.TurnEnded -= OnTurnEnded;
     }
+
+    private void UpdateRecruitmentState(bool isRecruitmentAllowed) => _allowRecruitment = isRecruitmentAllowed;
 
     private void Update()
     {

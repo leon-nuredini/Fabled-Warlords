@@ -18,6 +18,7 @@ public class PrisonerAbility : Ability
     private float _prisonerColorTintAmount = 0f;
 
     private readonly string _colorChangeTolerance = "_ColorChangeTolerance";
+    private readonly string _colorChangeTolerance2 = "_ColorChangeTolerance2";
 
     private Material _material;
 
@@ -29,6 +30,7 @@ public class PrisonerAbility : Ability
     {
         _material = _mask.material;
         _material.SetFloat(_colorChangeTolerance, _prisonerColorTintAmount);
+        _material.SetFloat(_colorChangeTolerance2, _prisonerColorTintAmount);
     }
 
     private void OnEnable()
@@ -51,6 +53,8 @@ public class PrisonerAbility : Ability
         if (_overlordUnitList.Count > 0) return;
 
         _material.SetFloat(_colorChangeTolerance, 1f);
+        _material.SetFloat(_colorChangeTolerance2, 1f);
+        
         _isPrisoner = false;
         if (UnitReference is LUnit lUnit)
         {

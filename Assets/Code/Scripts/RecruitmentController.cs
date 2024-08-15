@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
-using Singleton;
 using TbsFramework.Example4;
 using TbsFramework.Players;
 using TbsFramework.Units.UnitStates;
@@ -16,7 +15,11 @@ public class RecruitmentController : MonoBehaviour
 {
     public static event Action OnAnyNewUnitRecruited;
     public static event Action<LUnit, int, int> OnAnyPurchaseUnit;
+    public event Action<bool> OnAllowPlayerRecruitment;
 
+    [BoxGroup("Allow Recruiting")] [SerializeField]
+    private bool _allowPlayerRecruitment = true;
+    
     [BoxGroup("Allow Recruiting")] [SerializeField]
     private bool _allowAIRecruiting = true;
 
@@ -46,6 +49,8 @@ public class RecruitmentController : MonoBehaviour
     public List<GameObject> PrimordialUnitList => _primordialUnits.UnitList;
 
     #endregion
+
+    private void Start() => OnAllowPlayerRecruitment?.Invoke(_allowPlayerRecruitment);
 
     private void OnEnable()
     {

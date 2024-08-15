@@ -525,6 +525,7 @@ public class LUnit : Unit
 
     public override void OnMouseDown()
     {
+        if (_prisonerAbility != null && _prisonerAbility.IsPrisoner) return;
         if (!EventSystem.current.IsPointerOverGameObject())
             HandleMouseDown();
     }
