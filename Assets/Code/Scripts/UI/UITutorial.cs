@@ -336,7 +336,7 @@ public class UITutorial : MonoBehaviour
     private void UpdateRecruitButtons(List<UIUnitRecruitButton> unitRecruitButtons)
     {
         _spearmanButton = unitRecruitButtons[0].GetComponent<Button>();
-        _archerButton = unitRecruitButtons[0].GetComponent<Button>();
+        _archerButton = unitRecruitButtons[2].GetComponent<Button>();
     }
 
     private void UpdateTutorialData()
