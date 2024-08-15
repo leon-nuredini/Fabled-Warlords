@@ -377,12 +377,12 @@ public class TwoDCameraDrag : MonoBehaviour
 
             if (keyboardZoomInput > 0 && cameraData.minZoom < _cam.orthographicSize)
             {
-                _cam.orthographicSize -= cameraData.keyboardScrollStepSize;
+                ZoomOrthoCamera(transform.position, cameraData.keyboardScrollStepSize);
             }
 
             if (keyboardZoomInput < 0 && cameraData.maxZoom > _cam.orthographicSize)
             {
-                _cam.orthographicSize += cameraData.keyboardScrollStepSize;
+                ZoomOrthoCamera(transform.position, -cameraData.keyboardScrollStepSize);
             }
 
             ClampZoom();
