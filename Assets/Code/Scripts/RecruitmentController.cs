@@ -60,6 +60,7 @@ public class RecruitmentController : MonoBehaviour
         UITutorial.OnAnyAllowRecruitment += EnableAIRecruitment;
         LSquare.OnAnyRecruitUnit += OnRecruitUnitAtCell;
         CellGrid.Instance.TurnEnded += OnTurnEnd;
+        ClaimBaseObjective.OnAnyCompleteClaimBaseObjective += EnableRecruitment;
     }
 
     private void OnDisable()
@@ -70,8 +71,16 @@ public class RecruitmentController : MonoBehaviour
         UITutorial.OnAnyAllowRecruitment -= EnableAIRecruitment;
         LSquare.OnAnyRecruitUnit -= OnRecruitUnitAtCell;
         CellGrid.Instance.TurnEnded -= OnTurnEnd;
+        ClaimBaseObjective.OnAnyCompleteClaimBaseObjective -= EnableRecruitment;
     }
 
+    private void EnableRecruitment()
+    {
+        EnableAIRecruitment();
+        _allowPlayerRecruitment = true;
+        OnAllowPlayerRecruitment?.Invoke(_allowPlayerRecruitment);
+    }
+    
     private void EnableAIRecruitment() => _allowAIRecruiting = true;
 
     private void OnAIRecruitUnits(List<LUnit> units, List<Cell> cells)

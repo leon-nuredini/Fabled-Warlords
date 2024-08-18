@@ -45,7 +45,7 @@ public class StationaryGroupSkill : Ability
     {
         _lUnit = GetComponent<LUnit>();
         _moveAbility = GetComponent<MoveAbility>();
-        
+
         if (!IsStationary)
             _moveAbility.CanMove = false;
     }
@@ -97,7 +97,7 @@ public class StationaryGroupSkill : Ability
         yield return 0;
     }
 
-    private void Alert() => IsStationary = false;
+    public void Alert() => IsStationary = false;
     private void Alert(UnitDirection direction) => IsStationary = false;
 
     public override void OnTurnStart(CellGrid cellGrid)
@@ -108,6 +108,7 @@ public class StationaryGroupSkill : Ability
             if (_turnsPassed >= _turnsToWaitBeforeAttack)
                 Alert();
         }
+
         if (!IsStationary) return;
         StartCoroutine(Act(cellGrid, false));
     }

@@ -116,10 +116,6 @@ namespace TbsFramework.Players.AI.Actions
                 .First();
 
             Target = topUnit;
-            /*if (Target.TryGetComponent(out PrisonerAbility prisonerAbility))
-            {
-                if (prisonerAbility.IsPrisoner) Target = null;
-            }*/
         }
 
         public override IEnumerator Execute(Player player, Unit unit, CellGrid cellGrid)
