@@ -14,7 +14,8 @@ public class LDominationCondition : GameEndCondition
         {
             if (cellGrid.Units[i] is LUnit lUnit)
             {
-                if (lUnit.UnitFaction != UnitFaction.None)
+                if (lUnit is LStructure structure && structure is not Stronghold) continue;
+                    if (lUnit.UnitFaction != UnitFaction.None)
                     lUnitList.Add(lUnit);
             }
         }
