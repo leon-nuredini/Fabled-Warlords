@@ -345,6 +345,8 @@ namespace TbsFramework.Grid
                 TurnStarted.Invoke(this, EventArgs.Empty);
 
             CurrentPlayer.Play(this);
+
+            CheckGameFinished();
         }
 
         public List<Unit> GetCurrentPlayerUnits() { return PlayableUnits(); }
