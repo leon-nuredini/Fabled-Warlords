@@ -87,7 +87,8 @@ namespace TbsFramework.Players.AI.Actions
                 var weightedScore = score * e.Weight;
                 if ((player as AIPlayer).DebugMode)
                 {
-                    cellMetadata[c] += string.Format("{0} * {1} = {2} : {3}\n", e.Weight.ToString("+0.00;-0.00"), score.ToString("+0.00;-0.00"), weightedScore.ToString("+0.00;-0.00"), e.GetType().ToString());
+                    cellMetadata[c] += string.Format("{0} * {1} = {2} : {3}\n", e.Weight.ToString("+0.00;-0.00"),
+                        score.ToString("+0.00;-0.00"), weightedScore.ToString("+0.00;-0.00"), e.GetType().ToString());
                 }
 
                 cellScoresDict[c] += weightedScore;
@@ -95,7 +96,7 @@ namespace TbsFramework.Players.AI.Actions
             }).DefaultIfEmpty(0f).Aggregate((result, next) => result + next))).OrderByDescending(x => x.value);
 
             var (topCell, maxValue) = cellScores.Where(o => unit.IsCellMovableTo(o.cell))
-                                                .First();
+                .First();
 
             var currentCellVal = cellScoresDict[unit.Cell];
 
@@ -108,6 +109,7 @@ namespace TbsFramework.Players.AI.Actions
             TopDestination = unit.Cell;
             return false;
         }
+
         public override void Precalculate(Player player, Unit unit, CellGrid cellGrid)
         {
             var path = unit.FindPath(cellGrid.Cells, TopDestination);
@@ -117,7 +119,10 @@ namespace TbsFramework.Players.AI.Actions
             for (int i = path.Count - 1; i >= 0; i--)
             {
                 var cell = path[i];
-                cost += cell.MovementCost;
+                if (unit is Griffin || unit is Pixie)
+                    cost += 1;
+                else
+                    cost += cell.MovementCost;
                 if (cost <= unit.MovementPoints)
                 {
                     selectedPath.Add(cell);
@@ -135,31 +140,39 @@ namespace TbsFramework.Players.AI.Actions
                             break;
                         }
                     }
+
                     break;
                 }
             }
+
             selectedPath.Reverse();
 
             if (selectedPath.Count != 0)
             {
-                TopDestination = ShouldMoveAllTheWay ? selectedPath[0] : selectedPath.OrderByDescending(c => cellScoresDict[c]).First();
+                TopDestination = ShouldMoveAllTheWay
+                    ? selectedPath[0]
+                    : selectedPath.OrderByDescending(c => cellScoresDict[c]).First();
             }
         }
+
         public override IEnumerator Execute(Player player, Unit unit, CellGrid cellGrid)
         {
             if (unit == null) yield break;
             unit.GetComponent<MoveAbility>().Destination = TopDestination;
             yield return unit.GetComponent<MoveAbility>().AIExecute(cellGrid);
         }
+
         public override void CleanUp(Player player, Unit unit, CellGrid cellGrid)
         {
             foreach (var cell in cellGrid.Cells)
             {
                 cell.UnMark();
             }
+
             TopDestination = null;
             (cellGrid.cellGridState as CellGridStateAITurn).CellDebugInfo = null;
         }
+
         public override void ShowDebugInfo(Player player, Unit unit, CellGrid cellGrid)
         {
             Dictionary<Cell, DebugInfo> cellDebugInfo = new Dictionary<Cell, DebugInfo>();
@@ -179,7 +192,8 @@ namespace TbsFramework.Players.AI.Actions
             {
                 var (cell, value) = cellScoresEnumerator.Current;
 
-                var color = DebugGradient.Evaluate((value - minScore) / (Mathf.Abs(maxScore - minScore) + float.Epsilon));
+                var color = DebugGradient.Evaluate(
+                    (value - minScore) / (Mathf.Abs(maxScore - minScore) + float.Epsilon));
                 cellMetadata[cell] += string.Format("Total: {0}", cellScoresDict[cell].ToString("0.00"));
                 cellDebugInfo[cell] = new DebugInfo(cellMetadata[cell], color);
             }
@@ -201,11 +215,12 @@ namespace TbsFramework.Players.AI.Actions
                 sum += precalculateTime + evaluateTime;
 
                 sb.AppendFormat("total: {0}ms\tprecalculate: {1}ms\tevaluate: {2}ms\t:{3}\n",
-                                (precalculateTime + evaluateTime).ToString().PadLeft(4),
-                                precalculateTime.ToString().PadLeft(4),
-                                evaluateTime.ToString().PadLeft(4),
-                                e.GetType().Name);
+                    (precalculateTime + evaluateTime).ToString().PadLeft(4),
+                    precalculateTime.ToString().PadLeft(4),
+                    evaluateTime.ToString().PadLeft(4),
+                    e.GetType().Name);
             }
+
             sb.AppendFormat("sum: {0}ms", sum.ToString().PadLeft(4));
             UnityEngine.Debug.Log(sb.ToString());
         }
