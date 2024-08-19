@@ -345,10 +345,12 @@ public class LUnit : Unit
 
         if (!enemyUnit.IsEvading)
         {
+            bool isThisMageUnit = this is IMage;
             AttackAction attackAction = DealDamage(unitToAttack);
+            if (!isThisMageUnit) ApplyDebuffsToEnemy(enemyUnit);
             unitToAttack.DefendHandler(this, attackAction.Damage);
             attackActionCost = attackAction.ActionCost;
-            ApplyDebuffsToEnemy(enemyUnit);
+            if (isThisMageUnit) ApplyDebuffsToEnemy(enemyUnit);
         }
 
         MarkAsAttacking(unitToAttack);
