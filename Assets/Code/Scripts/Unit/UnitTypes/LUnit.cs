@@ -224,6 +224,7 @@ public class LUnit : Unit
             Poison poisonStatusEffect = StatusEffectsController.GetStatus<Poison>();
             int damageTaken = Mathf.RoundToInt(TotalHitPoints * poisonStatusEffect.damageFactor);
             HitPoints -= damageTaken;
+            _tempDamageReceived = damageTaken;
             DefenceActionPerformedFromStatusEffect();
             if (HitPoints <= 0)
                 OnDestroyed();
