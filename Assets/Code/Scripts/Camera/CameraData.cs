@@ -10,6 +10,8 @@ public class CameraData : ScriptableObject
     [Header("Drag")]
     public bool dragEnabled;
     public float dragSpeed = -0.06f;
+    [Range(0.01f,0.2f)]
+    public float mobileDragSpeed = 0.015f;
     public TwoDCameraDrag.MouseButton mouseButton;
     [Header("Edge Scroll")] 
     public bool enableEdgeScroll;
@@ -31,6 +33,8 @@ public class CameraData : ScriptableObject
     public float keyboardScrollStepSize = 0.15f;
     public bool linkedZoomDrag;
     public bool zoomToMouse;
+    [Range(0.1f,5f)]
+    public float pinchZoomStepSize = 5f;
     [Header("Zoom")]
     public bool clampCamera;
 

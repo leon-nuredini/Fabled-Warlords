@@ -1,4 +1,5 @@
 using System;
+using Lean.Touch;
 using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class TwoDCameraDrag : MonoBehaviour
     public static event Action OnAnyMoveCameraDown;
     public static event Action OnAnyZoomCameraIn;
     public static event Action OnAnyZoomCameraOut;
+    
+    public LeanFingerFilter Use = new LeanFingerFilter(true);
 
     private Camera _cam;
     [Expandable] public CameraData cameraData;
@@ -52,6 +55,7 @@ public class TwoDCameraDrag : MonoBehaviour
 
     private void Start()
     {
+        Use.UpdateRequiredSelectable(gameObject);
         if (_cam != null) return;
         if (GetComponent<Camera>() != null)
         {
@@ -311,6 +315,14 @@ public class TwoDCameraDrag : MonoBehaviour
 
             transform.Translate(x, y, 0);
         }
+        var fingers = Use.UpdateAndGetFingers();
+        
+        var screenDelta = LeanGesture.GetScreenDelta(fingers);
+        if (screenDelta != Vector2.zero)
+        {
+            transform.Translate(-screenDelta *cameraData.mobileDragSpeed);
+        }
+        
     }
 
     private void ClampZoom()
@@ -341,12 +353,17 @@ public class TwoDCameraDrag : MonoBehaviour
     {
         var zoomInput = Input.GetAxis("Mouse ScrollWheel");
         var keyboardZoomInput = Input.GetAxis("Camera Zoom");
+        var fingers = Use.UpdateAndGetFingers();
 
+        // Calculate pinch scale, and make sure it's valid
+        var pinchRatio = LeanGesture.GetPinchScale(fingers);
+        
         var totalZoomInput = zoomInput + keyboardZoomInput;
 
         bool isZoomingWithScrollWheel = zoomInput != 0;
 
         var zoomSize = cameraData.mouseScrollStepSize;
+
         if (keyboardZoomInput != 0)
             zoomSize = cameraData.keyboardScrollStepSize;
 
@@ -362,6 +379,26 @@ public class TwoDCameraDrag : MonoBehaviour
 
             ClampZoom();
         }
+        if (pinchRatio != 1)
+        {
+            if (pinchRatio > 1 && cameraData.minZoom < _cam.orthographicSize)
+            {
+                ZoomOrthoCamera(_cam.ScreenToWorldPoint(Input.mousePosition), cameraData.pinchZoomStepSize * (pinchRatio - 1),
+                    isZoomingWithScrollWheel && cameraData.zoomToMouse);
+            }
+
+            if (pinchRatio < 1 && cameraData.maxZoom > _cam.orthographicSize)
+            {
+                ZoomOrthoCamera(_cam.ScreenToWorldPoint(Input.mousePosition), -cameraData.pinchZoomStepSize * (1 - pinchRatio),
+                    isZoomingWithScrollWheel && cameraData.zoomToMouse);
+            }
+
+            ClampZoom();
+        }
+
+
+        
+
     }
 
 

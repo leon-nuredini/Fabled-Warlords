@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dragEnabled: 1
   dragSpeed: -0.06
+  mobileDragSpeed: 0.015
   mouseButton: 2
   enableEdgeScroll: 0
   edgeBoundary: 20
@@ -27,6 +28,7 @@ MonoBehaviour:
   keyboardScrollStepSize: 0.1
   linkedZoomDrag: 1
   zoomToMouse: 1
+  pinchZoomStepSize: 5
   clampCamera: 1
   cameraBoundsX: 42.28019
   cameraBoundsY: 25
