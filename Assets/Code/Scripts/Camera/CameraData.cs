@@ -38,6 +38,9 @@ public class CameraData : ScriptableObject
     [Header("Zoom")]
     public bool clampCamera;
 
+    [Header("Lean")] 
+    public bool leanEnabled = true;
+
     [Header("Bounds")] 
     public float cameraBoundsX;
     public float cameraBoundsY;

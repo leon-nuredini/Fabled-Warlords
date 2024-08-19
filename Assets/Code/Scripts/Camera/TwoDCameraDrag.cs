@@ -315,14 +315,20 @@ public class TwoDCameraDrag : MonoBehaviour
 
             transform.Translate(x, y, 0);
         }
-        var fingers = Use.UpdateAndGetFingers();
+
+        if (!cameraData.leanEnabled) return;
+        var fingers = LeanTouch.Fingers;
+        var updateAndGetFingers = Use.UpdateAndGetFingers();
         
-        var screenDelta = LeanGesture.GetScreenDelta(fingers);
-        if (screenDelta != Vector2.zero)
+        if (fingers.Count > 1)
         {
-            transform.Translate(-screenDelta *cameraData.mobileDragSpeed);
+            var screenDelta = LeanGesture.GetScreenDelta(updateAndGetFingers);
+            if (screenDelta != Vector2.zero)
+            {
+                transform.Translate(-screenDelta * cameraData.mobileDragSpeed);
+            }
         }
-        
+
     }
 
     private void ClampZoom()
@@ -353,10 +359,7 @@ public class TwoDCameraDrag : MonoBehaviour
     {
         var zoomInput = Input.GetAxis("Mouse ScrollWheel");
         var keyboardZoomInput = Input.GetAxis("Camera Zoom");
-        var fingers = Use.UpdateAndGetFingers();
-
-        // Calculate pinch scale, and make sure it's valid
-        var pinchRatio = LeanGesture.GetPinchScale(fingers);
+  
         
         var totalZoomInput = zoomInput + keyboardZoomInput;
 
@@ -379,24 +382,30 @@ public class TwoDCameraDrag : MonoBehaviour
 
             ClampZoom();
         }
-        if (pinchRatio != 1)
+
+        if (cameraData.leanEnabled)
         {
-            if (pinchRatio > 1 && cameraData.minZoom < _cam.orthographicSize)
+            var fingers = Use.UpdateAndGetFingers();
+      
+            var pinchRatio = LeanGesture.GetPinchScale(fingers);
+        
+            if (pinchRatio != 1)
             {
-                ZoomOrthoCamera(_cam.ScreenToWorldPoint(Input.mousePosition), cameraData.pinchZoomStepSize * (pinchRatio - 1),
-                    isZoomingWithScrollWheel && cameraData.zoomToMouse);
+                if (pinchRatio > 1 && cameraData.minZoom < _cam.orthographicSize)
+                {
+                    ZoomOrthoCamera(_cam.ScreenToWorldPoint(Input.mousePosition), cameraData.pinchZoomStepSize * (pinchRatio - 1),
+                        isZoomingWithScrollWheel && cameraData.zoomToMouse);
+                }
+        
+                if (pinchRatio < 1 && cameraData.maxZoom > _cam.orthographicSize)
+                {
+                    ZoomOrthoCamera(_cam.ScreenToWorldPoint(Input.mousePosition), -cameraData.pinchZoomStepSize * (1 - pinchRatio),
+                        isZoomingWithScrollWheel && cameraData.zoomToMouse);
+                }
+        
+                ClampZoom();
             }
-
-            if (pinchRatio < 1 && cameraData.maxZoom > _cam.orthographicSize)
-            {
-                ZoomOrthoCamera(_cam.ScreenToWorldPoint(Input.mousePosition), -cameraData.pinchZoomStepSize * (1 - pinchRatio),
-                    isZoomingWithScrollWheel && cameraData.zoomToMouse);
-            }
-
-            ClampZoom();
         }
-
-
         
 
     }
