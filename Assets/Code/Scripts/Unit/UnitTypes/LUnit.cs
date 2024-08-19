@@ -497,6 +497,7 @@ public class LUnit : Unit
     {
         Cell.IsTaken = false;
         Cell.CurrentUnits.Remove(this);
+        ActionPoints = 0;
         OnDie?.Invoke(CurrentUnitDirection);
         MarkAsDestroyed();
     }
