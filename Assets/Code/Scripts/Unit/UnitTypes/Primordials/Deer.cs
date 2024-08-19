@@ -28,7 +28,7 @@ public class Deer : LUnit, IMonster
             for (int i = 0; i < AttackSkillArray.Length; i++)
             {
                 if (IsRetaliating && !AttackSkillArray[i].CanBeActivatedDuringEnemyTurn) continue;
-                if (AttackSkillArray[i] is ChargeSkill chargeSkill)
+                if (AttackSkillArray[i] is ChargeSkill chargeSkill && unitToAttack is not LStructure)
                     totalFactorDamage += AttackSkillArray[i].GetDamageFactor();
             }
         }

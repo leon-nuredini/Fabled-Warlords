@@ -28,6 +28,7 @@ public class Druid : LUnit, IMage
     
     protected override void ApplyDebuffsToEnemy(LUnit enemyUnit, bool isEnemyTurn = false)
     {
+        if (enemyUnit is LStructure) return;
         if (PoisonHexSkill == null) return;
         if (PoisonHexSkill is ISpawnableEffect spawnableEffect) spawnableEffect.SpawnEffect(enemyUnit.transform);
         int extraTurn = isEnemyTurn ? 1 : 0;

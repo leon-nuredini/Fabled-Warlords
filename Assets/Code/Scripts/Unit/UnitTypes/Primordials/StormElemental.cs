@@ -28,6 +28,7 @@ public class StormElemental : LUnit, IMage
 
     protected override void ApplyDebuffsToEnemy(LUnit enemyUnit, bool isEnemyTurn = false)
     {
+        if (enemyUnit is LStructure) return;
         if (isEnemyTurn) return;
         if (ThunderStrikeSkill == null) return;
         if (enemyUnit.HitPoints <= 0) return;

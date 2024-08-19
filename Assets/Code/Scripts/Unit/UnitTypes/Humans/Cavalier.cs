@@ -11,12 +11,12 @@ public class Cavalier : LUnit, IMounted
 
         return base.Defend(other, Mathf.RoundToInt(newDamage));
     }
-    
+
     protected override int CalculateDamage(AttackAction baseVal, Unit unitToAttack)
     {
         float totalFactorDamage = 0;
-        int   baseDamage        = baseVal.Damage;
-        
+        int baseDamage = baseVal.Damage;
+
         if (StatusEffectsController.IsStatusApplied<Weaken>())
         {
             float weakenedFactor = StatusEffectsController.GetStatus<Weaken>().weakenFactor;
@@ -28,12 +28,12 @@ public class Cavalier : LUnit, IMounted
             for (int i = 0; i < AttackSkillArray.Length; i++)
             {
                 if (IsRetaliating && !AttackSkillArray[i].CanBeActivatedDuringEnemyTurn) continue;
-                if (AttackSkillArray[i] is ChargeSkill chargeSkill)
+                if (AttackSkillArray[i] is ChargeSkill chargeSkill && unitToAttack is not LStructure)
                     totalFactorDamage += AttackSkillArray[i].GetDamageFactor();
             }
         }
 
-        int factoredDamage = totalFactorDamage > 0 ? baseDamage * (int) totalFactorDamage : baseDamage;
+        int factoredDamage = totalFactorDamage > 0 ? baseDamage * (int)totalFactorDamage : baseDamage;
         return factoredDamage;
     }
 }
