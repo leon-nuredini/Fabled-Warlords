@@ -32877,6 +32877,12 @@ PrefabInstance:
       objectReference: {fileID: 1814174240}
     - target: {fileID: 4095655750295551757, guid: 04bbf9d5c8e16fc4b8ff4fcd7fd9a447,
         type: 3}
+      propertyPath: _unitStats
+      value: 
+      objectReference: {fileID: 11400000, guid: fd1e061f406845d4dbb112dfeac27d5b,
+        type: 2}
+    - target: {fileID: 4095655750295551757, guid: 04bbf9d5c8e16fc4b8ff4fcd7fd9a447,
+        type: 3}
       propertyPath: PlayerNumber
       value: 1
       objectReference: {fileID: 0}
@@ -79077,7 +79083,7 @@ Tilemap:
       - {fileID: 304664197, guid: 7cb1ab795ded47e43b4ee7d9425983f1, type: 3}
       - {fileID: -1213597988, guid: 7cb1ab795ded47e43b4ee7d9425983f1, type: 3}
       - {fileID: 74184868, guid: 7cb1ab795ded47e43b4ee7d9425983f1, type: 3}
-      m_AnimationSpeed: 5.0000005
+      m_AnimationSpeed: 5
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -2, y: 20, z: 0}
@@ -79347,7 +79353,7 @@ Tilemap:
       - {fileID: -80836840, guid: 7cb1ab795ded47e43b4ee7d9425983f1, type: 3}
       - {fileID: -773067037, guid: 7cb1ab795ded47e43b4ee7d9425983f1, type: 3}
       - {fileID: -991546527, guid: 7cb1ab795ded47e43b4ee7d9425983f1, type: 3}
-      m_AnimationSpeed: 5.0000005
+      m_AnimationSpeed: 5
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 1, y: 28, z: 0}
@@ -79377,7 +79383,7 @@ Tilemap:
       - {fileID: 511050632, guid: 7cb1ab795ded47e43b4ee7d9425983f1, type: 3}
       - {fileID: -159511002, guid: 7cb1ab795ded47e43b4ee7d9425983f1, type: 3}
       - {fileID: 996150833, guid: 7cb1ab795ded47e43b4ee7d9425983f1, type: 3}
-      m_AnimationSpeed: 5
+      m_AnimationSpeed: 5.0000005
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 3, y: 28, z: 0}
@@ -79512,7 +79518,7 @@ Tilemap:
       - {fileID: 511050632, guid: 7cb1ab795ded47e43b4ee7d9425983f1, type: 3}
       - {fileID: -159511002, guid: 7cb1ab795ded47e43b4ee7d9425983f1, type: 3}
       - {fileID: 996150833, guid: 7cb1ab795ded47e43b4ee7d9425983f1, type: 3}
-      m_AnimationSpeed: 5.0000005
+      m_AnimationSpeed: 5
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 0, y: 29, z: 0}
