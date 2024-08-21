@@ -9,12 +9,14 @@ public class UnitInvasionStarter : MonoBehaviour
     public static event Action<int> OnAnyTurnUntilInvasionUpdated;
 
     private List<StationaryGroupSkill> _stationaryUnitsList = new List<StationaryGroupSkill>();
+    [SerializeField] private List<UnAttackableAbility> _unAttackableStructures;
 
     [SerializeField] private int _invasionTurn = 15;
 
     private void Awake()
     {
         _stationaryUnitsList = FindObjectsOfType<StationaryGroupSkill>().ToList();
+        _unAttackableStructures = FindObjectsOfType<UnAttackableAbility>().ToList();
     }
 
     private void OnEnable()
@@ -33,6 +35,12 @@ public class UnitInvasionStarter : MonoBehaviour
         {
             for (int i = 0; i < _stationaryUnitsList.Count; i++)
                 _stationaryUnitsList[i].Alert();
+            
+            for (int i = 0; i < _unAttackableStructures.Count; i++)
+            {
+                if (_unAttackableStructures[i] != null)
+                    _unAttackableStructures[i].MakeAttackable();
+            }
         }
 
         OnAnyTurnUntilInvasionUpdated?.Invoke(_invasionTurn - turnNumber + 1);
