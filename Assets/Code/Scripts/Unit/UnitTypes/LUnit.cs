@@ -384,6 +384,7 @@ public class LUnit : Unit
     {
         if (PlayerNumber == CellGrid.Instance.CurrentPlayerNumber) return false;
         if (this is LStructure) return false;
+        if (_statusEffectsController != null && _statusEffectsController.IsStatusApplied<Stun>()) return false;
         int randomValue = Random.Range(1, 100);
         LSquare thisCell = (LSquare)Cell;
         LSquare attackerCell = (LSquare)attacker.Cell;
