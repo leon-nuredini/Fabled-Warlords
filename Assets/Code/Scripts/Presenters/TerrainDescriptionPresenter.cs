@@ -43,7 +43,7 @@ public class TerrainDescriptionPresenter : MonoBehaviour
     private void OnEnable()
     {
         UITutorial.OnAnyInspectTile += AllowTerrainInspection;
-
+        
         if (ObjectHolder.Instance == null) return;
         ObjectHolder.Instance.OnSelectCell += OpenPanel;
     }
@@ -60,6 +60,8 @@ public class TerrainDescriptionPresenter : MonoBehaviour
 
     private void OpenPanel(LSquare lSquare)
     {
+        var fingers = Lean.Touch.LeanTouch.Fingers;
+        if (fingers.Count >= 1)return;
         if (!AllowOpeningPanel) return;
         UpdateDetails(lSquare.TerrainDescription);
         _graphicRaycaster.enabled = true;

@@ -3,6 +3,7 @@ using Lean.Touch;
 using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TwoDCameraDrag : MonoBehaviour
 {
@@ -319,7 +320,8 @@ public class TwoDCameraDrag : MonoBehaviour
         if (!cameraData.leanEnabled) return;
         var fingers = LeanTouch.Fingers;
         var updateAndGetFingers = Use.UpdateAndGetFingers();
-        
+
+        if (EventSystem.current.IsPointerOverGameObject()) return;
         if (fingers.Count > 1)
         {
             var screenDelta = LeanGesture.GetScreenDelta(updateAndGetFingers);
