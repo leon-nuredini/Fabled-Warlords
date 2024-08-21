@@ -80,7 +80,7 @@ public class UIUnitRecruitButton : MonoBehaviour
         int unitCost = _lUnit.UnitStats.Cost;
         _costText.text = unitCost.ToString();
         _costText.color = CanRecruitUnit() ? _whiteColor : _redColor;
-        _nameText.text = _lUnit.UnitDetails.name;
+        _nameText.text = _lUnit.UnitDetails.UnitName;
         _unitImage.sprite = _lUnit.UnitDetails.OverworldIcon;
     }
 
