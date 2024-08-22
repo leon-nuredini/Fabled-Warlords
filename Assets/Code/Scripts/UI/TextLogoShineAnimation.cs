@@ -20,6 +20,7 @@ public class TextLogoShineAnimation : MonoBehaviour
 
     private void Start()
     {
+        _material.SetFloat(_shineOnly, 0f);
         DOVirtual.DelayedCall(_shineDelay, () => AnimateShine());
     }
 

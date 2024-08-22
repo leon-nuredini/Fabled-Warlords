@@ -9,7 +9,7 @@ public class FactionUnits : ScriptableObject
     
     [SerializeField] private List<RecruitableUnit> _recruitableUnitList = new List<RecruitableUnit>();
 
-    private List<GameObject> _unitList;
+    private List<GameObject> _unitList = new List<GameObject>();
 
     #region Properties
 

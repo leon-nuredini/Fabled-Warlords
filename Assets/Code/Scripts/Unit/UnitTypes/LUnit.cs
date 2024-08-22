@@ -410,13 +410,16 @@ public class LUnit : Unit
             for (int i = 0; i < AttackSkillArray.Length; i++)
             {
                 if (_isRetaliating && !AttackSkillArray[i].CanBeActivatedDuringEnemyTurn) continue;
+                if (unitToAttack is LStructure lStructure)
+                {
+                    if (AttackSkillArray[i] is SiegeBreakerSkill siegeBreakerSkill)
+                        siegeBreakerSkill.StructureToAttack = lStructure;
+                    else
+                        continue;
+                }
+
                 if (AttackSkillArray[i] is BackstabSkill backstabSkill)
                     backstabSkill.UnitToAttack = unitToAttack as LUnit;
-                if (AttackSkillArray[i] is SiegeBreakerSkill siegeBreakerSkill)
-                {
-                    if (unitToAttack is LStructure lStructure)
-                        siegeBreakerSkill.StructureToAttack = lStructure;
-                }
 
                 totalFactorDamage += AttackSkillArray[i].GetDamageFactor();
             }
