@@ -81,6 +81,7 @@ public class StatusEffectsController : MonoBehaviour
             }
         }
     }
+    
 
     public void ResetStatusEffects(UnitDirection unitDirection)
     {

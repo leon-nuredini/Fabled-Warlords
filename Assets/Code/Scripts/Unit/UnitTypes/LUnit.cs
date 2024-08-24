@@ -218,7 +218,10 @@ public class LUnit : Unit
             MovementPoints = 0;
             SetState(new UnitStateMarkedAsFinished(this));
         }
+    }
 
+    public override void OnTurnEnd()
+    {
         if (StatusEffectsController.IsStatusApplied<Poison>())
         {
             Poison poisonStatusEffect = StatusEffectsController.GetStatus<Poison>();
@@ -229,6 +232,8 @@ public class LUnit : Unit
             if (HitPoints <= 0)
                 OnDestroyed();
         }
+        
+        base.OnTurnEnd();
     }
 
     protected override int Defend(Unit other, int damage)
