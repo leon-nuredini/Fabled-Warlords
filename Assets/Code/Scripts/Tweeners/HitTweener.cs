@@ -36,8 +36,13 @@ public class HitTweener : MonoBehaviour, ITween
         if (_spriteRenderer == null) return;
         KillTween();
         _spriteRenderer.color = _hitColor;
-        _tweenFadeIn = _spriteRenderer.DOColor(_hitColor, _fadeInDuration).SetEase(_fadeEase).OnComplete(() =>
-            _tweenFadeOut = _spriteRenderer.DOColor(_defaultColor, _fadeOutDuration).SetEase(_fadeEase));
+        _tweenFadeIn = _spriteRenderer.DOColor(_hitColor, _fadeInDuration).SetEase(_fadeEase).OnComplete(FadeOut);
+    }
+
+    private void FadeOut()
+    {
+        if (_spriteRenderer != null)
+            _tweenFadeOut = _spriteRenderer.DOColor(_defaultColor, _fadeOutDuration).SetEase(_fadeEase);
     }
 
     public void KillTween()
