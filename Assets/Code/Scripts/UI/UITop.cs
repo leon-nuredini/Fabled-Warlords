@@ -55,6 +55,7 @@ public class UITop : MonoBehaviour
     private void OnEnable()
     {
         Barrack.OnAnyBarrackClicked += OpenRecruitmentPanelFromBarrack;
+        Stronghold.OnAnyStrongholdClicked += OpenRecruitmentPanelFromStronghold;
         if (CellGrid.Instance == null) return;
         CellGrid.Instance.TurnStarted += EnableEndTurnButton;
     }
@@ -62,6 +63,7 @@ public class UITop : MonoBehaviour
     private void OnDisable()
     {
         Barrack.OnAnyBarrackClicked -= OpenRecruitmentPanelFromBarrack;
+        Stronghold.OnAnyStrongholdClicked -= OpenRecruitmentPanelFromStronghold;
         if (CellGrid.Instance == null) return;
         CellGrid.Instance.TurnStarted -= EnableEndTurnButton;
     }
@@ -99,9 +101,16 @@ public class UITop : MonoBehaviour
 
     private void OpenSettingsPanel() => OnAnyMenuButtonClicked?.Invoke();
     private void OpenRecruitmentPanel() => OnAnyRecruitButtonClicked?.Invoke();
+    
     private void OpenRecruitmentPanelFromBarrack(Barrack barrack) 
     {
         if (barrack.PlayerNumber == CellGrid.Instance.CurrentPlayerNumber)
+        OnAnyRecruitButtonClicked?.Invoke();
+    }
+
+    private void OpenRecruitmentPanelFromStronghold(Stronghold stronghold)
+    {
+        if (stronghold.PlayerNumber == CellGrid.Instance.CurrentPlayerNumber)
         OnAnyRecruitButtonClicked?.Invoke();
     }
 
