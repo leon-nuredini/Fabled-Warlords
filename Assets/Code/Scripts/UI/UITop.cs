@@ -116,6 +116,7 @@ public class UITop : MonoBehaviour
 
     private void DisableEndTurnButton()
     {
+        if (CellGrid.Instance.CurrentPlayer is not AIPlayer) return;
         _endTurnCanvasGroup.alpha = .5f;
         _endTurnButton.interactable = false;
     }
