@@ -20,9 +20,10 @@ public class MenuParallax : MonoBehaviour
 
     private void Update()
     {
+        _startPosition = new Vector2(Screen.width / 2f, Screen.height / 2f);
         Vector2 offset = _mainCamera.ScreenToViewportPoint(Input.mousePosition);
-        offset.x = Mathf.Clamp(offset.x, 0f, 1f);
-        offset.y = Mathf.Clamp(offset.y, 0f, 1f);
+        offset.x = Mathf.Clamp(offset.x, 0f, 1f) - .5f;
+        offset.y = Mathf.Clamp(offset.y, 0f, 1f) - .5f;
         Vector3 destination = _startPosition + (offset * _offsetMultiplier);
         transform.position = Vector3.SmoothDamp(transform.position, destination, ref _velocity, _smoothTime);
     }
