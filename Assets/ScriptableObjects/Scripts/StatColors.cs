@@ -10,6 +10,7 @@ public class StatColors : ScriptableObject
     [BoxGroup("Stats Colors")] [SerializeField] private Color _rngColor;
     [BoxGroup("Stats Colors")] [SerializeField] private Color _evaColor;
     [BoxGroup("Stats Colors")] [SerializeField] private Color _apColor;
+    [BoxGroup("Stats Colors")] [SerializeField] private Color _incColor;
 
     public Color HpColor => _hpColor;
     public Color DefColor => _defColor;
@@ -17,4 +18,5 @@ public class StatColors : ScriptableObject
     public Color RngColor => _rngColor;
     public Color EvaColor => _evaColor;
     public Color APColor => _apColor;
+    public Color IncColor => _incColor;
 }

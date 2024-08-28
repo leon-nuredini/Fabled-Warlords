@@ -37,7 +37,7 @@ public class SwapBuildingTypeAbility : Ability
         {
             stronghold.IsRuined = true;
             stronghold.MaskSpriteRenderer.sprite = _ruinsSprite;
-            stronghold.IncomeGenerationAbility.IncomeAmount = 1;
+            //stronghold.IncomeGenerationAbility.IncomeAmount = 1;
             stronghold.UnitStats = _newStructureStats;
             stronghold.UnitDetails = _newStructureDetails;
             stronghold.UpdateUnitStats();

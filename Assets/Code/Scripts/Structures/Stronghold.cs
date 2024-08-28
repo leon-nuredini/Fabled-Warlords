@@ -28,7 +28,7 @@ public class Stronghold : LStructure
             _isRuined = value;
             if (_isRuined)
             {
-                IncomeGenerationAbility.IncomeAmount = 1;
+                //IncomeGenerationAbility.IncomeAmount = 1;
                 Destroy(RecruitUnitAbility);
                 _recruitUnitAbility = null;
                 Destroy(_recruitAIAction);
