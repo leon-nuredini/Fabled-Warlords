@@ -97,6 +97,9 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
     [BoxGroup("Skill UI")] [SerializeField]
     private UIAbility _regenerate;
 
+    [BoxGroup("Skill UI")] [SerializeField]
+    private UIAbility _spiritWard;
+
     private void Awake()
     {
         _unitAbilityPosition.x = _abilityPosition.localPosition.x;
@@ -132,6 +135,7 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
         _stun.gameObject.SetActive(false);
         _poistonHex.gameObject.SetActive(false);
         _regenerate.gameObject.SetActive(false);
+        _spiritWard.gameObject.SetActive(false);
 
         for (int i = 0; i < lUnit.AttackSkillArray.Length; i++)
         {
@@ -198,8 +202,17 @@ public class BaseUnitAbilitiesPresenter : MonoBehaviour, IUnitPresenter
             UpdateAbilityText(leafshooter.PoisonSkill, _poison);
         }
 
+        if(lUnit is StoneElemental stoneElemental)
+        {
+            UpdateAbilityText(stoneElemental.SpiritWardSkill, _spiritWard);
+        }
+
         if (lUnit is StormElemental stormElemental)
+        {
             UpdateAbilityText(stormElemental.ThunderStrikeSkill, _thunderStrike);
+            UpdateAbilityText(stormElemental.SpiritWardSkill, _spiritWard);
+        }
+        
         if (lUnit is Satyr satyr) UpdateAbilityText(satyr.PoisonSkill, _poison);
         if (lUnit is Pixie pixie)
         {
