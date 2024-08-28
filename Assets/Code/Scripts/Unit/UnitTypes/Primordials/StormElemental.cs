@@ -4,10 +4,12 @@ using UnityEngine;
 public class StormElemental : LUnit, IMage
 {
     private ThunderStrikeSkill _thunderStrikeSkill;
+    private SpiritWardSkill _spiritWardSkill;
 
     #region Properties
 
     public ThunderStrikeSkill ThunderStrikeSkill => _thunderStrikeSkill;
+    public SpiritWardSkill SpiritWardSkill => _spiritWardSkill;
 
     #endregion
 
@@ -15,6 +17,10 @@ public class StormElemental : LUnit, IMage
     {
         base.InitProperties();
         _thunderStrikeSkill = GetComponent<ThunderStrikeSkill>();
+        _spiritWardSkill = GetComponent<SpiritWardSkill>();
+
+        if (_spiritWardSkill != null)
+            StatusEffectsController.CanApplyStatusEffects = false;
     }
 
     protected override int Defend(Unit other, int damage)

@@ -3,6 +3,23 @@ using UnityEngine;
 
 public class StoneElemental : LUnit, IMage
 {
+    private SpiritWardSkill _spiritWardSkill;
+
+    #region Properties
+
+    public SpiritWardSkill SpiritWardSkill => _spiritWardSkill;
+
+    #endregion
+
+    public override void InitProperties()
+    {
+        base.InitProperties();
+        _spiritWardSkill = GetComponent<SpiritWardSkill>();
+
+        if (_spiritWardSkill != null)
+            StatusEffectsController.CanApplyStatusEffects = false;
+    }
+
     protected override int Defend(Unit other, int damage)
     {
         Agressor = other;
