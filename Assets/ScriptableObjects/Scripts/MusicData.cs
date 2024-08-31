@@ -17,6 +17,8 @@ public class MusicData : ScriptableObject
     private const string FadeVolume = "FadingMusicVolume";
 
     private Tween _tween;
+    [SerializeField] private Ease _fadeInEase;
+    [SerializeField] private Ease _fadeOutEase;
 
     public AudioClip MenuClip => _menuClip;
 
@@ -25,19 +27,19 @@ public class MusicData : ScriptableObject
     public void FadeInMusicVolume()
     {
         KillTween();
-        _tween = _mixer.DOSetFloat(FadeVolume, 0f, _musicFadeInDuration);
+        _tween = _mixer.DOSetFloat(FadeVolume, 0f, _musicFadeInDuration).SetEase(_fadeInEase);
     }
 
     public void FadeOutMusicVolume()
     {
         KillTween();
-        _tween = _mixer.DOSetFloat(FadeVolume, -80f, _musicFadeOutDuration);
+        _tween = _mixer.DOSetFloat(FadeVolume, -80f, _musicFadeOutDuration).SetEase(_fadeOutEase);
     }
     
     public void FadeOutMusicVolumeFast()
     {
         KillTween();
-        _tween = _mixer.DOSetFloat(FadeVolume, -80f, _musicFadeOutShortDuration);
+        _tween = _mixer.DOSetFloat(FadeVolume, -80f, _musicFadeOutShortDuration).SetEase(_fadeOutEase);
     }
 
     private List<AudioClip> ShuffleMusicList(List<AudioClip> gameClipList)

@@ -15,7 +15,7 @@ public class CanvasGroupFadeOutTweener : MonoBehaviour, ITween
     public void Execute()
     {
         KillTween();
-        _canvasGroup.DOFade(0f, _duration).SetEase(_fadeEase).OnComplete(OnFadeOut);
+        _tween = _canvasGroup.DOFade(0f, _duration).SetEase(_fadeEase).OnComplete(OnFadeOut);
     }
 
     public void KillTween()
