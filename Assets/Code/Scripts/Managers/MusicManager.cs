@@ -39,9 +39,11 @@ public class MusicManager : Singleton<MusicManager>
     }
 
     private void PlayNewMusicOnSceneLoad(Scene scene, LoadSceneMode mode) => PlayNewMusic();
+    [Button("Fade out music")]
     private void FadeOutMusic()     => _musicData.FadeOutMusicVolume();
     private void FadeOutMusicFast() => _musicData.FadeOutMusicVolumeFast();
 
+    [Button("Fade in music")]
     private void PlayNewMusic()
     {
         KillTween();
