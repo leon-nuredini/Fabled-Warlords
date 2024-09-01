@@ -59,8 +59,6 @@ public class LSquare : Square
     protected override void OnMouseDown()
     {
         if (EventSystem.current.IsPointerOverGameObject()) return;
-        var fingers = Lean.Touch.LeanTouch.Fingers;
-        if (fingers.Count > 1) return;
         if (IsRecruitmentZone)
         {
             OnAnyRecruitUnit?.Invoke(this, CellGrid.Instance.CurrentPlayer);

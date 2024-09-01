@@ -60,8 +60,6 @@ public class TerrainDescriptionPresenter : MonoBehaviour
 
     private void OpenPanel(LSquare lSquare)
     {
-        var fingers = Lean.Touch.LeanTouch.Fingers;
-        if (fingers.Count >= 1)return;
         if (!AllowOpeningPanel) return;
         UpdateDetails(lSquare.TerrainDescription);
         _graphicRaycaster.enabled = true;
