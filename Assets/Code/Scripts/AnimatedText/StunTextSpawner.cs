@@ -1,14 +1,13 @@
-using Lean.Pool;
 using Singleton;
 using UnityEngine;
 
-public class ParryTextSpawner : SceneSingleton<ParryTextSpawner>
+public class StunTextSpawner : SceneSingleton<StunTextSpawner>
 {
     private StatusEffectSpawner _statusEffectSpawner;
 
     [SerializeField] protected GameObject _textGameObject;
     [SerializeField] private float _textSpawnDelay = 0.75f;
-
+    
     private void OnEnable() => _statusEffectSpawner = GetComponentInParent<StatusEffectSpawner>();
 
     public void SpawnTextGameObject(LUnit lUnit, Vector3 spawnPosition)

@@ -149,9 +149,9 @@ MonoBehaviour:
   Obstructable: 1
   Priority: 0
   cell: {fileID: 0}
-  AttackRange: 0
-  AttackFactor: 0
-  MovementAnimationSpeed: 0
+  AttackRange: 1
+  AttackFactor: 25
+  MovementAnimationSpeed: 7.5
   PlayerNumber: 0
   IsEvaluating: 0
   _unitDetails: {fileID: 11400000, guid: 59e4dde52bb172b4992ef1d2a7c7a9df, type: 2}
@@ -192,9 +192,8 @@ MonoBehaviour:
   _skillName: Parry
   _skillDescription: Has a chance to block and incoming melee attack and counterattack
     dealing critical damage.
-  _parryChance: 100
-  _parryDamageFactor: 2
-  _parryTextSpawnOffset: {x: 0, y: 0.7, z: 0}
+  _parryChance: 50
+  _parryDamageFactor: 4
   _effect: {fileID: 9002746722681322606, guid: 8959d66d8a580f344bfd4d13729ab375, type: 3}
 --- !u!114 &6631187944438703575 stripped
 MonoBehaviour:

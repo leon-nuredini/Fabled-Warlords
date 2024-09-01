@@ -47,8 +47,12 @@ public class ChargeSkill : MonoBehaviour, IAttackSkill
         return 0;
     }
 
-    private void OnMoveToAnotherCell(object obj, MovementEventArgs movementEventArgs) =>
+    private void OnMoveToAnotherCell(object obj, MovementEventArgs movementEventArgs)
+    {
         _applyCharge = movementEventArgs.Path.Count >= _totalTilesDistanceAmount;
+        if (_applyCharge && ChargeTextSpawner.Instance != null)
+            ChargeTextSpawner.Instance.SpawnTextGameObject(_lUnit, transform.position);
+    }
 
     private void ResetTileDistance() => _applyCharge = false;
 }

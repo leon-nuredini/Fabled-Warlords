@@ -13,10 +13,10 @@ public class ParrySkill : MonoBehaviour, IAttackSkill, ISpawnableEffect
 
     [SerializeField] [Range(0, 100)] private int     _parryChance          = 20;
     [SerializeField] [Range(0, 100)] private int     _parryDamageFactor    = 2;
-    [SerializeField]                 private Vector3 _parryTextSpawnOffset = Vector3.zero;
 
     [BoxGroup("Effect")][SerializeField] private GameObject _effect;
 
+    private LUnit _lUnit;
     private LUnit _aggressorUnit;
 
     #region Properties
@@ -32,6 +32,8 @@ public class ParrySkill : MonoBehaviour, IAttackSkill, ISpawnableEffect
     public GameObject Effect => _effect;
 
     #endregion
+    
+    private void Awake() { _lUnit = GetComponent<LUnit>(); }
 
     public int GetDamageFactor()
     {
@@ -40,7 +42,8 @@ public class ParrySkill : MonoBehaviour, IAttackSkill, ISpawnableEffect
 
         if (isParrySuccessfull)
         {
-            ParryTextSpawner.Instance.SpawnTextGameObject(transform.position + _parryTextSpawnOffset);
+            if (ParryTextSpawner.Instance != null)
+                ParryTextSpawner.Instance.SpawnTextGameObject(_lUnit, transform.position);
             SpawnEffect(transform);
             return _parryDamageFactor;
         }
