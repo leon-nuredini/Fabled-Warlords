@@ -240,9 +240,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c48d99b1c292548ba6f56e1dd56105, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _incomeAmount: 1
   _skillName: Tax Income
-  _skillDescription: This structure generates {X} gold per turn.
+  _skillDescription: This structure steadily generates gold each turn.
 --- !u!114 &1174886326406743001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1288,7 +1287,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8089520461102388568, guid: a6251ebb0ad027b48b9a9f23fe3f8657, type: 2}
+  - {fileID: -8089520461102388568, guid: 53cccef13de7ce742be8467a24f614c3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1332,8 +1331,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 10
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a6251ebb0ad027b48b9a9f23fe3f8657, type: 2}
-  m_sharedMaterial: {fileID: -8089520461102388568, guid: a6251ebb0ad027b48b9a9f23fe3f8657,
+  m_fontAsset: {fileID: 11400000, guid: 53cccef13de7ce742be8467a24f614c3, type: 2}
+  m_sharedMaterial: {fileID: -8089520461102388568, guid: 53cccef13de7ce742be8467a24f614c3,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1358,13 +1357,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 7
-  m_fontSizeBase: 7
+  m_fontSize: 6.5
+  m_fontSizeBase: 6.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dd50f4a73b12e34bb5baa92697a9427, type: 3}
   m_Name: MusicData
   m_EditorClassIdentifier: 
-  _menuClip: {fileID: 8300000, guid: 0a81c273c0a89af4fb5832e9d228c25a, type: 3}
+  _menuClip: {fileID: 8300000, guid: eff13eecbf369a843b70e4e7faa0b04c, type: 3}
   _gameClipList:
-  - {fileID: 8300000, guid: 63720bcc42f918046ba220e1582258ff, type: 3}
-  - {fileID: 8300000, guid: e77eee3135141de49a51e9965b3d30bc, type: 3}
-  - {fileID: 8300000, guid: dcdb12c0e8fd1dd42b1761e0cca94716, type: 3}
-  - {fileID: 8300000, guid: eff13eecbf369a843b70e4e7faa0b04c, type: 3}
+  - {fileID: 8300000, guid: 34fb2e1310be3cc4788574c03cc29e6d, type: 3}
+  - {fileID: 8300000, guid: 72b3a6a768dec27499cefc6a50a2942e, type: 3}
+  - {fileID: 8300000, guid: 6438832fc5098554e889871bf7d64b88, type: 3}
+  - {fileID: 8300000, guid: 384899a0a1e85864882cd484236c29df, type: 3}
   _mixer: {fileID: 24100000, guid: 385f5410265af6e4bbf6008fd8abfe3b, type: 2}
-  _musicFadeInDuration: 2
-  _musicFadeOutDuration: 30
-  _musicFadeOutShortDuration: 20
+  _musicFadeInDuration: 1.5
+  _musicFadeOutDuration: 0.75
+  _musicFadeOutShortDuration: 0.5
+  _fadeInEase: 6
+  _fadeOutEase: 8

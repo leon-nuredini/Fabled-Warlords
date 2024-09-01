@@ -467,7 +467,7 @@ namespace TbsFramework.Units
             cachedPaths = _pathfinder.FindAllPaths(edges, Cell);
         }
 
-        public IList<Cell> FindPath(List<Cell> cells, Cell destination)
+        public virtual IList<Cell> FindPath(List<Cell> cells, Cell destination)
         {
             if (cachedPaths.TryGetValue(destination, out var path)) { return path; }
 

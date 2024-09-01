@@ -10,9 +10,17 @@ public class StatusEffectsController : MonoBehaviour
 
     private GameObject _spawnedStunEffect;
 
+    private bool _canApplyStatusEffects = true;
+
     #region Properties
 
     public List<StatusEffect> StatusEffectList => _statusEffectList;
+    
+    public bool CanApplyStatusEffects 
+    {
+        get => _canApplyStatusEffects;
+        set => _canApplyStatusEffects = value;
+    }
 
     #endregion
 
@@ -43,6 +51,7 @@ public class StatusEffectsController : MonoBehaviour
 
     public void ApplyStatusEffect<T>(int turns)
     {
+        if (!_canApplyStatusEffects) return;
         if (_lUnit is LStructure) return;
         
         for (int i = 0; i < _statusEffectList.Count; i++)
@@ -81,6 +90,7 @@ public class StatusEffectsController : MonoBehaviour
             }
         }
     }
+    
 
     public void ResetStatusEffects(UnitDirection unitDirection)
     {

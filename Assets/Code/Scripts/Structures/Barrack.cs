@@ -2,6 +2,8 @@ using System;
 
 public class Barrack : LStructure
 {
+    public static event Action<Barrack> OnAnyBarrackClicked;
+
     private RecruitUnitAbility _recruitUnitAbility;
 
     #region Properties
@@ -14,5 +16,11 @@ public class Barrack : LStructure
     {
         base.Initialize();
         _recruitUnitAbility = GetComponent<RecruitUnitAbility>();
+    }
+
+    public override void OnMouseDown()
+    {
+        OnAnyBarrackClicked?.Invoke(this);
+        base.OnMouseDown();
     }
 }

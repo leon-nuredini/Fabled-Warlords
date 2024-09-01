@@ -39,6 +39,10 @@ namespace TbsFramework.Players
                 if (unit.HitPoints <= 0)
                     continue;
 
+                if (unit.gameObject.TryGetComponent(out StationaryGroupSkill stationaryGroupSkill))
+                    if (stationaryGroupSkill.IsStationary)
+                        continue;
+
                 if (DebugMode)
                 {
                     unit.MarkAsSelected();

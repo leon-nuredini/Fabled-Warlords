@@ -218,16 +218,22 @@ public class LUnit : Unit
             MovementPoints = 0;
             SetState(new UnitStateMarkedAsFinished(this));
         }
+    }
 
+    public override void OnTurnEnd()
+    {
         if (StatusEffectsController.IsStatusApplied<Poison>())
         {
             Poison poisonStatusEffect = StatusEffectsController.GetStatus<Poison>();
             int damageTaken = Mathf.RoundToInt(TotalHitPoints * poisonStatusEffect.damageFactor);
             HitPoints -= damageTaken;
+            _tempDamageReceived = damageTaken;
             DefenceActionPerformedFromStatusEffect();
             if (HitPoints <= 0)
                 OnDestroyed();
         }
+        
+        base.OnTurnEnd();
     }
 
     protected override int Defend(Unit other, int damage)
@@ -345,10 +351,12 @@ public class LUnit : Unit
 
         if (!enemyUnit.IsEvading)
         {
+            bool isThisMageUnit = this is IMage;
             AttackAction attackAction = DealDamage(unitToAttack);
+            if (!isThisMageUnit) ApplyDebuffsToEnemy(enemyUnit);
             unitToAttack.DefendHandler(this, attackAction.Damage);
             attackActionCost = attackAction.ActionCost;
-            ApplyDebuffsToEnemy(enemyUnit);
+            if (isThisMageUnit) ApplyDebuffsToEnemy(enemyUnit);
         }
 
         MarkAsAttacking(unitToAttack);
@@ -381,6 +389,7 @@ public class LUnit : Unit
     {
         if (PlayerNumber == CellGrid.Instance.CurrentPlayerNumber) return false;
         if (this is LStructure) return false;
+        if (_statusEffectsController != null && _statusEffectsController.IsStatusApplied<Stun>()) return false;
         int randomValue = Random.Range(1, 100);
         LSquare thisCell = (LSquare)Cell;
         LSquare attackerCell = (LSquare)attacker.Cell;
@@ -406,13 +415,16 @@ public class LUnit : Unit
             for (int i = 0; i < AttackSkillArray.Length; i++)
             {
                 if (_isRetaliating && !AttackSkillArray[i].CanBeActivatedDuringEnemyTurn) continue;
+                if (unitToAttack is LStructure lStructure)
+                {
+                    if (AttackSkillArray[i] is SiegeBreakerSkill siegeBreakerSkill)
+                        siegeBreakerSkill.StructureToAttack = lStructure;
+                    else
+                        continue;
+                }
+
                 if (AttackSkillArray[i] is BackstabSkill backstabSkill)
                     backstabSkill.UnitToAttack = unitToAttack as LUnit;
-                if (AttackSkillArray[i] is SiegeBreakerSkill siegeBreakerSkill)
-                {
-                    if (unitToAttack is LStructure lStructure)
-                        siegeBreakerSkill.StructureToAttack = lStructure;
-                }
 
                 totalFactorDamage += AttackSkillArray[i].GetDamageFactor();
             }
@@ -497,6 +509,7 @@ public class LUnit : Unit
     {
         Cell.IsTaken = false;
         Cell.CurrentUnits.Remove(this);
+        ActionPoints = 0;
         OnDie?.Invoke(CurrentUnitDirection);
         MarkAsDestroyed();
     }

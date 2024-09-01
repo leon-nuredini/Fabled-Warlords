@@ -1,5 +1,4 @@
 using NaughtyAttributes;
-using TbsFramework.Units;
 using UnityEngine;
 
 public class BackstabSkill : MonoBehaviour, IAttackSkill
@@ -29,6 +28,8 @@ public class BackstabSkill : MonoBehaviour, IAttackSkill
     public int GetDamageFactor()
     {
         int factor = 0;
+        if (_unitToAttack is LStructure) return factor;
+
         if (Mathf.Approximately(_lUnit.transform.localPosition.y, _unitToAttack.transform.localPosition.y) &&
             _lUnit.CurrentUnitDirection == _unitToAttack.CurrentUnitDirection)
             factor = _backstabDamageFactor;

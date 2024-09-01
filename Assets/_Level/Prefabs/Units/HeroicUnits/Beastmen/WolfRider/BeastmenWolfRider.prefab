@@ -12,7 +12,13 @@ PrefabInstance:
         type: 3}
       propertyPath: _soundEvent
       value: 
-      objectReference: {fileID: 11400000, guid: d13166bcd2329c04bb63ac40a9dcdaad,
+      objectReference: {fileID: 11400000, guid: 82fb64f57c9e1084885046aa14b586e7,
+        type: 2}
+    - target: {fileID: 527892797097190844, guid: ccbbcce10b821774dbc1040a93c307ff,
+        type: 3}
+      propertyPath: _soundEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 0a3fe89d80f4d3745b2deeb40178403c,
         type: 2}
     - target: {fileID: 3903837526696178160, guid: ccbbcce10b821774dbc1040a93c307ff,
         type: 3}
@@ -190,10 +196,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _skillName: Charge
-  _skillDescription: Deals extra damage when attacking after moving at least four
+  _skillDescription: Deals extra damage when attacking after moving at least five
     tiles away from its starting position.
   _attackPowerFactor: 3
-  _totalTilesDistanceAmount: 4
+  _totalTilesDistanceAmount: 5
 --- !u!114 &6631187944438703575 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2727943177912090696, guid: ccbbcce10b821774dbc1040a93c307ff,

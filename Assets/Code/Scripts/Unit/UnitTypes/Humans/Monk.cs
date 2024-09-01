@@ -28,6 +28,7 @@ public class Monk : LUnit, IMage
 
     protected override void ApplyDebuffsToEnemy(LUnit enemyUnit, bool isEnemyTurn = false)
     {
+        if (enemyUnit is LStructure) return;
         if (HexSkill == null) return;
         if (HexSkill is ISpawnableEffect spawnableEffect) spawnableEffect.SpawnEffect(enemyUnit.transform);
         int extraTurn = isEnemyTurn ? 1 : 0;

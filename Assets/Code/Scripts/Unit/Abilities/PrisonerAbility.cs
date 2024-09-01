@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Lean.Pool;
 using NaughtyAttributes;
 using TbsFramework.Grid;
 using TbsFramework.Units.Abilities;
@@ -7,6 +8,9 @@ using UnityEngine;
 public class PrisonerAbility : Ability
 {
     [SerializeField] private List<LUnit> _overlordUnitList;
+
+    [BoxGroup("Chains"), SerializeField] private SpriteRenderer _chains;
+    [BoxGroup("Vfx"), SerializeField] private GameObject _releasedVfx;
 
     [BoxGroup("Unit Stats")] [SerializeField]
     private UnitStats _releasedUnitStats;
@@ -54,7 +58,7 @@ public class PrisonerAbility : Ability
 
         _material.SetFloat(_colorChangeTolerance, 1f);
         _material.SetFloat(_colorChangeTolerance2, 1f);
-        
+
         _isPrisoner = false;
         if (UnitReference is LUnit lUnit)
         {
@@ -63,6 +67,9 @@ public class PrisonerAbility : Ability
         }
 
         UnitReference.PlayerNumber = 0;
+
+        if (_chains != null) _chains.gameObject.SetActive(false);
+        if (_releasedVfx != null) LeanPool.Spawn(_releasedVfx, transform.position, _releasedVfx.transform.rotation);
     }
 
     public override void OnTurnStart(CellGrid cellGrid)

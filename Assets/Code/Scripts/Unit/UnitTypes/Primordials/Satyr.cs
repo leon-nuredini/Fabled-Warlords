@@ -16,6 +16,7 @@ public class Satyr : Pikeman
     
     protected override void ApplyDebuffsToEnemy(LUnit enemyUnit, bool isEnemyTurn = false)
     {
+        if (enemyUnit is LStructure) return;
         if (PoisonSkill == null) return;
         if (enemyUnit.HitPoints <= 0) return;
         float randomChance = UnityEngine.Random.Range(0f, 100f);

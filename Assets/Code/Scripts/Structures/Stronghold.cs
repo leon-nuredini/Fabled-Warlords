@@ -3,9 +3,11 @@ using System.Linq;
 using TbsFramework.Grid;
 using TbsFramework.Players;
 using TbsFramework.Units;
+using System;
 
 public class Stronghold : LStructure
 {
+    public static event Action<Stronghold> OnAnyStrongholdClicked;
     private RecruitUnitAbility _recruitUnitAbility;
     private IncomeGenerationAbility _incomeGenerationAbility;
     private bool _isRuined;
@@ -26,7 +28,7 @@ public class Stronghold : LStructure
             _isRuined = value;
             if (_isRuined)
             {
-                IncomeGenerationAbility.IncomeAmount = 1;
+                //IncomeGenerationAbility.IncomeAmount = 1;
                 Destroy(RecruitUnitAbility);
                 _recruitUnitAbility = null;
                 Destroy(_recruitAIAction);
@@ -68,5 +70,11 @@ public class Stronghold : LStructure
 
             unitList[i].KillInstantly();
         }
+    }
+
+    public override void OnMouseDown()
+    {
+        OnAnyStrongholdClicked?.Invoke(this);
+        base.OnMouseDown();
     }
 }

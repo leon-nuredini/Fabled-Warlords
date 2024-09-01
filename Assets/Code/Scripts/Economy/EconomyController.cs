@@ -8,44 +8,53 @@ using System;
 public class EconomyController : SceneSingleton<EconomyController>
 {
     public static event Action<PlayerAccount> OnAnyUpdateWealth;
-    public static event Action<int>           OnAnyUpkeepUpdated;
-    public static event Action<int>           OnAnyNetIncomeUpdated;
+    public static event Action<int> OnAnyUpkeepUpdated;
+    public static event Action<int> OnAnyNetIncomeUpdated;
 
     private Dictionary<int, PlayerAccount> _accountDictionary = new Dictionary<int, PlayerAccount>();
-    private CellGrid                       _cellGrid;
+    private CellGrid _cellGrid;
 
+    [SerializeField] private bool _updateEconomy = true;
     [SerializeField] private int _humanStartingAmount = 0;
-    [SerializeField] private int _aiStartingAmount    = 0;
+    [SerializeField] private int _aiStartingAmount = 0;
     [SerializeField] private int _defaultPlayerAmount = 0;
-    [SerializeField] private int _defaultAIAmount     = 0;
+    [SerializeField] private int _defaultAIAmount = 0;
 
     public Dictionary<int, PlayerAccount> AccountDictionary => _accountDictionary;
 
     private void Awake()
     {
         if (CellGrid.Instance == null) return;
-        _cellGrid                               =  CellGrid.Instance;
-        _cellGrid.GameStarted                   += OnGameStarted;
-        _cellGrid.TurnStarted                   += OnTurnStart;
-        _cellGrid.OnUnitAdded                   += UpdateUpkeepAndNetIncome;
-        _cellGrid.OnUnitRemoved                 += UpdateUpkeepAndNetIncome;
-        LStructure.OnAnyCapturedStructure       += UpdatePlayerNetIncome;
+        _cellGrid = CellGrid.Instance;
+        _cellGrid.GameStarted += OnGameStarted;
+        _cellGrid.TurnStarted += OnTurnStart;
+        _cellGrid.OnUnitAdded += UpdateUpkeepAndNetIncome;
+        _cellGrid.OnUnitRemoved += UpdateUpkeepAndNetIncome;
+        LStructure.OnAnyCapturedStructure += UpdatePlayerNetIncome;
         RecruitmentController.OnAnyPurchaseUnit += UpdateCurrentWealth;
+    }
+
+    private void OnEnable()
+    {
+        ClaimBaseObjective.OnAnyCompleteClaimBaseObjective += UpdateEconomy;
     }
 
     private void OnDisable()
     {
-        LStructure.OnAnyCapturedStructure       -= UpdatePlayerNetIncome;
+        LStructure.OnAnyCapturedStructure -= UpdatePlayerNetIncome;
         RecruitmentController.OnAnyPurchaseUnit -= UpdateCurrentWealth;
+        ClaimBaseObjective.OnAnyCompleteClaimBaseObjective -= UpdateEconomy;
     }
+
+    private void UpdateEconomy() => _updateEconomy = true;
 
     public void OnTurnStart(object sender, System.EventArgs e)
     {
         UpdateUpkeep(_cellGrid.CurrentPlayerNumber);
         UpdateEconomyIncome(_cellGrid.CurrentPlayerNumber);
         UpdateCurrentWealth(null,
-                            _cellGrid.CurrentPlayerNumber,
-                            AccountDictionary[_cellGrid.CurrentPlayerNumber].EconomyIncome);
+            _cellGrid.CurrentPlayerNumber,
+            AccountDictionary[_cellGrid.CurrentPlayerNumber].EconomyIncome);
     }
 
 
@@ -79,6 +88,13 @@ public class EconomyController : SceneSingleton<EconomyController>
 
         if (AccountDictionary[playerNumber].Wealth < 0) AccountDictionary[playerNumber].Wealth = 0;
 
+        if (!_updateEconomy)
+        {
+            AccountDictionary[playerNumber].Wealth = 0;
+            OnAnyUpdateWealth?.Invoke(AccountDictionary[0]);
+            return;
+        }
+        
         if (playerNumber == 0) OnAnyUpdateWealth?.Invoke(AccountDictionary[playerNumber]);
     }
 
@@ -94,6 +110,14 @@ public class EconomyController : SceneSingleton<EconomyController>
                 totalUnitUpkeep += lUnit.UnitStats.Upkeep;
 
         AccountDictionary[playerNumber].Upkeep = totalUnitUpkeep;
+        
+        if (!_updateEconomy)
+        {
+            AccountDictionary[playerNumber].Upkeep = 0;
+            OnAnyUpkeepUpdated?.Invoke(0);
+            return;
+        }
+        
         if (playerNumber == 0) OnAnyUpkeepUpdated?.Invoke(totalUnitUpkeep);
     }
 
@@ -118,6 +142,13 @@ public class EconomyController : SceneSingleton<EconomyController>
             economyIncome += _defaultAIAmount;
 
         AccountDictionary[playerNumber].EconomyIncome = economyIncome;
+        if (!_updateEconomy)
+        {
+            AccountDictionary[playerNumber].EconomyIncome = 0;
+            OnAnyNetIncomeUpdated?.Invoke(0);
+            return;
+        }
+        
         if (playerNumber == 0)
         {
             if (_cellGrid.CurrentPlayer is AIPlayer)

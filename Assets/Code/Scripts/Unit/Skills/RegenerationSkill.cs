@@ -29,7 +29,7 @@ public class RegenerationSkill : Ability, IAOEHealingSkill
         List<Transform> vfxSpawnTransformList = new List<Transform>();
         foreach (var unit in myUnits)
         {
-            if (unit.Equals(UnitReference))
+            if (unit.Equals(UnitReference) && unit.HitPoints < unit.TotalHitPoints)
             {
                 unit.AddBuff(AoeHealingBuff);
                 vfxSpawnTransformList.Add(unit.transform);
