@@ -52,7 +52,12 @@ public class StatusEffectsController : MonoBehaviour
 
     public void ApplyStatusEffect<T>(int turns)
     {
-        if (!_canApplyStatusEffects) return;
+        if (!CanApplyStatusEffects)
+        {
+            if (SpiritWardTextSpawner.Instance != null)
+                SpiritWardTextSpawner.Instance.SpawnTextGameObject(_lUnit, transform.position);
+            return;
+        }
         if (_lUnit is LStructure) return;
 
         for (int i = 0; i < _statusEffectList.Count; i++)

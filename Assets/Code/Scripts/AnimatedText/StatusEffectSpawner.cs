@@ -22,8 +22,9 @@ public class StatusEffectSpawner : MonoBehaviour
     {
         while (_textQueue.Count > 0)
         {
-            StatusEffectText queuedStatusEffectText = _textQueue.Dequeue();
+            StatusEffectText queuedStatusEffectText = _textQueue.Peek();
             yield return new WaitForSeconds(queuedStatusEffectText.TextSpawnDelay);
+            _textQueue.Dequeue();
             if (queuedStatusEffectText.LUnit == null || queuedStatusEffectText.LUnit.HitPoints <= 0) continue;
             LeanPool.Spawn(queuedStatusEffectText.TextGameObject, queuedStatusEffectText.SpawnPosition,
                 Quaternion.identity);
