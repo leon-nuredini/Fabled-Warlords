@@ -29,6 +29,8 @@ public class VictorsSmiteSkill : MonoBehaviour, ISkill
         if (CellGrid.Instance.CurrentPlayerNumber != _lUnit.PlayerNumber) return false;
         _lUnit.ActionPoints++;
         _smiteActivated = true;
+        if (SmiteTextSpawner.Instance != null)
+            SmiteTextSpawner.Instance.SpawnTextGameObject(_lUnit, transform.position);
         return true;
     }
 

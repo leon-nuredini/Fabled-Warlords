@@ -1,8 +1,7 @@
-using Lean.Pool;
 using Singleton;
 using UnityEngine;
 
-public class ParryTextSpawner : SceneSingleton<ParryTextSpawner>
+public class GuardianAuraTextSpawner : SceneSingleton<GuardianAuraTextSpawner>
 {
     private StatusEffectSpawner _statusEffectSpawner;
 

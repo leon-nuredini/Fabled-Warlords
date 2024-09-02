@@ -1,8 +1,7 @@
-using Lean.Pool;
 using Singleton;
 using UnityEngine;
 
-public class ParryTextSpawner : SceneSingleton<ParryTextSpawner>
+public class WeakenedTextSpawner : SceneSingleton<WeakenedTextSpawner>
 {
     private StatusEffectSpawner _statusEffectSpawner;
 

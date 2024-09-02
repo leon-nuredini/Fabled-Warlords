@@ -49,7 +49,12 @@ public class RetaliateSkill : MonoBehaviour, ISkill
 
     public bool IsInAttackRange()
     {
-        if (_aggressorUnit.UnRetaliatableSkill != null) return false;
+        if (_aggressorUnit.UnRetaliatableSkill != null)
+        {
+            if (GuardianAuraTextSpawner.Instance != null)
+                GuardianAuraTextSpawner.Instance.SpawnTextGameObject(_aggressorUnit, _aggressorUnit.transform.position);
+            return false;
+        }
         if (RetaliatePoints <= 0) return false;
         if (!_attackAbility.UnitReference.IsUnitAttackable(AggressorUnit, _attackAbility.UnitReference.Cell))
             return false;

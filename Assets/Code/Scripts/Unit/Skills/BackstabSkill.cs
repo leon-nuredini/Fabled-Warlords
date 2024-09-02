@@ -32,7 +32,12 @@ public class BackstabSkill : MonoBehaviour, IAttackSkill
 
         if (Mathf.Approximately(_lUnit.transform.localPosition.y, _unitToAttack.transform.localPosition.y) &&
             _lUnit.CurrentUnitDirection == _unitToAttack.CurrentUnitDirection)
+        {
             factor = _backstabDamageFactor;
+            if (BackstabTextSpawner.Instance != null)
+                BackstabTextSpawner.Instance.SpawnTextGameObject(_lUnit, transform.position);
+        }
+
 
         _unitToAttack = null;
         return factor;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Lean.Pool;
 using UnityEngine;
@@ -51,14 +52,22 @@ public class StatusEffectsController : MonoBehaviour
 
     public void ApplyStatusEffect<T>(int turns)
     {
-        if (!_canApplyStatusEffects) return;
+        if (!CanApplyStatusEffects)
+        {
+            if (SpiritWardTextSpawner.Instance != null)
+                SpiritWardTextSpawner.Instance.SpawnTextGameObject(_lUnit, transform.position);
+            return;
+        }
         if (_lUnit is LStructure) return;
-        
+
         for (int i = 0; i < _statusEffectList.Count; i++)
         {
             StatusEffect statusEffect = _statusEffectList[i];
             if (statusEffect.StatusEffectType is T)
             {
+                if (!statusEffect.IsApplied)
+                    SpawnStatusText(statusEffect.StatusEffectType);
+                
                 statusEffect.IsApplied = true;
                 if (statusEffect.DurationInTurns < turns)
                     statusEffect.DurationInTurns = turns;
@@ -66,6 +75,22 @@ public class StatusEffectsController : MonoBehaviour
                 TryToSpawnStatusEffect(statusEffect.StatusEffectType);
                 TryToApplyStatusEffectColor(statusEffect);
             }
+        }
+    }
+
+    private void SpawnStatusText(StatusEffectType statusEffectType)
+    {
+        switch (statusEffectType)
+        {
+            case Poison poison:
+                PosionTextSpawner.Instance.SpawnTextGameObject(_lUnit, transform.position);
+                break;
+            case Stun stun:
+                StunTextSpawner.Instance.SpawnTextGameObject(_lUnit, transform.position);
+                break;
+            case Weaken weaken:
+                WeakenedTextSpawner.Instance.SpawnTextGameObject(_lUnit, transform.position);
+                break;
         }
     }
 

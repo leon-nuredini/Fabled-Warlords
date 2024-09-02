@@ -21,6 +21,10 @@ public class StillStrikeSkill : MonoBehaviour, IAttackSkill
     public int GetDamageFactor()
     {
         if (_lUnit.MovementPoints < _lUnit.TotalMovementPoints) return 0;
+        
+        if (StillStrikeTextSpawner.Instance != null)
+            StillStrikeTextSpawner.Instance.SpawnTextGameObject(_lUnit, transform.position);
+        
         return _stillStrikeDamageFactor;
     }
 }
