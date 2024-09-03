@@ -61,6 +61,8 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - CHANGECOLOR_ON
+  - GLOWTEX_ON
+  - GLOW_ON
   - HITEFFECT_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -170,7 +172,7 @@ Material:
     - _GhostTransparency: 1
     - _GlitchAmount: 3
     - _GlitchSize: 1
-    - _Glow: 2.6
+    - _Glow: 0
     - _GlowGlobal: 1
     - _GradBlend: 1
     - _GradBoostX: 1.2
@@ -198,8 +200,8 @@ Material:
     - _HsvSaturation: 1
     - _HsvShift: 157
     - _InnerOutlineAlpha: 1
-    - _InnerOutlineGlow: 4
-    - _InnerOutlineThickness: 1
+    - _InnerOutlineGlow: 250
+    - _InnerOutlineThickness: 1.02
     - _MaxXUV: 1
     - _MaxYUV: 1
     - _MinXUV: 0
@@ -217,7 +219,7 @@ Material:
     - _OutlineDistortAmount: 0.5
     - _OutlineDistortTexXSpeed: 5
     - _OutlineDistortTexYSpeed: 5
-    - _OutlineGlow: 1.5
+    - _OutlineGlow: 85.8
     - _OutlinePixelWidth: 1
     - _OutlineTexXSpeed: 10
     - _OutlineTexYSpeed: 0
