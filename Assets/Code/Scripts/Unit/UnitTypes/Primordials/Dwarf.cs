@@ -31,8 +31,11 @@ public class Dwarf : LUnit, ISwordInfantry
         float defenceAmount = 0;
         for (int i = 0; i < DefendSkillArray.Length; i++)
         {
-            if (DefendSkillArray[i] is StoneWillSkill)
-                defenceAmount = DefendSkillArray[i].GetDefenceAmount();
+            if (Agressor is LUnit {IsRetaliating: true})
+            {
+                if (DefendSkillArray[i] is StoneWillSkill)
+                    defenceAmount = DefendSkillArray[i].GetDefenceAmount();
+            }
         }
 
         return defenceAmount;

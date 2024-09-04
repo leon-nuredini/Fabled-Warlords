@@ -140,7 +140,7 @@ public class LUnit : Unit
         set => _tempDamageReceived = value;
     }
 
-    protected bool IsRetaliating => _isRetaliating;
+    public bool IsRetaliating => _isRetaliating;
 
     protected SpriteRenderer UnitSpriteRenderer => _spriteRenderer;
     public StatusEffectsController StatusEffectsController => _statusEffectsController;
@@ -331,9 +331,9 @@ public class LUnit : Unit
     {
         _isRetaliating = true;
         AttackAction attackAction = DealDamage(unitToAttack);
-        _isRetaliating = false;
         MarkAsAttacking(unitToAttack);
         unitToAttack.DefendHandler(this, attackAction.Damage);
+        _isRetaliating = false;
     }
 
     public override void AttackHandler(Unit unitToAttack)
