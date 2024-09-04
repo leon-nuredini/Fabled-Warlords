@@ -89,8 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eac2d3f0cb3193349a409bff491b1a72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textGameObject: {fileID: 6197418468530206075, guid: 0b7cc615b4dd9084082b446849df6dff,
-    type: 3}
+  _textOutlineColors: {fileID: 11400000, guid: 458ad99f5cdc6c5459b78cb18e8ba1c0, type: 2}
+  _text: {fileID: 5385366830508446606, guid: 0b7cc615b4dd9084082b446849df6dff, type: 3}
   _textSpawnDelay: 0.75
 --- !u!1 &1409550686437356937
 GameObject:
@@ -136,8 +136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6166d6e81e04a7c458fd36806f9f4a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textGameObject: {fileID: 3568316517742574646, guid: 74028671716c61044a3652a252446a02,
-    type: 3}
+  _textOutlineColors: {fileID: 11400000, guid: 458ad99f5cdc6c5459b78cb18e8ba1c0, type: 2}
+  _text: {fileID: 6947066870930418951, guid: 74028671716c61044a3652a252446a02, type: 3}
   _textSpawnDelay: 0.75
 --- !u!1 &1622837868469081645
 GameObject:
@@ -185,6 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _textGameObject: {fileID: 6197418468530206075, guid: 81e7585ba2116784eaf120e37e616493,
     type: 3}
+  _textOutlineColors: {fileID: 11400000, guid: 458ad99f5cdc6c5459b78cb18e8ba1c0, type: 2}
 --- !u!1 &1854353060388873349
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,8 +230,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f941cb51da90824c8a809fe0468f1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textGameObject: {fileID: 6197418468530206075, guid: cc25267801ac50e469edae60e48a6c8f,
-    type: 3}
+  _textOutlineColors: {fileID: 11400000, guid: 458ad99f5cdc6c5459b78cb18e8ba1c0, type: 2}
+  _text: {fileID: 5385366830508446606, guid: cc25267801ac50e469edae60e48a6c8f, type: 3}
   _textSpawnDelay: 0.75
 --- !u!1 &3251803791525314587
 GameObject:
@@ -276,8 +277,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdad7b4f997a95e46b105dd25053ad0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textGameObject: {fileID: 6197418468530206075, guid: 6e9e8d1a2fc4e2749b24dc92bc85a404,
-    type: 3}
+  _textOutlineColors: {fileID: 11400000, guid: 458ad99f5cdc6c5459b78cb18e8ba1c0, type: 2}
+  _text: {fileID: 5385366830508446606, guid: 6e9e8d1a2fc4e2749b24dc92bc85a404, type: 3}
   _textSpawnDelay: 0.75
 --- !u!1 &3661200974462200472
 GameObject:
@@ -426,6 +427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca3a69fcbb454004b896345e8442a693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _glowDuration: 0.5
 --- !u!1 &5006923933215799604
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,6 +474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _textGameObject: {fileID: 6197418468530206075, guid: c461bf9cbf4b64141bdeaa6c7a29e1df,
     type: 3}
+  _textOutlineColors: {fileID: 11400000, guid: 458ad99f5cdc6c5459b78cb18e8ba1c0, type: 2}
 --- !u!1 &5117547134244099626
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,8 +566,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06d35963544be95418a0da1fb7dbaea1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textGameObject: {fileID: 6197418468530206075, guid: dfb1c8ee1a63b4a4db738b1b32ba8e11,
-    type: 3}
+  _textOutlineColors: {fileID: 11400000, guid: 458ad99f5cdc6c5459b78cb18e8ba1c0, type: 2}
+  _text: {fileID: 5385366830508446606, guid: dfb1c8ee1a63b4a4db738b1b32ba8e11, type: 3}
   _textSpawnDelay: 0.75
 --- !u!1 &5560386199302372543
 GameObject:
@@ -610,8 +613,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f085575a99a6fd844b1676296b8e11a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textGameObject: {fileID: 6197418468530206075, guid: 633929852a2dc064a90220bd7fa1b45d,
-    type: 3}
+  _textOutlineColors: {fileID: 11400000, guid: 458ad99f5cdc6c5459b78cb18e8ba1c0, type: 2}
+  _text: {fileID: 5385366830508446606, guid: 633929852a2dc064a90220bd7fa1b45d, type: 3}
   _textSpawnDelay: 0
 --- !u!1 &5832504652766198274
 GameObject:
@@ -659,6 +662,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _textGameObject: {fileID: 6197418468530206075, guid: d128c17cb13f5d94faf0d6e89afefd0f,
     type: 3}
+  _textOutlineColors: {fileID: 11400000, guid: 458ad99f5cdc6c5459b78cb18e8ba1c0, type: 2}
 --- !u!1 &6055408948248213567
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,8 +707,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0a85a1d684dbac4e8983d1d0f9841fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textGameObject: {fileID: 6197418468530206075, guid: 8533a9ae3cb2f8940a49e8fdd270eb79,
-    type: 3}
+  _textOutlineColors: {fileID: 11400000, guid: 458ad99f5cdc6c5459b78cb18e8ba1c0, type: 2}
+  _text: {fileID: 5385366830508446606, guid: 8533a9ae3cb2f8940a49e8fdd270eb79, type: 3}
   _textSpawnDelay: 0.5
 --- !u!1 &6323866489888533337
 GameObject:
@@ -750,8 +754,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1d3318c0e1fb0d4c8ac416a5135cdda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textGameObject: {fileID: 6197418468530206075, guid: 64d285247ce85c3429f506607593ad9f,
-    type: 3}
+  _textOutlineColors: {fileID: 11400000, guid: 458ad99f5cdc6c5459b78cb18e8ba1c0, type: 2}
+  _text: {fileID: 5385366830508446606, guid: 64d285247ce85c3429f506607593ad9f, type: 3}
   _textSpawnDelay: 0.15
 --- !u!1 &6468357474233203845
 GameObject:
@@ -797,8 +801,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dc7b107f88a5b34286435bc1df357b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textGameObject: {fileID: 6197418468530206075, guid: 1bef6bf67468ef44b9701e5f294126d2,
-    type: 3}
+  _textOutlineColors: {fileID: 11400000, guid: 458ad99f5cdc6c5459b78cb18e8ba1c0, type: 2}
+  _text: {fileID: 5385366830508446606, guid: 1bef6bf67468ef44b9701e5f294126d2, type: 3}
   _textSpawnDelay: 0.5
 --- !u!1 &6858660993568513853
 GameObject:
@@ -969,8 +973,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 821d8ccd5f97c0b40b598a73d30d22fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textGameObject: {fileID: 6197418468530206075, guid: a64cdc3f7a12e8b4cb855235e54db35d,
-    type: 3}
+  _textOutlineColors: {fileID: 11400000, guid: 458ad99f5cdc6c5459b78cb18e8ba1c0, type: 2}
+  _text: {fileID: 5385366830508446606, guid: a64cdc3f7a12e8b4cb855235e54db35d, type: 3}
   _textSpawnDelay: 0.15
 --- !u!1 &7388259931643381942
 GameObject:
@@ -1060,8 +1064,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e13659a173eb684d92be0bc6eafdbd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textGameObject: {fileID: 6197418468530206075, guid: dcdd8a2cd466ee843b17045c9df503cd,
-    type: 3}
+  _textOutlineColors: {fileID: 11400000, guid: 458ad99f5cdc6c5459b78cb18e8ba1c0, type: 2}
+  _text: {fileID: 5385366830508446606, guid: dcdd8a2cd466ee843b17045c9df503cd, type: 3}
   _textSpawnDelay: 0.5
 --- !u!1 &8302503682436431148
 GameObject:

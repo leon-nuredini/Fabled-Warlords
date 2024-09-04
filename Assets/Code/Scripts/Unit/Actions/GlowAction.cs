@@ -1,16 +1,10 @@
-using System;
-using System.Collections;
-using DG.Tweening;
 using TbsFramework.Grid;
 using TbsFramework.Players;
 using UnityEngine;
 
 public class GlowAction : MonoBehaviour
 {
-    [SerializeField] private Color _playerGlowColor;
-    [SerializeField] private Color _enemyGlowColor;
-    [SerializeField] private Color _prisonerGlowColor;
-    [SerializeField] private float _glowValue = 0.5f;
+    [SerializeField] private UnitGlowColors _unitGlowColors;
 
     private LUnit _lUnit;
     private PrisonerAbility _prisonerAbility;
@@ -52,10 +46,10 @@ public class GlowAction : MonoBehaviour
 
     private void Glow()
     {
-        Color glowColor = _isPlayerUnit ? _playerGlowColor : _enemyGlowColor;
-        if (_prisonerAbility != null && _prisonerAbility.IsPrisoner) glowColor = _prisonerGlowColor;
+        Color glowColor = _isPlayerUnit ? _unitGlowColors.PlayerGlowColor : _unitGlowColors.EnemyGlowColor;
+        if (_prisonerAbility != null && _prisonerAbility.IsPrisoner) glowColor = _unitGlowColors.PrisonerGlowColor;
         _material.SetColor(_glowColor, glowColor);
-        _material.SetFloat(_glowAmount, _glowValue);
+        _material.SetFloat(_glowAmount, _unitGlowColors.GlowValue);
     }
 
     private void DisableGlow()
