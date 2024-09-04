@@ -1,19 +1,21 @@
-using Lean.Pool;
 using Singleton;
+using TMPro;
 using UnityEngine;
 
 public class ParryTextSpawner : SceneSingleton<ParryTextSpawner>
 {
     private StatusEffectSpawner _statusEffectSpawner;
 
-    [SerializeField] protected GameObject _textGameObject;
+    [SerializeField] private TextOutlineColors _textOutlineColors;
+    [SerializeField] protected TextMeshPro _text;
     [SerializeField] private float _textSpawnDelay = 0.75f;
 
     private void OnEnable() => _statusEffectSpawner = GetComponentInParent<StatusEffectSpawner>();
 
     public void SpawnTextGameObject(LUnit lUnit, Vector3 spawnPosition)
     {
-        if (_textGameObject == null) return;
-        _statusEffectSpawner.QueueStatusTextEffect(lUnit, _textGameObject, spawnPosition, _textSpawnDelay);
+        if (_text is null) return;
+        _statusEffectSpawner.QueueStatusTextEffect(lUnit, _text, spawnPosition, _textSpawnDelay,
+            _textOutlineColors.ParryColor);
     }
 }

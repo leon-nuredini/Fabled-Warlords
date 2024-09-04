@@ -5,6 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TextOutlineColors", menuName = "TextOutlineColors/TextOutlineColors", order = 0)]
 public class TextOutlineColors : ScriptableObject
 {
+    [ColorUsage(true, true)] [SerializeField] private Color _damageColor;
+    [ColorUsage(true, true)] [SerializeField] private Color _healColor;
+    [ColorUsage(true, true)] [SerializeField] private Color _missColor;
     [ColorUsage(true, true)] [SerializeField] private Color _backstabColor;
     [ColorUsage(true, true)] [SerializeField] private Color _chargingColor;
     [ColorUsage(true, true)] [SerializeField] private Color _guardianAuraColor;
@@ -17,6 +20,9 @@ public class TextOutlineColors : ScriptableObject
     [ColorUsage(true, true)] [SerializeField] private Color _stunColor;
     [ColorUsage(true, true)] [SerializeField] private Color _weakenedColor;
 
+    public Color DamageColor => _damageColor;
+    public Color HealColor => _healColor;
+    public Color MissColor => _missColor;
     public Color BackstabColor => _backstabColor;
     public Color ChargingColor => _chargingColor;
     public Color GuardianAuraColor => _guardianAuraColor;
