@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using TbsFramework.Grid;
@@ -10,12 +11,10 @@ public class GlowAction : MonoBehaviour
     [SerializeField] private Color _enemyGlowColor;
     [SerializeField] private Color _prisonerGlowColor;
     [SerializeField] private float _glowValue = 0.5f;
-    [SerializeField] private float _glowDuration = 0.25f;
 
     private LUnit _lUnit;
     private PrisonerAbility _prisonerAbility;
     private Material _material;
-    private WaitForSeconds _wait;
 
     private bool _isPlayerUnit;
 
@@ -26,8 +25,19 @@ public class GlowAction : MonoBehaviour
     {
         _lUnit = GetComponent<LUnit>();
         _prisonerAbility = GetComponent<PrisonerAbility>();
-        _wait = new WaitForSeconds(_glowDuration);
         _material = _lUnit.MaskSpriteRenderer.material;
+    }
+
+    private void OnEnable()
+    {
+        UnitGlow.OnAnyEnableGlow += Glow;
+        UnitGlow.OnAnyDisableGlow += DisableGlow;
+    }
+
+    private void OnDisable()
+    {
+        UnitGlow.OnAnyEnableGlow -= Glow;
+        UnitGlow.OnAnyDisableGlow -= DisableGlow;
     }
 
     private void Start()
@@ -38,26 +48,18 @@ public class GlowAction : MonoBehaviour
             if (player is HumanPlayer && player.PlayerNumber == unitPlayerNumber)
                 _isPlayerUnit = true;
         }
-
-        Glow();
     }
 
     private void Glow()
     {
-        StartCoroutine(InitGlow());
+        Color glowColor = _isPlayerUnit ? _playerGlowColor : _enemyGlowColor;
+        if (_prisonerAbility != null && _prisonerAbility.IsPrisoner) glowColor = _prisonerGlowColor;
+        _material.SetColor(_glowColor, glowColor);
+        _material.SetFloat(_glowAmount, _glowValue);
     }
 
-    private IEnumerator InitGlow()
+    private void DisableGlow()
     {
-        while (true)
-        {
-            yield return _wait;
-            Color glowColor = _isPlayerUnit ? _playerGlowColor : _enemyGlowColor;
-            if (_prisonerAbility != null && _prisonerAbility.IsPrisoner) glowColor = _prisonerGlowColor;
-            _material.SetColor(_glowColor, glowColor);
-            _material.SetFloat(_glowAmount, _glowValue);
-            yield return _wait;
-            _material.SetFloat(_glowAmount, 0f);
-        }
+        _material.SetFloat(_glowAmount, 0f);
     }
 }

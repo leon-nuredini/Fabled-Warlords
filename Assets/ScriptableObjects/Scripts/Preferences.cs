@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -7,18 +6,21 @@ using UnityEngine.Audio;
 [CreateAssetMenu(fileName = "Preferences", menuName = "Preferences/General", order = 0)]
 public class Preferences : ScriptableObject
 {
+    public event Action<bool> OnUpdateUnitGlow;
+
     [SerializeField] private AudioMixer _mixer;
 
     [SerializeField] private bool _enableMusic = true;
-    [SerializeField] private bool _enableSfx   = true;
+    [SerializeField] private bool _enableSfx = true;
+    [SerializeField] private bool _enableUnitGlow;
 
     [Range(1f, 5f)] [SerializeField] private float _scrollSpeed = 1f;
-    [Range(1f, 5f)] [SerializeField] private float _aiSpeed     = 1f;
+    [Range(1f, 5f)] [SerializeField] private float _aiSpeed = 1f;
 
     private Tween _tween;
 
     private const string MusicVolume = "MusicVolume";
-    private const string SfxVolume   = "SFXVolume";
+    private const string SfxVolume = "SFXVolume";
 
     #region Properties
 
@@ -42,6 +44,18 @@ public class Preferences : ScriptableObject
             _enableSfx = value;
             UpdateAudioMixer();
             PlayerPrefs.SetInt(SaveName.SFX, _enableSfx ? 1 : 0);
+            SaveData();
+        }
+    }
+
+    public bool EnableUnitGlow
+    {
+        get => _enableUnitGlow;
+        set
+        {
+            _enableUnitGlow = value;
+            PlayerPrefs.SetInt(SaveName.UnitGlow, _enableUnitGlow ? 1 : 0);
+            OnUpdateUnitGlow?.Invoke(_enableUnitGlow);
             SaveData();
         }
     }
@@ -71,14 +85,16 @@ public class Preferences : ScriptableObject
     #endregion
 
     private void Awake() => LoadData();
+
     private void OnEnable() => UpdateAudioMixer();
 
     private void LoadData()
     {
-        if (PlayerPrefs.HasKey(SaveName.Music)) _enableMusic       = PlayerPrefs.GetInt(SaveName.Music) == 1;
-        if (PlayerPrefs.HasKey(SaveName.SFX)) _enableSfx           = PlayerPrefs.GetInt(SaveName.SFX)   == 1;
+        if (PlayerPrefs.HasKey(SaveName.Music)) _enableMusic = PlayerPrefs.GetInt(SaveName.Music) == 1;
+        if (PlayerPrefs.HasKey(SaveName.SFX)) _enableSfx = PlayerPrefs.GetInt(SaveName.SFX) == 1;
+        if (PlayerPrefs.HasKey(SaveName.UnitGlow)) _enableUnitGlow = PlayerPrefs.GetInt(SaveName.UnitGlow) == 1;
         if (PlayerPrefs.HasKey(SaveName.ScrollSpeed)) _scrollSpeed = PlayerPrefs.GetFloat(SaveName.ScrollSpeed);
-        if (PlayerPrefs.HasKey(SaveName.AISpeed)) _aiSpeed         = PlayerPrefs.GetFloat(SaveName.AISpeed);
+        if (PlayerPrefs.HasKey(SaveName.AISpeed)) _aiSpeed = PlayerPrefs.GetFloat(SaveName.AISpeed);
     }
 
     private void SaveData() => PlayerPrefs.Save();
@@ -92,6 +108,6 @@ public class Preferences : ScriptableObject
     private void UpdateAudioMixer()
     {
         _mixer.SetFloat(MusicVolume, _enableMusic ? Mathf.Log10(1f) * 20f : Mathf.Log10(0.0001f) * 20f);
-        _mixer.SetFloat(SfxVolume,   _enableSfx ? Mathf.Log10(1f)   * 20f : Mathf.Log10(0.0001f) * 20f);
+        _mixer.SetFloat(SfxVolume, _enableSfx ? Mathf.Log10(1f) * 20f : Mathf.Log10(0.0001f) * 20f);
     }
 }
