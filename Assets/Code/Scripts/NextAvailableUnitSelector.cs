@@ -32,9 +32,9 @@ public class NextAvailableUnitSelector : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Period))
+        if (Input.GetKeyDown(KeyCode.E))
             SelectNextAvailableUnit();
-        else if (Input.GetKeyDown(KeyCode.Comma))
+        else if (Input.GetKeyDown(KeyCode.Q))
             SelectPreviousAvailableUnit();
     }
     
