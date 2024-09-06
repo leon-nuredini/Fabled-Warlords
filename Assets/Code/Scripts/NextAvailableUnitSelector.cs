@@ -35,14 +35,15 @@ public class NextAvailableUnitSelector : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.X))
             SelectNextAvailableUnit();
-        else if (Input.GetKeyDown(KeyCode.Q))
+        else if (Input.GetKeyDown(KeyCode.Z))
             SelectPreviousAvailableUnit();
     }
     
     private void SelectNextAvailableUnit()
     {
+        if (_currSelectedUnitIndex == _playerUnits.Count - 1) _currSelectedUnitIndex = 0;
         Unit selectedUnit = null;
         if (ObjectHolder.Instance != null) selectedUnit = ObjectHolder.Instance.CurrSelectedUnit;
         if (CellGrid.Instance != null && CellGrid.Instance.CurrentPlayerNumber == 0)
@@ -58,12 +59,7 @@ public class NextAvailableUnitSelector : MonoBehaviour
 
                 if (_playerUnits[i] is LStructure) continue;
 
-                _playerUnits[i].OnMouseDown();
-                _currSelectedUnitIndex = i;
-                Vector3 newCameraPosition = _cameraTransform.position;
-                newCameraPosition.x = _playerUnits[i].transform.position.x;
-                newCameraPosition.y = _playerUnits[i].transform.position.y;
-                _cameraTransform.position = newCameraPosition;
+                SelectUnit(_playerUnits[i], i);
                 return;
             }
         }
@@ -73,6 +69,7 @@ public class NextAvailableUnitSelector : MonoBehaviour
 
     private void SelectPreviousAvailableUnit()
     {
+        if (_currSelectedUnitIndex == 0) _currSelectedUnitIndex = _playerUnits.Count - 1;
         Unit selectedUnit = null;
         if (ObjectHolder.Instance != null) selectedUnit = ObjectHolder.Instance.CurrSelectedUnit;
         if (CellGrid.Instance != null && CellGrid.Instance.CurrentPlayerNumber == 0)
@@ -88,12 +85,26 @@ public class NextAvailableUnitSelector : MonoBehaviour
 
                 if (_playerUnits[i] is LStructure) continue;
 
-                _playerUnits[i].OnMouseDown();
-                _currSelectedUnitIndex = i;
+                SelectUnit(_playerUnits[i], i);
                 return;
             }
         }
 
-        _currSelectedUnitIndex = 0;
+        _currSelectedUnitIndex = _playerUnits.Count - 1;
+    }
+
+    private void SelectUnit(Unit unit, int unitIndex)
+    {
+        unit.OnMouseDown();
+        _currSelectedUnitIndex = unitIndex;
+        PositionCameraOnUnit(unit.transform.position);
+    }
+
+    private void PositionCameraOnUnit(Vector3 unitPosition)
+    {
+        Vector3 newCameraPosition = _cameraTransform.position;
+        newCameraPosition.x = unitPosition.x;
+        newCameraPosition.y = unitPosition.y;
+        _cameraTransform.position = newCameraPosition;
     }
 }
