@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using NaughtyAttributes;
 using TbsFramework.Grid;
 using TbsFramework.Units;
 using UnityEngine;
@@ -11,6 +10,10 @@ public class NextAvailableUnitSelector : MonoBehaviour
     [SerializeField] private List<Unit> _playerUnits = new List<Unit>();
     private int _currSelectedUnitIndex = 0;
 
+    private Transform _cameraTransform;
+
+    private void Awake() => _cameraTransform = Camera.main.transform;
+    
     private void OnEnable()
     {
         if (CellGrid.Instance != null) CellGrid.Instance.TurnStarted += UpdateUnitList;
@@ -57,6 +60,10 @@ public class NextAvailableUnitSelector : MonoBehaviour
 
                 _playerUnits[i].OnMouseDown();
                 _currSelectedUnitIndex = i;
+                Vector3 newCameraPosition = _cameraTransform.position;
+                newCameraPosition.x = _playerUnits[i].transform.position.x;
+                newCameraPosition.y = _playerUnits[i].transform.position.y;
+                _cameraTransform.position = newCameraPosition;
                 return;
             }
         }
