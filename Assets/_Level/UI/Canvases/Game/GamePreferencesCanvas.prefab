@@ -2840,16 +2840,11 @@ PrefabInstance:
     - target: {fileID: 4608419734618930661, guid: 20ad8dbaeb9515d4887576f933f79c6a,
         type: 3}
       propertyPath: _buttonArray.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4608419734618930661, guid: 20ad8dbaeb9515d4887576f933f79c6a,
         type: 3}
-      propertyPath: _buttonArray.Array.data[3]
-      value: 
-      objectReference: {fileID: 6421798693787106970}
-    - target: {fileID: 4608419734618930661, guid: 20ad8dbaeb9515d4887576f933f79c6a,
-        type: 3}
-      propertyPath: _buttonArray.Array.data[4]
+      propertyPath: _buttonArray.Array.data[5]
       value: 
       objectReference: {fileID: 6046180515277232049}
     - target: {fileID: 5695533303579436840, guid: 20ad8dbaeb9515d4887576f933f79c6a,
@@ -2908,11 +2903,13 @@ MonoBehaviour:
   _musicButton: {fileID: 2985117052403579955}
   _sfxButton: {fileID: 6147738104824406350}
   _unitGlowButton: {fileID: 6421798693787106970}
+  _unitCycleUIButton: {fileID: 997239695570710139}
   _scrollSpeedSlider: {fileID: 2214904007167675431}
   _aiSpeedSlider: {fileID: 513495289561906043}
   _musicToggle: {fileID: 2488020799275863245}
   _sfxToggle: {fileID: 1792772950564124311}
   _unitGlowToggle: {fileID: 8405178005101210518}
+  _unitCycleToggle: {fileID: 8859631656588007530}
   _mainMenuButton: {fileID: 6046180515277232049}
 --- !u!114 &7519427196080970886
 MonoBehaviour:
@@ -2940,6 +2937,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &997239695570710139 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8566701303252082313, guid: 20ad8dbaeb9515d4887576f933f79c6a,
+    type: 3}
+  m_PrefabInstance: {fileID: 8878249949974655218}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1792772950564124311 stripped
@@ -3035,6 +3044,12 @@ RectTransform:
 --- !u!1 &8405178005101210518 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1121626752287087460, guid: 20ad8dbaeb9515d4887576f933f79c6a,
+    type: 3}
+  m_PrefabInstance: {fileID: 8878249949974655218}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8859631656588007530 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 127892201046124696, guid: 20ad8dbaeb9515d4887576f933f79c6a,
     type: 3}
   m_PrefabInstance: {fileID: 8878249949974655218}
   m_PrefabAsset: {fileID: 0}

@@ -7,12 +7,14 @@ using UnityEngine.Audio;
 public class Preferences : ScriptableObject
 {
     public event Action<bool> OnUpdateUnitGlow;
+    public event Action<bool> OnUpdateUnitCyclingUI;
 
     [SerializeField] private AudioMixer _mixer;
 
     [SerializeField] private bool _enableMusic = true;
     [SerializeField] private bool _enableSfx = true;
     [SerializeField] private bool _enableUnitGlow;
+    [SerializeField] private bool _enableUnitCycleUI = true;
 
     [Range(1f, 5f)] [SerializeField] private float _scrollSpeed = 1f;
     [Range(1f, 5f)] [SerializeField] private float _aiSpeed = 1f;
@@ -56,6 +58,18 @@ public class Preferences : ScriptableObject
             _enableUnitGlow = value;
             PlayerPrefs.SetInt(SaveName.UnitGlow, _enableUnitGlow ? 1 : 0);
             OnUpdateUnitGlow?.Invoke(_enableUnitGlow);
+            SaveData();
+        }
+    }
+
+    public bool EnableUnitCycleUI
+    {
+        get => _enableUnitCycleUI;
+        set
+        {
+            _enableUnitCycleUI = value;
+            PlayerPrefs.SetInt(SaveName.UnitCycleUI, _enableUnitGlow ? 1 : 0);
+            OnUpdateUnitCyclingUI?.Invoke(_enableUnitCycleUI);
             SaveData();
         }
     }

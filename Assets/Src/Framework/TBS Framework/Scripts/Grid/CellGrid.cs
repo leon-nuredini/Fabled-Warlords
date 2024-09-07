@@ -360,6 +360,11 @@ namespace TbsFramework.Grid
         {
             return Units.FindAll(u => u.PlayerNumber == player.PlayerNumber);
         }
+        
+        public List<Unit> GetPlayerUnits(int playerNumber)
+        {
+            return Units.FindAll(u => u.PlayerNumber == playerNumber);
+        }
 
         public bool CheckGameFinished()
         {
