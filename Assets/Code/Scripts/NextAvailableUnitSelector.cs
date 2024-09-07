@@ -13,15 +13,19 @@ public class NextAvailableUnitSelector : MonoBehaviour
     private Transform _cameraTransform;
 
     private void Awake() => _cameraTransform = Camera.main.transform;
-    
+
     private void OnEnable()
     {
         if (CellGrid.Instance != null) CellGrid.Instance.TurnStarted += UpdateUnitList;
+        NextPreviousUnitPreseneter.OnAnyClickNextUnitButton += SelectNextAvailableUnit;
+        NextPreviousUnitPreseneter.OnAnyClickPreviousUnitButton += SelectPreviousAvailableUnit;
     }
 
     private void OnDisable()
     {
         if (CellGrid.Instance != null) CellGrid.Instance.TurnStarted -= UpdateUnitList;
+        NextPreviousUnitPreseneter.OnAnyClickNextUnitButton -= SelectNextAvailableUnit;
+        NextPreviousUnitPreseneter.OnAnyClickPreviousUnitButton -= SelectPreviousAvailableUnit;
     }
 
     private void Start() => UpdateUnitList(null, null);
@@ -35,17 +39,25 @@ public class NextAvailableUnitSelector : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Comma))
             SelectNextAvailableUnit();
-        else if (Input.GetKeyDown(KeyCode.Z))
+        else if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.Period))
             SelectPreviousAvailableUnit();
     }
-    
+
     private void SelectNextAvailableUnit()
     {
         if (_currSelectedUnitIndex == _playerUnits.Count - 1) _currSelectedUnitIndex = 0;
         Unit selectedUnit = null;
         if (ObjectHolder.Instance != null) selectedUnit = ObjectHolder.Instance.CurrSelectedUnit;
+        if (TryToSelectTheNextUnit(selectedUnit)) return;
+
+        _currSelectedUnitIndex = 0;
+        TryToSelectTheNextUnit(selectedUnit);
+    }
+
+    private bool TryToSelectTheNextUnit(Unit selectedUnit)
+    {
         if (CellGrid.Instance != null && CellGrid.Instance.CurrentPlayerNumber == 0)
         {
             for (int i = _currSelectedUnitIndex; i < _playerUnits.Count; i++)
@@ -58,13 +70,15 @@ public class NextAvailableUnitSelector : MonoBehaviour
                 }
 
                 if (_playerUnits[i] is LStructure) continue;
+                if (_playerUnits[i] is LUnit lUnit && lUnit.PrisonerAbility != null &&
+                    lUnit.PrisonerAbility.IsPrisoner) continue;
 
                 SelectUnit(_playerUnits[i], i);
-                return;
+                return true;
             }
         }
 
-        _currSelectedUnitIndex = 0;
+        return false;
     }
 
     private void SelectPreviousAvailableUnit()
@@ -72,6 +86,14 @@ public class NextAvailableUnitSelector : MonoBehaviour
         if (_currSelectedUnitIndex == 0) _currSelectedUnitIndex = _playerUnits.Count - 1;
         Unit selectedUnit = null;
         if (ObjectHolder.Instance != null) selectedUnit = ObjectHolder.Instance.CurrSelectedUnit;
+        if (TryToSelectThePreviousUnit(selectedUnit)) return;
+
+        _currSelectedUnitIndex = _playerUnits.Count - 1;
+        TryToSelectThePreviousUnit(selectedUnit);
+    }
+
+    private bool TryToSelectThePreviousUnit(Unit selectedUnit)
+    {
         if (CellGrid.Instance != null && CellGrid.Instance.CurrentPlayerNumber == 0)
         {
             for (int i = _currSelectedUnitIndex; i >= 0; i--)
@@ -84,18 +106,22 @@ public class NextAvailableUnitSelector : MonoBehaviour
                 }
 
                 if (_playerUnits[i] is LStructure) continue;
+                if (_playerUnits[i] is LUnit lUnit && lUnit.PrisonerAbility != null &&
+                    lUnit.PrisonerAbility.IsPrisoner) continue;
 
                 SelectUnit(_playerUnits[i], i);
-                return;
+                return true;
             }
         }
 
-        _currSelectedUnitIndex = _playerUnits.Count - 1;
+        return false;
     }
 
     private void SelectUnit(Unit unit, int unitIndex)
     {
-        unit.OnMouseDown();
+        if (unit is LUnit lUnit)
+            lUnit.HandleMouseDown();
+
         _currSelectedUnitIndex = unitIndex;
         PositionCameraOnUnit(unit.transform.position);
     }

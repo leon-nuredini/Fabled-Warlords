@@ -7,6 +7,8 @@ public class Level10ObjectivePresenter : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _firstObjectiveText;
     [SerializeField] private TextMeshProUGUI _secondObjectiveText;
+    [SerializeField] private RectTransform _backgroundRect;
+    [SerializeField] private float _fullHeight = 115.14f;
 
     [SerializeField] private string _firstObjectiveDescription = "- Reach the coastal castle";
     [SerializeField] private string _secondObjectiveDescription = "- Survive until turn XX";
@@ -41,6 +43,7 @@ public class Level10ObjectivePresenter : MonoBehaviour
         int surviveUntilTurn = currentTurn + _survivalCondition.TurnToSurvive + 1;
         _secondObjectiveDescription = _secondObjectiveDescription.Replace("XX", $"{surviveUntilTurn}");
         _secondObjectiveText.text = _secondObjectiveDescription;
+        _backgroundRect.sizeDelta = new Vector2(_backgroundRect.sizeDelta.x, _fullHeight);
     }
 
     private void OnSecondObjectiveCompleted()

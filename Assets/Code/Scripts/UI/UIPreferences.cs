@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,12 +18,16 @@ public class UIPreferences : MonoBehaviour
     
     [BoxGroup("Setting Buttons")] [SerializeField]
     private Button _unitGlowButton;
+    
+    [BoxGroup("Setting Buttons")] [SerializeField]
+    private Button _unitCycleUIButton;
 
     [BoxGroup("Sliders")] [SerializeField] private Slider     _scrollSpeedSlider;
     [BoxGroup("Sliders")] [SerializeField] private Slider     _aiSpeedSlider;
     [BoxGroup("Toggles")] [SerializeField] private GameObject _musicToggle;
     [BoxGroup("Toggles")] [SerializeField] private GameObject _sfxToggle;
     [BoxGroup("Toggles")] [SerializeField] private GameObject _unitGlowToggle;
+    [BoxGroup("Toggles")] [SerializeField] private GameObject _unitCycleToggle;
 
     private GraphicRaycaster _graphicRaycaster;
     private UIReturnToMenu   _uiReturnToMenu;
@@ -42,6 +44,7 @@ public class UIPreferences : MonoBehaviour
         _musicButton.onClick.AddListener(ToggleMusicVolume);
         _sfxButton.onClick.AddListener(ToggleSfxVolume);
         _unitGlowButton.onClick.AddListener(ToggleUnitGlow);
+        _unitCycleUIButton.onClick.AddListener(ToggleUnitCycleUI);
         _closeButton.onClick.AddListener(ClosePreferencesPanel);
         ClosePreferencesPanel();
     }
@@ -53,6 +56,7 @@ public class UIPreferences : MonoBehaviour
         _musicToggle.SetActive(_preferences.EnableMusic);
         _sfxToggle.SetActive(_preferences.EnableSfx);
         _unitGlowToggle.SetActive(_preferences.EnableUnitGlow);
+        _unitCycleToggle.SetActive(_preferences.EnableUnitCycleUI);
         _scrollSpeedSlider.value = _preferences.ScrollSpeed;
         _aiSpeedSlider.value     = _preferences.AISpeed;
     }
@@ -104,5 +108,11 @@ public class UIPreferences : MonoBehaviour
     {
         _unitGlowToggle.SetActive(!_unitGlowToggle.activeSelf);
         _preferences.EnableUnitGlow = _unitGlowToggle.activeSelf;
+    }
+
+    private void ToggleUnitCycleUI()
+    {
+        _unitCycleToggle.SetActive(!_unitCycleToggle.activeSelf);
+        _preferences.EnableUnitCycleUI = _unitCycleToggle.activeSelf;
     }
 }

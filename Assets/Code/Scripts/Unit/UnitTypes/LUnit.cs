@@ -145,6 +145,7 @@ public class LUnit : Unit
     protected SpriteRenderer UnitSpriteRenderer => _spriteRenderer;
     public StatusEffectsController StatusEffectsController => _statusEffectsController;
     public UnitClassCounter UnitClassCounter => _unitClassCounter;
+    public PrisonerAbility PrisonerAbility => _prisonerAbility;
 
     #endregion
 
@@ -530,7 +531,7 @@ public class LUnit : Unit
 
     public override bool IsUnitAttackable(Unit other, Cell otherCell, Cell sourceCell)
     {
-        if (_prisonerAbility != null && _prisonerAbility.IsPrisoner) return false;
+        if (PrisonerAbility != null && PrisonerAbility.IsPrisoner) return false;
         return base.IsUnitAttackable(other, otherCell, sourceCell);
     }
 
@@ -538,13 +539,13 @@ public class LUnit : Unit
 
     public override void OnMouseDown()
     {
-        if (_prisonerAbility != null && _prisonerAbility.IsPrisoner) return;
         if (!EventSystem.current.IsPointerOverGameObject())
             HandleMouseDown();
     }
 
     public void HandleMouseDown()
     {
+        if (PrisonerAbility != null && PrisonerAbility.IsPrisoner) return;
         OnAnyUnitClicked?.Invoke();
         base.OnMouseDown();
         if (PlayerNumber == CellGrid.Instance.CurrentPlayerNumber)
