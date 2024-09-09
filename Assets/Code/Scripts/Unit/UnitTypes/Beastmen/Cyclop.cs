@@ -22,9 +22,16 @@ public class Cyclop : LUnit, IMonster
         float newDamage = damage;
         
         if (other is LUnit lUnit && lUnit.UnitClassCounter != null)
-            newDamage *= lUnit.UnitClassCounter.VSMonsterFactor;
+            newDamage *= GetClassCounterDamageFactor(lUnit);
 
         return base.Defend(other, Mathf.RoundToInt(newDamage));
+    }
+    
+    public override float GetClassCounterDamageFactor(LUnit enemyUnit)
+    {
+        if (enemyUnit.UnitClassCounter != null)
+            return enemyUnit.UnitClassCounter.VSMonsterFactor;
+        return 1f;
     }
     
     protected override void ApplyDebuffsToEnemy(LUnit enemyUnit, bool isEnemyTurn = false)

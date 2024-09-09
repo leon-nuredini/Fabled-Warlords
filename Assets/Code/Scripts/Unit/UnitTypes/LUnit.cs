@@ -51,6 +51,7 @@ public class LUnit : Unit
     private CapturerSkill _capturerSkill;
     private StatusEffectsController _statusEffectsController;
     private PrisonerAbility _prisonerAbility;
+    private CounterVisualAction _counterVisualAction;
 
     public Vector3 Offset;
 
@@ -189,6 +190,7 @@ public class LUnit : Unit
         _aoeHealingSkill = GetComponent<AOEHealingSkill>();
         _statusEffectsController = GetComponent<StatusEffectsController>();
         _prisonerAbility = GetComponent<PrisonerAbility>();
+        _counterVisualAction = GetComponent<CounterVisualAction>();
     }
 
     public void UpdateUnitStats()
@@ -533,6 +535,24 @@ public class LUnit : Unit
     {
         if (PrisonerAbility != null && PrisonerAbility.IsPrisoner) return false;
         return base.IsUnitAttackable(other, otherCell, sourceCell);
+    }
+
+    public void DisplayCounterIcon(LUnit enemyUnit)
+    {
+        if (_counterVisualAction is null) return;
+        float damageFactor = GetClassCounterDamageFactor(enemyUnit);
+        _counterVisualAction.UpdateCounterIcon(damageFactor);
+    }
+
+    public void DisableCounterIcon()
+    {
+        if (_counterVisualAction is null) return;
+        _counterVisualAction.DisableCounterIcon();
+    }
+
+    public virtual float GetClassCounterDamageFactor(LUnit enemyUnit)
+    {
+        return 1f;
     }
 
     #region MouseEvents

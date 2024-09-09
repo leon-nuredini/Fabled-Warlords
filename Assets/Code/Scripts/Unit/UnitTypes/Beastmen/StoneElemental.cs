@@ -28,7 +28,7 @@ public class StoneElemental : LUnit, IMage
         float newDamage = damage - defenceAmount;
         
         if (other is LUnit lUnit && lUnit.UnitClassCounter != null)
-            newDamage *= lUnit.UnitClassCounter.VSMageFactor;
+            newDamage *= GetClassCounterDamageFactor(lUnit);
 
         if (StatusEffectsController.IsStatusApplied<Weaken>())
         {
@@ -41,6 +41,13 @@ public class StoneElemental : LUnit, IMage
         if (newDamage <= 0) newDamage = 1;
         TempDamageReceived = Mathf.RoundToInt(newDamage);
         return TempDamageReceived;
+    }
+    
+    public override float GetClassCounterDamageFactor(LUnit enemyUnit)
+    {
+        if (enemyUnit.UnitClassCounter != null)
+            return enemyUnit.UnitClassCounter.VSMageFactor;
+        return 1f;
     }
 
     protected override float CalculateDefense()

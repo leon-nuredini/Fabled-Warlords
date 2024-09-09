@@ -3,10 +3,12 @@ using UnityEngine;
 using System;
 using System.Collections;
 using NaughtyAttributes;
+using TbsFramework.Grid;
 
 public class ObjectHolder : SceneSingleton<ObjectHolder>
 {
-    public event Action OnSelectUnit;
+    public event Action<LUnit> OnSelectUnit;
+    public event EventHandler<bool> OnDeselectUnit;
     public event Action<LSquare> OnSelectCell;
 
     [BoxGroup("Unit")] [SerializeField] private LUnit _currentSelectedUnit;
@@ -26,8 +28,12 @@ public class ObjectHolder : SceneSingleton<ObjectHolder>
         set
         {
             _currentSelectedUnit = value;
-            if (_currentSelectedUnit == null) return;
-            OnSelectUnit?.Invoke();
+            if (_currentSelectedUnit == null)
+            {
+                OnDeselectUnit?.Invoke(this, true);
+                return;
+            }
+            OnSelectUnit?.Invoke(_currentSelectedUnit);
         }
     }
 
