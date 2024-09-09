@@ -13,11 +13,7 @@ public class UnitCounterPresenter : MonoBehaviour
     [BoxGroup("Images")] [SerializeField] private Image _mageImage;
     [BoxGroup("Images")] [SerializeField] private Image _monsterImage;
 
-    [BoxGroup("Colors")] [SerializeField] private Color _strongEffectiveColor;
-    [BoxGroup("Colors")] [SerializeField] private Color _mediumEffectiveColor;
-    [BoxGroup("Colors")] [SerializeField] private Color _neutralColor;
-    [BoxGroup("Colors")] [SerializeField] private Color _weakColor;
-    [BoxGroup("Colors")] [SerializeField] private Color _veryWeakColor;
+    [BoxGroup("Colors")] [SerializeField] private UnitCounterColors _unitCounterColor;
 
     protected virtual void OnEnable() => LUnit.OnAnyDisplayUnitInformation += UpdateCounterImages;
     protected virtual void OnDisable() => LUnit.OnAnyDisplayUnitInformation -= UpdateCounterImages;
@@ -45,10 +41,10 @@ public class UnitCounterPresenter : MonoBehaviour
 
     protected void UpdateColor(Image image, float counterValue)
     {
-        if (counterValue >= 1.5f) image.color = _strongEffectiveColor;
-        else if (counterValue >= 1.25f) image.color = _mediumEffectiveColor;
-        else if (counterValue >= 1f) image.color = _neutralColor;
-        else if (counterValue >= .75f) image.color = _weakColor;
-        else if (counterValue >= .5f) image.color = _veryWeakColor;
+        if (counterValue >= 1.5f) image.color = _unitCounterColor.StrongCounterColor;
+        else if (counterValue >= 1.25f) image.color = _unitCounterColor.MediumCounterColor;
+        else if (counterValue >= 1f) image.color = _unitCounterColor.NeutralCounterColor;
+        else if (counterValue >= .75f) image.color = _unitCounterColor.WeakCounterColor;
+        else if (counterValue >= .5f) image.color = _unitCounterColor.VeryWeakCounterColor;
     }
 }

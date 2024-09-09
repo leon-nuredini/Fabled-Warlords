@@ -11,7 +11,7 @@ public class Dwarf : LUnit, ISwordInfantry
         float newDamage = damage - defenceAmount;
 
         if (other is LUnit lUnit && lUnit.UnitClassCounter != null)
-            newDamage *= lUnit.UnitClassCounter.VSSwordInfantryCounter;
+            newDamage *= GetClassCounterDamageFactor(lUnit);
 
         if (StatusEffectsController.IsStatusApplied<Weaken>())
         {
@@ -24,6 +24,13 @@ public class Dwarf : LUnit, ISwordInfantry
         if (newDamage <= 0) newDamage = 1;
         TempDamageReceived = Mathf.RoundToInt(newDamage);
         return TempDamageReceived;
+    }
+    
+    public override float GetClassCounterDamageFactor(LUnit enemyUnit)
+    {
+        if (enemyUnit.UnitClassCounter != null)
+            return enemyUnit.UnitClassCounter.VSSwordInfantryCounter;
+        return 1f;
     }
 
     protected override float CalculateDefense()

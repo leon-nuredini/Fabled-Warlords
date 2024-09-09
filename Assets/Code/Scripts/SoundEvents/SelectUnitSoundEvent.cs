@@ -5,4 +5,6 @@ public class SelectUnitSoundEvent : BaseSoundEvent
     private void Awake() => _objectHolder = GetComponent<ObjectHolder>();
     private void OnEnable() => _objectHolder.OnSelectUnit += InvokeSoundEvent;
     private void OnDisable() => _objectHolder.OnSelectUnit -= InvokeSoundEvent;
+    
+    protected void InvokeSoundEvent(LUnit luNit) => SoundEvent.Play2D();
 }
