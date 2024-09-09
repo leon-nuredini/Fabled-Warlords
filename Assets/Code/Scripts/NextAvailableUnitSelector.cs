@@ -9,6 +9,7 @@ public class NextAvailableUnitSelector : MonoBehaviour
 {
     [SerializeField] private List<Unit> _playerUnits = new List<Unit>();
     private int _currSelectedUnitIndex = 0;
+    private int _currSelectedBarrackIndex = 0;
 
     private Transform _cameraTransform;
 
@@ -33,8 +34,9 @@ public class NextAvailableUnitSelector : MonoBehaviour
     private void UpdateUnitList(object o, EventArgs args)
     {
         _currSelectedUnitIndex = 0;
+        _currSelectedBarrackIndex = 0;
         if (CellGrid.Instance != null)
-            _playerUnits = CellGrid.Instance.GetPlayerUnits(0).ToList();
+            _playerUnits = CellGrid.Instance.Units.ToList();
     }
 
     private void Update()
@@ -43,7 +45,12 @@ public class NextAvailableUnitSelector : MonoBehaviour
             SelectNextAvailableUnit();
         else if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.Period))
             SelectPreviousAvailableUnit();
+
+        if (Input.GetKeyDown(KeyCode.B))
+            SelectNextBarrack();
     }
+
+    #region UnitSelection
 
     private void SelectNextAvailableUnit()
     {
@@ -63,6 +70,7 @@ public class NextAvailableUnitSelector : MonoBehaviour
             for (int i = _currSelectedUnitIndex; i < _playerUnits.Count; i++)
             {
                 if (_playerUnits[i] == null) continue;
+                if (_playerUnits[i].PlayerNumber != CellGrid.Instance.CurrentPlayerNumber) continue;
                 if (_playerUnits[i].ActionPoints == 0) continue;
                 if (selectedUnit is not null)
                 {
@@ -99,6 +107,7 @@ public class NextAvailableUnitSelector : MonoBehaviour
             for (int i = _currSelectedUnitIndex; i >= 0; i--)
             {
                 if (_playerUnits[i] == null) continue;
+                if (_playerUnits[i].PlayerNumber != CellGrid.Instance.CurrentPlayerNumber) continue;
                 if (_playerUnits[i].ActionPoints == 0) continue;
                 if (selectedUnit is not null)
                 {
@@ -125,6 +134,52 @@ public class NextAvailableUnitSelector : MonoBehaviour
         _currSelectedUnitIndex = unitIndex;
         PositionCameraOnUnit(unit.transform.position);
     }
+
+    #endregion
+
+    #region BarrackSelection
+
+    private void SelectNextBarrack()
+    {
+        if (_currSelectedBarrackIndex == _playerUnits.Count - 1) _currSelectedBarrackIndex = 0;
+        Unit selectedUnit = null;
+        if (ObjectHolder.Instance != null) selectedUnit = ObjectHolder.Instance.CurrSelectedUnit;
+        if (TryToSelectNextBarrack(selectedUnit)) return;
+
+        _currSelectedBarrackIndex = 0;
+        TryToSelectNextBarrack(selectedUnit);
+    }
+
+    private bool TryToSelectNextBarrack(Unit selectedUnit)
+    {
+        if (CellGrid.Instance != null && CellGrid.Instance.CurrentPlayerNumber == 0)
+        {
+            for (int i = _currSelectedBarrackIndex; i < _playerUnits.Count; i++)
+            {
+                if (_playerUnits[i] == null) continue;
+                if (_playerUnits[i].PlayerNumber != CellGrid.Instance.CurrentPlayerNumber) continue;
+                if (selectedUnit is not null && _playerUnits[i].Equals(selectedUnit)) continue;
+                if (_playerUnits[i] is not Stronghold && _playerUnits[i] is not Barrack) continue;
+                
+                SelectBarrack(_playerUnits[i], i);
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
+    private void SelectBarrack(Unit unit, int unitIndex)
+    {
+        if (unit is LUnit lUnit)
+            lUnit.HandleMouseDown();
+
+        _currSelectedBarrackIndex = unitIndex;
+        PositionCameraOnUnit(unit.transform.position);
+    }
+
+
+    #endregion
 
     private void PositionCameraOnUnit(Vector3 unitPosition)
     {
