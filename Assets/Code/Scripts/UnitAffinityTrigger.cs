@@ -52,12 +52,18 @@ public class UnitAffinityTrigger : MonoBehaviour
     private void OnSelectedUnit(LUnit lUnit)
     {
         for (int i = 0; i < _enemyPlayerUnits.Count; i++)
+        {
+            if (_enemyPlayerUnits[i] == null) continue;
             _enemyPlayerUnits[i].DisplayCounterIcon(lUnit);
+        }
     }
 
     private void DisableCounterVisuals(object o, bool args)
     {
         for (int i = 0; i < _enemyPlayerUnits.Count; i++)
+        {
+            if (_enemyPlayerUnits[i] == null) continue;
             _enemyPlayerUnits[i].DisableCounterIcon();
+        }
     }
 }
