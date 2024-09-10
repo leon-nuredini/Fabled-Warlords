@@ -31,6 +31,9 @@ public class RecruitmentController : MonoBehaviour
 
     [BoxGroup("Faction Units")] [SerializeField]
     private FactionUnits _primordialUnits;
+    
+    [BoxGroup("Faction Units")] [SerializeField]
+    private FactionUnits _rebelHumanUnits;
 
     private LUnit _selectedUnit;
 
@@ -43,10 +46,12 @@ public class RecruitmentController : MonoBehaviour
     public FactionUnits HumanUnits => _humanUnits;
     public FactionUnits BeastmenUnits => _beastmenUnits;
     public FactionUnits PrimordialUnits => _primordialUnits;
+    public FactionUnits RebelHumanUnits => _rebelHumanUnits;
     
     public List<GameObject> HumanUnitList => _humanUnits.UnitList;
     public List<GameObject> BeastMenUnitList => _beastmenUnits.UnitList;
     public List<GameObject> PrimordialUnitList => _primordialUnits.UnitList;
+    public List<GameObject> RebelHumanUnitList => _rebelHumanUnits.UnitList;
 
     #endregion
 

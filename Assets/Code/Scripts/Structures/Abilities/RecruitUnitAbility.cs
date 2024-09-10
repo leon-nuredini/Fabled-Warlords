@@ -22,6 +22,7 @@ public class RecruitUnitAbility : Ability, ISkill
     private List<LUnit> _humanUnitList = new List<LUnit>();
     private List<LUnit> _beastmenUnitList = new List<LUnit>();
     private List<LUnit> _primordialUnitList = new List<LUnit>();
+    private List<LUnit> _rebelHumanUnitList = new List<LUnit>();
 
     [SerializeField] private GameObject _selectedPrefab;
 
@@ -50,6 +51,9 @@ public class RecruitUnitAbility : Ability, ISkill
                         break;
                     case UnitFaction.Primordial:
                         unitsList = _recruitmentController.PrimordialUnitList;
+                        break;
+                    case UnitFaction.RebelHuman:
+                        unitsList = _recruitmentController.RebelHumanUnitList;
                         break;
                 }
 
@@ -82,6 +86,7 @@ public class RecruitUnitAbility : Ability, ISkill
         UpdateUnitList(_recruitmentController.HumanUnitList, ref _humanUnitList);
         UpdateUnitList(_recruitmentController.BeastMenUnitList, ref _beastmenUnitList);
         UpdateUnitList(_recruitmentController.PrimordialUnitList, ref _primordialUnitList);
+        UpdateUnitList(_recruitmentController.RebelHumanUnitList, ref _rebelHumanUnitList);
 
         OnAnyRegisterUnitRecruitAbility?.Invoke(this);
     }
@@ -192,6 +197,10 @@ public class RecruitUnitAbility : Ability, ISkill
                         break;
                     case UnitFaction.Primordial:
                         recruitableUnits = _primordialUnitList
+                            .Where(unit => unit.Faction == unitFaction && wealth >= unit.UnitStats.Cost).ToList();
+                        break;
+                    case UnitFaction.RebelHuman:
+                        recruitableUnits = _rebelHumanUnitList
                             .Where(unit => unit.Faction == unitFaction && wealth >= unit.UnitStats.Cost).ToList();
                         break;
                 }

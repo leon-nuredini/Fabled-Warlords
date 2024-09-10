@@ -3,5 +3,6 @@ public enum FactionType
     None,
     Human,
     Beastmen,
-    Primordial
+    Primordial,
+    RebelHuman
 }

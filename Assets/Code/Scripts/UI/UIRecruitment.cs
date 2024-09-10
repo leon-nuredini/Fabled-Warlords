@@ -124,6 +124,11 @@ public class UIRecruitment : MonoBehaviour
                     _unitRecruitButtonArray[i]
                         .UpdateButton(_recruitmentController.PrimordialUnits.RecruitableUnitList);
                 break;
+            case FactionType.RebelHuman:
+                for (int i = 0; i < _unitRecruitButtonArray.Count; i++)
+                    _unitRecruitButtonArray[i]
+                        .UpdateButton(_recruitmentController.RebelHumanUnits.RecruitableUnitList);
+                break;
         }
     }
 
