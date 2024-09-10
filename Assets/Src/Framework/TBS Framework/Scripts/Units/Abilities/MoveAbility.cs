@@ -1,16 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TbsFramework.Cells;
 using TbsFramework.Grid;
 using TbsFramework.Grid.GridStates;
-using System;
 using UnityEngine;
 
 namespace TbsFramework.Units.Abilities
 {
     public class MoveAbility : Ability
     {
+        public static event Action<Vector3> OnAnyMoveAbilityTriggered;
+        
         public Cell Destination { get; set; }
         private IList<Cell> currentPath;
         public HashSet<Cell> availableDestinations;
@@ -32,6 +34,8 @@ namespace TbsFramework.Units.Abilities
         {
             if (UnitReference.ActionPoints > 0 && availableDestinations.Contains(Destination) && CanMove)
             {
+                if (UnitReference.PlayerNumber != 0)
+                    OnAnyMoveAbilityTriggered?.Invoke(transform.position);
                 var path = UnitReference.FindPath(cellGrid.Cells, Destination);
                 yield return UnitReference.Move(Destination, path);
             }
