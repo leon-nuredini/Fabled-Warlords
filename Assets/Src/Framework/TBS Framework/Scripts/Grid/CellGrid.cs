@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NaughtyAttributes;
 using TbsFramework.Cells;
 using TbsFramework.Grid.GameResolvers;
 using TbsFramework.Grid.GridStates;
@@ -385,6 +386,29 @@ namespace TbsFramework.Grid
                 }
             }
 
+            return GameFinished;
+        }
+
+        [Button("Win Game")]
+        private bool WinGame()
+        {
+            List<GameResult> gameResults =
+                GetComponents<GameEndCondition>()
+                    .Select(c => c.WinGame())
+                    .ToList();
+            
+            foreach (var gameResult in gameResults)
+            {
+                if (gameResult.IsFinished)
+                {
+                    cellGridState = new CellGridStateGameOver(this);
+                    GameFinished  = true;
+                    if (GameEnded != null) { GameEnded.Invoke(this, new GameEndedArgs(gameResult)); }
+
+                    break;
+                }
+            }
+            
             return GameFinished;
         }
 
