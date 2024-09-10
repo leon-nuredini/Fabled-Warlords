@@ -8,6 +8,7 @@ public static class SaveName
     public static readonly string SFX = $"{Version}SFX";
     public static readonly string UnitGlow = $"{Version}UnitGlow";
     public static readonly string UnitCycleUI = $"{Version}UnitCycleUI";
+    public static readonly string CameraTracking = $"{Version}CameraTracking";
     public static readonly string ScrollSpeed = $"{Version}ScrollSpeed";
     public static readonly string AISpeed = $"{Version}AISpeed";
 

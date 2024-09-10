@@ -15,6 +15,7 @@ public class Preferences : ScriptableObject
     [SerializeField] private bool _enableSfx = true;
     [SerializeField] private bool _enableUnitGlow;
     [SerializeField] private bool _enableUnitCycleUI = true;
+    [SerializeField] private bool _enableCameraTracking;
 
     [Range(1f, 5f)] [SerializeField] private float _scrollSpeed = 1f;
     [Range(1f, 5f)] [SerializeField] private float _aiSpeed = 1f;
@@ -74,6 +75,17 @@ public class Preferences : ScriptableObject
         }
     }
 
+    public bool EnableCameraTracking
+    {
+        get => _enableCameraTracking;
+        set
+        {
+            _enableCameraTracking = value;
+            PlayerPrefs.SetInt(SaveName.CameraTracking, _enableCameraTracking ? 1 : 0);
+            SaveData();
+        }
+    }
+
     public float ScrollSpeed
     {
         get => _scrollSpeed;
@@ -104,11 +116,20 @@ public class Preferences : ScriptableObject
 
     private void LoadData()
     {
-        if (PlayerPrefs.HasKey(SaveName.Music)) _enableMusic = PlayerPrefs.GetInt(SaveName.Music) == 1;
-        if (PlayerPrefs.HasKey(SaveName.SFX)) _enableSfx = PlayerPrefs.GetInt(SaveName.SFX) == 1;
-        if (PlayerPrefs.HasKey(SaveName.UnitGlow)) _enableUnitGlow = PlayerPrefs.GetInt(SaveName.UnitGlow) == 1;
-        if (PlayerPrefs.HasKey(SaveName.ScrollSpeed)) _scrollSpeed = PlayerPrefs.GetFloat(SaveName.ScrollSpeed);
-        if (PlayerPrefs.HasKey(SaveName.AISpeed)) _aiSpeed = PlayerPrefs.GetFloat(SaveName.AISpeed);
+        if (PlayerPrefs.HasKey(SaveName.Music)) 
+            _enableMusic = PlayerPrefs.GetInt(SaveName.Music) == 1;
+        if (PlayerPrefs.HasKey(SaveName.SFX)) 
+            _enableSfx = PlayerPrefs.GetInt(SaveName.SFX) == 1;
+        if (PlayerPrefs.HasKey(SaveName.UnitGlow)) 
+            _enableUnitGlow = PlayerPrefs.GetInt(SaveName.UnitGlow) == 1;
+        if (PlayerPrefs.HasKey(SaveName.UnitCycleUI))
+            _enableUnitCycleUI = PlayerPrefs.GetInt(SaveName.UnitCycleUI) == 1;
+        if (PlayerPrefs.HasKey(SaveName.CameraTracking))
+            _enableCameraTracking = PlayerPrefs.GetInt(SaveName.CameraTracking) == 1;
+        if (PlayerPrefs.HasKey(SaveName.ScrollSpeed)) 
+            _scrollSpeed = PlayerPrefs.GetFloat(SaveName.ScrollSpeed);
+        if (PlayerPrefs.HasKey(SaveName.AISpeed)) 
+            _aiSpeed = PlayerPrefs.GetFloat(SaveName.AISpeed);
     }
 
     private void SaveData() => PlayerPrefs.Save();

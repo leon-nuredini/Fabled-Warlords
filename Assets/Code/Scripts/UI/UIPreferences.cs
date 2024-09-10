@@ -21,6 +21,9 @@ public class UIPreferences : MonoBehaviour
     
     [BoxGroup("Setting Buttons")] [SerializeField]
     private Button _unitCycleUIButton;
+    
+    [BoxGroup("Setting Buttons")] [SerializeField]
+    private Button _cameraTrackingButton;
 
     [BoxGroup("Sliders")] [SerializeField] private Slider     _scrollSpeedSlider;
     [BoxGroup("Sliders")] [SerializeField] private Slider     _aiSpeedSlider;
@@ -28,6 +31,7 @@ public class UIPreferences : MonoBehaviour
     [BoxGroup("Toggles")] [SerializeField] private GameObject _sfxToggle;
     [BoxGroup("Toggles")] [SerializeField] private GameObject _unitGlowToggle;
     [BoxGroup("Toggles")] [SerializeField] private GameObject _unitCycleToggle;
+    [BoxGroup("Toggles")] [SerializeField] private GameObject _cameraTrackingToggle;
 
     private GraphicRaycaster _graphicRaycaster;
     private UIReturnToMenu   _uiReturnToMenu;
@@ -45,6 +49,7 @@ public class UIPreferences : MonoBehaviour
         _sfxButton.onClick.AddListener(ToggleSfxVolume);
         _unitGlowButton.onClick.AddListener(ToggleUnitGlow);
         _unitCycleUIButton.onClick.AddListener(ToggleUnitCycleUI);
+        _cameraTrackingButton.onClick.AddListener(ToggleCameraTracking);
         _closeButton.onClick.AddListener(ClosePreferencesPanel);
         ClosePreferencesPanel();
     }
@@ -57,6 +62,7 @@ public class UIPreferences : MonoBehaviour
         _sfxToggle.SetActive(_preferences.EnableSfx);
         _unitGlowToggle.SetActive(_preferences.EnableUnitGlow);
         _unitCycleToggle.SetActive(_preferences.EnableUnitCycleUI);
+        _cameraTrackingToggle.SetActive(_preferences.EnableCameraTracking);
         _scrollSpeedSlider.value = _preferences.ScrollSpeed;
         _aiSpeedSlider.value     = _preferences.AISpeed;
     }
@@ -114,5 +120,11 @@ public class UIPreferences : MonoBehaviour
     {
         _unitCycleToggle.SetActive(!_unitCycleToggle.activeSelf);
         _preferences.EnableUnitCycleUI = _unitCycleToggle.activeSelf;
+    }
+
+    private void ToggleCameraTracking()
+    {
+        _cameraTrackingToggle.SetActive(!_cameraTrackingToggle.activeSelf);
+        _preferences.EnableCameraTracking = _cameraTrackingToggle.activeSelf;
     }
 }
