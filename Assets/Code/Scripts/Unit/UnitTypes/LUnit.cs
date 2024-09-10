@@ -394,12 +394,17 @@ public class LUnit : Unit
         if (this is LStructure) return false;
         if (_statusEffectsController != null && _statusEffectsController.IsStatusApplied<Stun>()) return false;
         int randomValue = Random.Range(1, 100);
+        int evasionChance = GetEvasionChance(attacker);
+        IsEvading = evasionChance >= randomValue;
+        return IsEvading;
+    }
+
+    public int GetEvasionChance(LUnit attacker)
+    {
         LSquare thisCell = (LSquare)Cell;
         LSquare attackerCell = (LSquare)attacker.Cell;
         int cellEvasionFactor = thisCell.EvasionFactor - attackerCell.HitChance;
-        int evasionChance = _evasionFactor + cellEvasionFactor;
-        IsEvading = evasionChance >= randomValue;
-        return IsEvading;
+        return _evasionFactor + cellEvasionFactor;
     }
 
     protected virtual int CalculateDamage(AttackAction baseVal, Unit unitToAttack)
