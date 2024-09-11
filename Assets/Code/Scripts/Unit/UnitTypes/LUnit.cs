@@ -52,6 +52,7 @@ public class LUnit : Unit
     private StatusEffectsController _statusEffectsController;
     private PrisonerAbility _prisonerAbility;
     private CounterVisualAction _counterVisualAction;
+    private UndoMovementAction _undoMovementAction;
 
     public Vector3 Offset;
 
@@ -191,6 +192,7 @@ public class LUnit : Unit
         _statusEffectsController = GetComponent<StatusEffectsController>();
         _prisonerAbility = GetComponent<PrisonerAbility>();
         _counterVisualAction = GetComponent<CounterVisualAction>();
+        _undoMovementAction = GetComponent<UndoMovementAction>();
     }
 
     public void UpdateUnitStats()
@@ -444,6 +446,8 @@ public class LUnit : Unit
 
     public override IEnumerator Move(Cell destinationCell, IList<Cell> path)
     {
+        if (MovementUndoController.Instance is not null && _undoMovementAction is not null)
+            MovementUndoController.Instance.LastMovedUnit = _undoMovementAction;
         _spriteRenderer.sortingOrder += 10;
         _markerSpriteRenderer.sortingOrder += 10;
         MaskSpriteRenderer.sortingOrder += 10;
@@ -454,6 +458,9 @@ public class LUnit : Unit
     protected override IEnumerator MovementAnimation(IList<Cell> path)
     {
         float movementAnimationSpeed = MovementAnimationSpeed;
+
+        if (_undoMovementAction.IsUndoingMovement)
+            movementAnimationSpeed = 30f;
 
         if (GameSettings.Instance != null && CellGrid.Instance.CurrentPlayer is AIPlayer)
             movementAnimationSpeed *= GameSettings.Instance.Preferences.AISpeed;
@@ -482,11 +489,18 @@ public class LUnit : Unit
 
     private void UpdateUnitDirection(Vector3 destination)
     {
+        if (_undoMovementAction != null && _undoMovementAction.IsUndoingMovement) return;
         Vector3 direction = (CachedTransform.localPosition - destination).normalized;
         direction.x = Mathf.RoundToInt(direction.x);
         direction.y = Mathf.RoundToInt(direction.y);
         direction.z = Mathf.RoundToInt(direction.z);
         _currentUnitDirection = GetMovementDirection(direction);
+        FlipSpriteRenderer();
+    }
+
+    private void SetCurrentUnitDirection(UnitDirection direction)
+    {
+        _currentUnitDirection = direction;
         FlipSpriteRenderer();
     }
 
@@ -497,6 +511,13 @@ public class LUnit : Unit
         MaskSpriteRenderer.sortingOrder -= 10;
         OnIdle?.Invoke(CurrentUnitDirection);
         IsMoving = false;
+        if (_undoMovementAction.IsUndoingMovement)
+        {
+            SetCurrentUnitDirection(_undoMovementAction.UnitDirection);
+            _undoMovementAction.IsUndoingMovement = false;
+            MovementPoints = TotalMovementPoints;
+            HandleMouseDown();
+        }
         base.OnMoveFinished();
     }
 
@@ -573,6 +594,8 @@ public class LUnit : Unit
     public void HandleMouseDown()
     {
         if (PrisonerAbility != null && PrisonerAbility.IsPrisoner) return;
+        if (_undoMovementAction is not null && _undoMovementAction.IsUndoingMovement) return;
+        
         OnAnyUnitClicked?.Invoke();
         base.OnMouseDown();
         if (PlayerNumber == CellGrid.Instance.CurrentPlayerNumber)

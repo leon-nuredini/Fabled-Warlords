@@ -12,6 +12,7 @@ namespace TbsFramework.Units.Abilities
     public class AttackAbility : Ability
     {
         public static event Action<Vector3> OnAnyAttackAbilityTriggered;
+        public static event Action OnAnyAbilityPerformed;
         
         private WaitForSeconds _waitAIAttackDuration;
         private WaitForSeconds _waitHumanAttackDuration;
@@ -39,6 +40,8 @@ namespace TbsFramework.Units.Abilities
                     yield return _waitHumanAttackDuration;
                 else
                     yield return _waitAIAttackDuration;
+                
+                OnAnyAbilityPerformed?.Invoke();
             }
 
             yield return 0;
