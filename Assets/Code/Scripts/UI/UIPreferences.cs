@@ -1,11 +1,12 @@
 using NaughtyAttributes;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIPreferences : MonoBehaviour
 {
     [SerializeField] private GameObject _panel;
-    [SerializeField] private Button     _closeButton;
+    [SerializeField] private Button _closeButton;
 
     [BoxGroup("Preferences Data")] [SerializeField]
     private Preferences _preferences;
@@ -15,18 +16,19 @@ public class UIPreferences : MonoBehaviour
 
     [BoxGroup("Setting Buttons")] [SerializeField]
     private Button _sfxButton;
-    
+
     [BoxGroup("Setting Buttons")] [SerializeField]
     private Button _unitGlowButton;
-    
+
     [BoxGroup("Setting Buttons")] [SerializeField]
     private Button _unitCycleUIButton;
-    
+
     [BoxGroup("Setting Buttons")] [SerializeField]
     private Button _cameraTrackingButton;
 
-    [BoxGroup("Sliders")] [SerializeField] private Slider     _scrollSpeedSlider;
-    [BoxGroup("Sliders")] [SerializeField] private Slider     _aiSpeedSlider;
+    [BoxGroup("Sliders")] [SerializeField] private Slider _scrollSpeedSlider;
+    [BoxGroup("Sliders")] [SerializeField] private Slider _aiSpeedSlider;
+    [BoxGroup("Sliders")] [SerializeField] private TextMeshProUGUI _aiSpeedValueText;
     [BoxGroup("Toggles")] [SerializeField] private GameObject _musicToggle;
     [BoxGroup("Toggles")] [SerializeField] private GameObject _sfxToggle;
     [BoxGroup("Toggles")] [SerializeField] private GameObject _unitGlowToggle;
@@ -34,15 +36,19 @@ public class UIPreferences : MonoBehaviour
     [BoxGroup("Toggles")] [SerializeField] private GameObject _cameraTrackingToggle;
 
     private GraphicRaycaster _graphicRaycaster;
-    private UIReturnToMenu   _uiReturnToMenu;
+    private UIReturnToMenu _uiReturnToMenu;
 
-    protected GameObject     Panel          => _panel;
+    protected GameObject Panel => _panel;
     protected UIReturnToMenu UIReturnToMenu => _uiReturnToMenu;
+
+    #region Properties
+
+    #endregion
 
     protected virtual void Awake()
     {
         _graphicRaycaster = GetComponentInParent<GraphicRaycaster>();
-        _uiReturnToMenu   = GetComponent<UIReturnToMenu>();
+        _uiReturnToMenu = GetComponent<UIReturnToMenu>();
         _scrollSpeedSlider.onValueChanged.AddListener(OnUpdateScrollSpeedSlider);
         _aiSpeedSlider.onValueChanged.AddListener(OnUpdateAISpeedSlider);
         _musicButton.onClick.AddListener(ToggleMusicVolume);
@@ -64,13 +70,14 @@ public class UIPreferences : MonoBehaviour
         _unitCycleToggle.SetActive(_preferences.EnableUnitCycleUI);
         _cameraTrackingToggle.SetActive(_preferences.EnableCameraTracking);
         _scrollSpeedSlider.value = _preferences.ScrollSpeed;
-        _aiSpeedSlider.value     = _preferences.AISpeed;
+        _aiSpeedSlider.value = _preferences.AISpeed;
+        UpdateAISpeedValueText(_preferences.AISpeed);
     }
 
     private void OnEnable()
     {
         UIMainMenu.OnClickPreferencesButton += OpenPreferencesPanel;
-        UITop.OnAnyMenuButtonClicked        += OpenPreferencesPanel;
+        UITop.OnAnyMenuButtonClicked += OpenPreferencesPanel;
         if (_uiReturnToMenu == null) return;
         _uiReturnToMenu.OnAnyClickNoButton += OpenPreferencesPanel;
     }
@@ -78,7 +85,7 @@ public class UIPreferences : MonoBehaviour
     private void OnDisable()
     {
         UIMainMenu.OnClickPreferencesButton -= OpenPreferencesPanel;
-        UITop.OnAnyMenuButtonClicked        -= OpenPreferencesPanel;
+        UITop.OnAnyMenuButtonClicked -= OpenPreferencesPanel;
         if (_uiReturnToMenu == null) return;
         _uiReturnToMenu.OnAnyClickNoButton -= OpenPreferencesPanel;
     }
@@ -96,7 +103,14 @@ public class UIPreferences : MonoBehaviour
     }
 
     private void OnUpdateScrollSpeedSlider(float value) => _preferences.ScrollSpeed = value;
-    private void OnUpdateAISpeedSlider(float     value) => _preferences.AISpeed = value;
+
+    private void OnUpdateAISpeedSlider(float value)
+    {
+        _preferences.AISpeed = value;
+        UpdateAISpeedValueText(value);
+    }
+
+    private void UpdateAISpeedValueText(float value) => _aiSpeedValueText.text = $"x{value:F1}";
 
     private void ToggleMusicVolume()
     {
