@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TbsFramework.Cells;
@@ -10,6 +11,8 @@ namespace TbsFramework.Units.Abilities
 {
     public class AttackAbility : Ability
     {
+        public static event Action<Vector3> OnAnyAttackAbilityTriggered;
+        
         private WaitForSeconds _waitAIAttackDuration;
         private WaitForSeconds _waitHumanAttackDuration;
 
@@ -28,6 +31,9 @@ namespace TbsFramework.Units.Abilities
         {
             if (CanPerform(cellGrid) && UnitReference.IsUnitAttackable(UnitToAttack, UnitReference.Cell))
             {
+                if (UnitReference.PlayerNumber != 0 && UnitReference.MovementPoints == UnitReference.TotalMovementPoints)
+                    OnAnyAttackAbilityTriggered?.Invoke(transform.position);
+                
                 UnitReference.AttackHandler(UnitToAttack);
                 if (CellGrid.Instance.CurrentPlayerNumber == 0)
                     yield return _waitHumanAttackDuration;
