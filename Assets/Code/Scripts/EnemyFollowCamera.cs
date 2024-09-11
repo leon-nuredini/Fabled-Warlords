@@ -16,6 +16,7 @@ public class EnemyFollowCamera : MonoBehaviour
         if (CellGrid.Instance != null)
             CellGrid.Instance.TurnEnded += UpdateCameraPosition;
         MoveAbility.OnAnyMoveAbilityTriggered += CenterCameraAtPosition;
+        AttackAbility.OnAnyAttackAbilityTriggered += CenterCameraAtPosition;
     }
 
     private void OnDisable()
@@ -23,6 +24,7 @@ public class EnemyFollowCamera : MonoBehaviour
         if (CellGrid.Instance != null)
             CellGrid.Instance.TurnEnded -= UpdateCameraPosition;
         MoveAbility.OnAnyMoveAbilityTriggered -= CenterCameraAtPosition;
+        AttackAbility.OnAnyAttackAbilityTriggered -= CenterCameraAtPosition;
     }
 
     private void UpdateCameraPosition(object o, bool eventVal)

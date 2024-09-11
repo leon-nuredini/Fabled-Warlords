@@ -82,7 +82,6 @@ public class RecruitUnitAbility : Ability, ISkill
 
     private void Start()
     {
-        //Debug.Log(_recruitmentController);
         UpdateUnitList(_recruitmentController.HumanUnitList, ref _humanUnitList);
         UpdateUnitList(_recruitmentController.BeastMenUnitList, ref _beastmenUnitList);
         UpdateUnitList(_recruitmentController.PrimordialUnitList, ref _primordialUnitList);
