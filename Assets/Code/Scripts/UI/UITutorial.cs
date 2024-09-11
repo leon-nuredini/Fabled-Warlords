@@ -79,10 +79,15 @@ public class UITutorial : MonoBehaviour
     private bool _isArcherRecruited;
     private bool _isSpearmanRecruited;
     private bool _isCameraTutorialFinished;
+    private bool _isSkipEnabled = true;
+
+    private float _enableSkipDuration = 1.1f;
+    private float _enableSkipTimer;
 
     private void Awake()
     {
         _wait = new WaitForSeconds(.75f);
+        _enableSkipTimer = _enableSkipDuration;
 
         _spearmanUnit.OnMove += TutorialSpearmanMoved;
         _spearmanUnit.OnAttack += TutorialSpearmanAttacked;
@@ -124,6 +129,18 @@ public class UITutorial : MonoBehaviour
 
     private void Update()
     {
+        if (!_isSkipEnabled)
+        {
+            _enableSkipTimer -= Time.deltaTime;
+            if (_enableSkipTimer <= 0f)
+            {
+                _isSkipEnabled = true;
+                _enableSkipTimer = _enableSkipDuration;
+            }
+
+            return;
+        }
+            
         if (_isTutorialFinished) return;
         if (_lockTutorial) return;
         if (_isInCoroutine) return;
@@ -262,6 +279,7 @@ public class UITutorial : MonoBehaviour
 
     private void AdvanceTutorial()
     {
+        _isSkipEnabled = false;
         _tutorialPart++;
         UpdateTutorialPart();
     }
