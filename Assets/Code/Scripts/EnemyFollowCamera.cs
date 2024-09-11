@@ -29,19 +29,19 @@ public class EnemyFollowCamera : MonoBehaviour
     {
         if (CellGrid.Instance.CurrentPlayer is HumanPlayer)
         {
-            _originalCameraPosition.x = _cameraTransform.position.x;
-            _originalCameraPosition.y = _cameraTransform.position.y;
+            CenterCameraAtPosition(_originalCameraPosition);
         }
         else if (CellGrid.Instance.CurrentPlayer is AIPlayer)
         {
-            CenterCameraAtPosition(_originalCameraPosition);
+            _originalCameraPosition.x = _cameraTransform.position.x;
+            _originalCameraPosition.y = _cameraTransform.position.y;
         }
     }
 
     private void CenterCameraAtPosition(Vector3 position)
     {
         if (GameSettings.Instance != null && !GameSettings.Instance.Preferences.EnableCameraTracking) return;
-        
+
         Vector3 newCameraPosition = _cameraTransform.position;
         newCameraPosition.x = position.x;
         newCameraPosition.y = position.y;

@@ -12,7 +12,7 @@ namespace TbsFramework.Units.Abilities
     public class MoveAbility : Ability
     {
         public static event Action<Vector3> OnAnyMoveAbilityTriggered;
-        
+
         public Cell Destination { get; set; }
         private IList<Cell> currentPath;
         public HashSet<Cell> availableDestinations;
