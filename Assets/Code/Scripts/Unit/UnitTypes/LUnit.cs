@@ -518,6 +518,8 @@ public class LUnit : Unit
         Cell.IsTaken = false;
         Cell.CurrentUnits.Remove(this);
         ActionPoints = 0;
+        if (ObjectHolder.Instance != null && ObjectHolder.Instance.CurrSelectedUnit == this)
+            ObjectHolder.Instance.CurrSelectedUnit = null;
         OnDie?.Invoke(CurrentUnitDirection);
         MarkAsDestroyed();
     }
