@@ -1,6 +1,8 @@
+using System;
 using NaughtyAttributes;
 using TbsFramework.Cells;
 using TbsFramework.Grid;
+using TbsFramework.Units;
 using UnityEngine;
 
 public class UndoMovementAction : MonoBehaviour
@@ -10,10 +12,15 @@ public class UndoMovementAction : MonoBehaviour
 
     [SerializeField] private GameObject _undoMovementGobj;
 
+    [SerializeField] private bool _isMovementPerformed;
     [SerializeField] private bool _isUndoingMovement;
     [SerializeField] private bool _disableUndoMovement;
 
+    private UndoButton _undoButton;
+
     private UnitDirection _unitDirection;
+
+    #region Properties
 
     public bool IsUndoingMovement
     {
@@ -33,16 +40,57 @@ public class UndoMovementAction : MonoBehaviour
         set => _disableUndoMovement = value;
     }
 
-    private void Awake() => _lUnit = GetComponent<LUnit>();
+    public bool IsMovementPerformed
+    {
+        get => _isMovementPerformed;
+        set
+        {
+            if (_disableUndoMovement)
+                value = false;
+            _isMovementPerformed = value;
+        }
+    }
+
+    public bool IsUndoMovementButtonEnabled => _undoButton != null && _undoButton.gameObject.activeSelf;
+
+    #endregion
+
+    private void Awake()
+    {
+        _lUnit = GetComponent<LUnit>();
+        _undoButton = GetComponentInChildren<UndoButton>(true);
+    }
 
     private void OnEnable()
     {
         _lUnit.OnTurnStartEvent += SetStartingCell;
+        _lUnit.UnitMoved += OnUnitMoved;
+        _lUnit.UnitClicked += OnUnitClicked;
+
+        if (_undoButton != null)
+            _undoButton.OnClickUndoButton += UndoMovement;
     }
 
     private void OnDisable()
     {
         _lUnit.OnTurnStartEvent -= SetStartingCell;
+        _lUnit.UnitMoved -= OnUnitMoved;
+        _lUnit.UnitClicked -= OnUnitClicked;
+
+        if (_undoButton != null)
+            _undoButton.OnClickUndoButton -= UndoMovement;
+    }
+
+    private void OnUnitClicked(object sender, EventArgs args) => ShowUndoGraphic();
+    private void OnUnitMoved(object sender, MovementEventArgs movementEventArgs) => ShowUndoGraphic();
+
+    public void ShowUndoGraphic()
+    {
+        if (DisableUndoMovement) return;
+        if (!IsMovementPerformed) return;
+        if (_undoButton is null) return;
+        if (IsUndoingMovement) return;
+        _undoButton.gameObject.SetActive(true);
     }
 
     private void SetStartingCell()
@@ -52,7 +100,6 @@ public class UndoMovementAction : MonoBehaviour
         DisableUndoMovement = false;
     }
 
-    [Button("Test Undo movement")]
     private void UndoMovement()
     {
         if (MovementUndoController.Instance.LastMovedUnit != this) return;

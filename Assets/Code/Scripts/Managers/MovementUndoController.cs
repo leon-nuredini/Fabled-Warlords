@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Singleton;
 using TbsFramework.Units.Abilities;
 using UnityEngine;
@@ -24,11 +21,13 @@ public class MovementUndoController : SceneSingleton<MovementUndoController>
     private void OnEnable()
     {
         AttackAbility.OnAnyAbilityPerformed += DisableUndoActionOnUnit;
+        RecruitmentController.OnAnyNewUnitRecruited += DisableUndoActionOnUnit;
     }
     
     private void OnDisable()
     {
         AttackAbility.OnAnyAbilityPerformed -= DisableUndoActionOnUnit;
+        RecruitmentController.OnAnyNewUnitRecruited -= DisableUndoActionOnUnit;
     }
 
     private void DisableUndoActionOnUnit()

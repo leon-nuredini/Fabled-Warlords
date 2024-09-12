@@ -459,8 +459,8 @@ public class LUnit : Unit
     {
         float movementAnimationSpeed = MovementAnimationSpeed;
 
-        if (_undoMovementAction.IsUndoingMovement)
-            movementAnimationSpeed = 30f;
+        /*if (_undoMovementAction.IsUndoingMovement)
+            movementAnimationSpeed = 30f;*/
 
         if (GameSettings.Instance != null && CellGrid.Instance.CurrentPlayer is AIPlayer)
             movementAnimationSpeed *= GameSettings.Instance.Preferences.AISpeed;
@@ -477,9 +477,12 @@ public class LUnit : Unit
 
             while (transform.localPosition != destination_pos)
             {
-                CachedTransform.localPosition = Vector3.MoveTowards(CachedTransform.localPosition,
-                    destination_pos,
-                    Time.deltaTime * movementAnimationSpeed);
+                if (_undoMovementAction.IsUndoingMovement)
+                    CachedTransform.localPosition = destination_pos;
+                else
+                    CachedTransform.localPosition = Vector3.MoveTowards(CachedTransform.localPosition,
+                        destination_pos,
+                        Time.deltaTime * movementAnimationSpeed);
                 yield return 0;
             }
         }
@@ -511,13 +514,19 @@ public class LUnit : Unit
         MaskSpriteRenderer.sortingOrder -= 10;
         OnIdle?.Invoke(CurrentUnitDirection);
         IsMoving = false;
-        if (_undoMovementAction.IsUndoingMovement)
+        if (_undoMovementAction is not null)
         {
-            SetCurrentUnitDirection(_undoMovementAction.UnitDirection);
-            _undoMovementAction.IsUndoingMovement = false;
-            MovementPoints = TotalMovementPoints;
-            HandleMouseDown();
+            _undoMovementAction.IsMovementPerformed = true;
+            if (_undoMovementAction.IsUndoingMovement)
+            {
+                SetCurrentUnitDirection(_undoMovementAction.UnitDirection);
+                _undoMovementAction.IsUndoingMovement = false;
+                _undoMovementAction.IsMovementPerformed = false;
+                MovementPoints = TotalMovementPoints;
+                HandleMouseDown();
+            }
         }
+
         base.OnMoveFinished();
     }
 
@@ -594,8 +603,9 @@ public class LUnit : Unit
     public void HandleMouseDown()
     {
         if (PrisonerAbility != null && PrisonerAbility.IsPrisoner) return;
-        if (_undoMovementAction is not null && _undoMovementAction.IsUndoingMovement) return;
-        
+        if (_undoMovementAction is not null && _undoMovementAction.IsUndoingMovement &&
+            _undoMovementAction.IsUndoMovementButtonEnabled) return;
+
         OnAnyUnitClicked?.Invoke();
         base.OnMouseDown();
         if (PlayerNumber == CellGrid.Instance.CurrentPlayerNumber)
