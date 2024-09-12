@@ -66,6 +66,7 @@ public class UndoMovementAction : MonoBehaviour
         _lUnit.OnTurnStartEvent += SetStartingCell;
         _lUnit.UnitMoved += OnUnitMoved;
         _lUnit.UnitClicked += OnUnitClicked;
+        _lUnit.UnitDeselected += DisableUndoButton;
 
         if (_undoButton != null)
             _undoButton.OnClickUndoButton += UndoMovement;
@@ -76,6 +77,7 @@ public class UndoMovementAction : MonoBehaviour
         _lUnit.OnTurnStartEvent -= SetStartingCell;
         _lUnit.UnitMoved -= OnUnitMoved;
         _lUnit.UnitClicked -= OnUnitClicked;
+        _lUnit.UnitDeselected -= DisableUndoButton;
 
         if (_undoButton != null)
             _undoButton.OnClickUndoButton -= UndoMovement;
@@ -84,13 +86,18 @@ public class UndoMovementAction : MonoBehaviour
     private void OnUnitClicked(object sender, EventArgs args) => ShowUndoGraphic();
     private void OnUnitMoved(object sender, MovementEventArgs movementEventArgs) => ShowUndoGraphic();
 
-    public void ShowUndoGraphic()
+    private void ShowUndoGraphic()
     {
         if (DisableUndoMovement) return;
         if (!IsMovementPerformed) return;
         if (_undoButton is null) return;
         if (IsUndoingMovement) return;
         _undoButton.gameObject.SetActive(true);
+    }
+
+    private void DisableUndoButton(object sender, EventArgs args)
+    {
+        _undoButton.gameObject.SetActive(false);
     }
 
     private void SetStartingCell()
