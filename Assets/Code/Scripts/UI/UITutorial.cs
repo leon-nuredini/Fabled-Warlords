@@ -60,7 +60,7 @@ public class UITutorial : MonoBehaviour
 
     [BoxGroup("Unit Details")] [SerializeField]
     private GameObject _unitDetailsButtonImage;
-    
+
     [BoxGroup("Unit Types")] [SerializeField]
     private GameObject _unitTypeImages;
 
@@ -140,7 +140,7 @@ public class UITutorial : MonoBehaviour
 
             return;
         }
-            
+
         if (_isTutorialFinished) return;
         if (_lockTutorial) return;
         if (_isInCoroutine) return;
@@ -253,6 +253,7 @@ public class UITutorial : MonoBehaviour
                     _isInCoroutine = false;
                     yield break;
                 }
+
                 _selectedTutorialData = _tutorialDataArray[16];
                 _unitDetailsButtonImage.SetActive(false);
                 _lockTutorial = false;
@@ -262,6 +263,8 @@ public class UITutorial : MonoBehaviour
                 _isTutorialFinished = true;
                 _objectivePanel.SetActive(false);
                 gameObject.SetActive(false);
+                if (MovementUndoController.Instance is not null)
+                    MovementUndoController.Instance.IsEnabled = true;
                 break;
         }
 

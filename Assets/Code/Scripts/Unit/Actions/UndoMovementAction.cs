@@ -1,5 +1,4 @@
 using System;
-using NaughtyAttributes;
 using TbsFramework.Cells;
 using TbsFramework.Grid;
 using TbsFramework.Units;
@@ -17,8 +16,9 @@ public class UndoMovementAction : MonoBehaviour
     [SerializeField] private bool _disableUndoMovement;
 
     private UndoButton _undoButton;
-
     private UnitDirection _unitDirection;
+
+    private float _remainingMovePoints;
 
     #region Properties
 
@@ -53,6 +53,18 @@ public class UndoMovementAction : MonoBehaviour
 
     public bool IsUndoMovementButtonEnabled => _undoButton != null && _undoButton.gameObject.activeSelf;
 
+    public Cell StartingCell
+    {
+        get => _startingCell;
+        set => _startingCell = value;
+    }
+
+    public float RemainingMovePoints
+    {
+        get => _remainingMovePoints;
+        set => _remainingMovePoints = value;
+    }
+
     #endregion
 
     private void Awake()
@@ -63,10 +75,11 @@ public class UndoMovementAction : MonoBehaviour
 
     private void OnEnable()
     {
-        _lUnit.OnTurnStartEvent += SetStartingCell;
+        _lUnit.OnTurnStartEvent += UpdateStartingCell;
         _lUnit.UnitMoved += OnUnitMoved;
         _lUnit.UnitClicked += OnUnitClicked;
-        _lUnit.UnitDeselected += DisableUndoButton;
+        _lUnit.OnTurnEndUnitReset += OnTurnEnd;
+        _lUnit.OnStartedMoving += DisableUndoButton;
 
         if (_undoButton != null)
             _undoButton.OnClickUndoButton += UndoMovement;
@@ -74,10 +87,11 @@ public class UndoMovementAction : MonoBehaviour
 
     private void OnDisable()
     {
-        _lUnit.OnTurnStartEvent -= SetStartingCell;
+        _lUnit.OnTurnStartEvent -= UpdateStartingCell;
         _lUnit.UnitMoved -= OnUnitMoved;
         _lUnit.UnitClicked -= OnUnitClicked;
-        _lUnit.UnitDeselected -= DisableUndoButton;
+        _lUnit.OnTurnEndUnitReset -= OnTurnEnd;
+        _lUnit.OnStartedMoving -= DisableUndoButton;
 
         if (_undoButton != null)
             _undoButton.OnClickUndoButton -= UndoMovement;
@@ -88,34 +102,58 @@ public class UndoMovementAction : MonoBehaviour
 
     private void ShowUndoGraphic()
     {
+        if (_lUnit.PlayerNumber != 0) return;
         if (DisableUndoMovement) return;
         if (!IsMovementPerformed) return;
         if (_undoButton is null) return;
         if (IsUndoingMovement) return;
+        if (!MovementUndoController.Instance.IsEnabled) return;
+        if (_lUnit.IsMoving)
+        {
+            DisableUndoButton();
+            return;
+        }
+
         _undoButton.gameObject.SetActive(true);
     }
 
-    private void DisableUndoButton(object sender, EventArgs args)
+    private void OnTurnEnd()
     {
+        if (_lUnit.PlayerNumber != 0) return;
+        if (!MovementUndoController.Instance.IsEnabled) return;
+        DisableUndoMovement = false;
+        IsMovementPerformed = false;
+        IsUndoingMovement = false;
+        DisableUndoButton();
+    }
+
+    public void DisableUndoButton()
+    {
+        if (_lUnit.PlayerNumber != 0) return;
+        if (!MovementUndoController.Instance.IsEnabled) return;
         _undoButton.gameObject.SetActive(false);
     }
 
-    private void SetStartingCell()
+    public void UpdateStartingCell()
     {
-        _startingCell = _lUnit.Cell;
+        if (_lUnit.PlayerNumber != 0) return;
+        if (!MovementUndoController.Instance.IsEnabled) return;
+        StartingCell = _lUnit.Cell;
         UnitDirection = _lUnit.CurrentUnitDirection;
         DisableUndoMovement = false;
+        _remainingMovePoints = _lUnit.MovementPoints;
     }
 
     private void UndoMovement()
     {
+        if (_lUnit.IsMoving) return;
         if (MovementUndoController.Instance.LastMovedUnit != this) return;
         if (DisableUndoMovement) return;
         IsUndoingMovement = true;
-        if (_startingCell == null) return;
-        _lUnit.SetMovementPoints(_lUnit.TotalMovementPoints);
-        var path = _lUnit.FindPath(CellGrid.Instance.Cells, _startingCell);
-        StartCoroutine(_lUnit.Move(_startingCell, path));
+        if (StartingCell == null) return;
+        _lUnit.SetMovementPoints(_remainingMovePoints);
+        var path = _lUnit.FindPath(CellGrid.Instance.Cells, StartingCell);
+        StartCoroutine(_lUnit.Move(StartingCell, path));
         MovementUndoController.Instance.Reset();
         if (ObjectHolder.Instance != null)
             ObjectHolder.Instance.CurrSelectedUnit = null;

@@ -4,7 +4,7 @@ using UnityEngine;
 public class UndoButton : MonoBehaviour
 {
     public event Action OnClickUndoButton;
-    
+
     [SerializeField] private float _alpha = 200f;
     [SerializeField] private SpriteRenderer[] _spriteRenderers;
 
@@ -14,19 +14,11 @@ public class UndoButton : MonoBehaviour
     {
         _defaultAlpha = _alpha / 255f;
         UpdateAlpha(_defaultAlpha);
-    } 
+    }
 
     private void OnDisable() => UpdateAlpha(_defaultAlpha);
 
-    private void OnMouseEnter()
-    {
-        UpdateAlpha(1f);
-    }
-    
-    /*private void OnMouseOver()
-    {
-        UpdateAlpha(1f);
-    }*/
+    private void OnMouseEnter() => UpdateAlpha(1f);
 
     private void OnMouseDown()
     {
@@ -35,10 +27,7 @@ public class UndoButton : MonoBehaviour
         OnClickUndoButton?.Invoke();
     }
 
-    private void OnMouseExit()
-    {
-        UpdateAlpha(_defaultAlpha);
-    }
+    private void OnMouseExit() => UpdateAlpha(_defaultAlpha);
 
     private void UpdateAlpha(float value)
     {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MovementUndoController : SceneSingleton<MovementUndoController>
 {
+    [SerializeField] private bool _isEnabled = true;
     [SerializeField] private UndoMovementAction _lastMovedUnit;
 
     public UndoMovementAction LastMovedUnit
@@ -13,9 +14,14 @@ public class MovementUndoController : SceneSingleton<MovementUndoController>
         {
             if (_lastMovedUnit is not null && !_lastMovedUnit.Equals(value))
                 _lastMovedUnit.DisableUndoMovement = true;
-
             _lastMovedUnit = value;
         }
+    }
+
+    public bool IsEnabled
+    {
+        get => _isEnabled;
+        set => _isEnabled = value;
     }
 
     private void OnEnable()
@@ -23,7 +29,7 @@ public class MovementUndoController : SceneSingleton<MovementUndoController>
         AttackAbility.OnAnyAbilityPerformed += DisableUndoActionOnUnit;
         RecruitmentController.OnAnyNewUnitRecruited += DisableUndoActionOnUnit;
     }
-    
+
     private void OnDisable()
     {
         AttackAbility.OnAnyAbilityPerformed -= DisableUndoActionOnUnit;
@@ -35,12 +41,10 @@ public class MovementUndoController : SceneSingleton<MovementUndoController>
         if (_lastMovedUnit is not null)
         {
             _lastMovedUnit.DisableUndoMovement = true;
+            _lastMovedUnit.DisableUndoButton();
             Reset();
         }
     }
 
-    public void Reset()
-    {
-        _lastMovedUnit = null;
-    }
+    public void Reset() => _lastMovedUnit = null;
 }

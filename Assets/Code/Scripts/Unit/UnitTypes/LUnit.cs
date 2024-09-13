@@ -5,6 +5,7 @@ using TbsFramework.Units;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
+using DG.Tweening;
 using NaughtyAttributes;
 using TbsFramework.Grid;
 using TbsFramework.Players;
@@ -24,7 +25,8 @@ public class LUnit : Unit
     public static event Action<LUnit> OnAnyDisplayUnitInformation;
     public static event Action OnAnyHideUnitInformation;
     public static event Action OnAnyUnitClicked;
-    public static event Action OnAnyUnmarkUnit;
+    public event Action OnAnyUnmarkUnit;
+    public event Action OnStartedMoving;
 
     [BoxGroup("Information")] [SerializeField]
     private UnitDetails _unitDetails;
@@ -148,6 +150,7 @@ public class LUnit : Unit
     public StatusEffectsController StatusEffectsController => _statusEffectsController;
     public UnitClassCounter UnitClassCounter => _unitClassCounter;
     public PrisonerAbility PrisonerAbility => _prisonerAbility;
+    public UndoMovementAction UndoMovementAction => _undoMovementAction;
 
     #endregion
 
@@ -446,21 +449,21 @@ public class LUnit : Unit
 
     public override IEnumerator Move(Cell destinationCell, IList<Cell> path)
     {
-        if (MovementUndoController.Instance is not null && _undoMovementAction is not null)
+        OnStartedMoving?.Invoke();
+        if (PlayerNumber == 0 && MovementUndoController.Instance is not null && _undoMovementAction is not null)
             MovementUndoController.Instance.LastMovedUnit = _undoMovementAction;
         _spriteRenderer.sortingOrder += 10;
         _markerSpriteRenderer.sortingOrder += 10;
         MaskSpriteRenderer.sortingOrder += 10;
         IsMoving = true;
+        if (_undoMovementAction is not null && _undoMovementAction.DisableUndoMovement)
+            _undoMovementAction.UpdateStartingCell();
         yield return base.Move(destinationCell, path);
     }
 
     protected override IEnumerator MovementAnimation(IList<Cell> path)
     {
         float movementAnimationSpeed = MovementAnimationSpeed;
-
-        /*if (_undoMovementAction.IsUndoingMovement)
-            movementAnimationSpeed = 30f;*/
 
         if (GameSettings.Instance != null && CellGrid.Instance.CurrentPlayer is AIPlayer)
             movementAnimationSpeed *= GameSettings.Instance.Preferences.AISpeed;
@@ -522,8 +525,8 @@ public class LUnit : Unit
                 SetCurrentUnitDirection(_undoMovementAction.UnitDirection);
                 _undoMovementAction.IsUndoingMovement = false;
                 _undoMovementAction.IsMovementPerformed = false;
-                MovementPoints = TotalMovementPoints;
-                HandleMouseDown();
+                MovementPoints = _undoMovementAction.RemainingMovePoints;
+                DOVirtual.DelayedCall(.02f, () => HandleMouseDown());
             }
         }
 
