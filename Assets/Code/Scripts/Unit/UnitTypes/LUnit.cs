@@ -357,6 +357,8 @@ public class LUnit : Unit
 
         Vector3 enemyUnitPosition = unitToAttack.transform.localPosition;
         UpdateUnitDirection(enemyUnitPosition);
+        if (_undoMovementAction is not null)
+            _undoMovementAction.UnitDirection = _currentUnitDirection;
 
         if (!enemyUnit.IsEvading)
         {
@@ -460,9 +462,7 @@ public class LUnit : Unit
         MaskSpriteRenderer.sortingOrder += 10;
         IsMoving = true;
         if (_undoMovementAction is not null && _undoMovementAction.DisableUndoMovement)
-        {
             _undoMovementAction.UpdateStartingCell();
-        }
 
         _movementEventArgs = new MovementEventArgs(Cell, destinationCell, path, this);
         yield return base.Move(destinationCell, path);
