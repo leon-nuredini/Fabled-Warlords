@@ -27,12 +27,17 @@ public class ObjectHolder : SceneSingleton<ObjectHolder>
         get => _currentSelectedUnit;
         set
         {
+            if (_currentSelectedUnit is not null && _currentSelectedUnit != value &&
+                _currentSelectedUnit.UndoMovementAction != null)
+                _currentSelectedUnit.UndoMovementAction.DisableUndoButton();
+
             _currentSelectedUnit = value;
             if (_currentSelectedUnit == null)
             {
                 OnDeselectUnit?.Invoke(this, true);
                 return;
             }
+
             OnSelectUnit?.Invoke(_currentSelectedUnit);
         }
     }

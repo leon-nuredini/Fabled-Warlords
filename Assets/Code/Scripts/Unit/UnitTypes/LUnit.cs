@@ -5,6 +5,7 @@ using TbsFramework.Units;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
+using DG.Tweening;
 using NaughtyAttributes;
 using TbsFramework.Grid;
 using TbsFramework.Players;
@@ -24,7 +25,8 @@ public class LUnit : Unit
     public static event Action<LUnit> OnAnyDisplayUnitInformation;
     public static event Action OnAnyHideUnitInformation;
     public static event Action OnAnyUnitClicked;
-    public static event Action OnAnyUnmarkUnit;
+    public event Action OnAnyUnmarkUnit;
+    public event Action OnStartedMoving;
 
     [BoxGroup("Information")] [SerializeField]
     private UnitDetails _unitDetails;
@@ -52,6 +54,7 @@ public class LUnit : Unit
     private StatusEffectsController _statusEffectsController;
     private PrisonerAbility _prisonerAbility;
     private CounterVisualAction _counterVisualAction;
+    private UndoMovementAction _undoMovementAction;
 
     public Vector3 Offset;
 
@@ -147,6 +150,7 @@ public class LUnit : Unit
     public StatusEffectsController StatusEffectsController => _statusEffectsController;
     public UnitClassCounter UnitClassCounter => _unitClassCounter;
     public PrisonerAbility PrisonerAbility => _prisonerAbility;
+    public UndoMovementAction UndoMovementAction => _undoMovementAction;
 
     #endregion
 
@@ -191,6 +195,7 @@ public class LUnit : Unit
         _statusEffectsController = GetComponent<StatusEffectsController>();
         _prisonerAbility = GetComponent<PrisonerAbility>();
         _counterVisualAction = GetComponent<CounterVisualAction>();
+        _undoMovementAction = GetComponent<UndoMovementAction>();
     }
 
     public void UpdateUnitStats()
@@ -444,10 +449,15 @@ public class LUnit : Unit
 
     public override IEnumerator Move(Cell destinationCell, IList<Cell> path)
     {
+        OnStartedMoving?.Invoke();
+        if (PlayerNumber == 0 && MovementUndoController.Instance is not null && _undoMovementAction is not null)
+            MovementUndoController.Instance.LastMovedUnit = _undoMovementAction;
         _spriteRenderer.sortingOrder += 10;
         _markerSpriteRenderer.sortingOrder += 10;
         MaskSpriteRenderer.sortingOrder += 10;
         IsMoving = true;
+        if (_undoMovementAction is not null && _undoMovementAction.DisableUndoMovement)
+            _undoMovementAction.UpdateStartingCell();
         yield return base.Move(destinationCell, path);
     }
 
@@ -470,9 +480,12 @@ public class LUnit : Unit
 
             while (transform.localPosition != destination_pos)
             {
-                CachedTransform.localPosition = Vector3.MoveTowards(CachedTransform.localPosition,
-                    destination_pos,
-                    Time.deltaTime * movementAnimationSpeed);
+                if (_undoMovementAction.IsUndoingMovement)
+                    CachedTransform.localPosition = destination_pos;
+                else
+                    CachedTransform.localPosition = Vector3.MoveTowards(CachedTransform.localPosition,
+                        destination_pos,
+                        Time.deltaTime * movementAnimationSpeed);
                 yield return 0;
             }
         }
@@ -482,11 +495,18 @@ public class LUnit : Unit
 
     private void UpdateUnitDirection(Vector3 destination)
     {
+        if (_undoMovementAction != null && _undoMovementAction.IsUndoingMovement) return;
         Vector3 direction = (CachedTransform.localPosition - destination).normalized;
         direction.x = Mathf.RoundToInt(direction.x);
         direction.y = Mathf.RoundToInt(direction.y);
         direction.z = Mathf.RoundToInt(direction.z);
         _currentUnitDirection = GetMovementDirection(direction);
+        FlipSpriteRenderer();
+    }
+
+    private void SetCurrentUnitDirection(UnitDirection direction)
+    {
+        _currentUnitDirection = direction;
         FlipSpriteRenderer();
     }
 
@@ -497,6 +517,19 @@ public class LUnit : Unit
         MaskSpriteRenderer.sortingOrder -= 10;
         OnIdle?.Invoke(CurrentUnitDirection);
         IsMoving = false;
+        if (_undoMovementAction is not null)
+        {
+            _undoMovementAction.IsMovementPerformed = true;
+            if (_undoMovementAction.IsUndoingMovement)
+            {
+                SetCurrentUnitDirection(_undoMovementAction.UnitDirection);
+                _undoMovementAction.IsUndoingMovement = false;
+                _undoMovementAction.IsMovementPerformed = false;
+                MovementPoints = _undoMovementAction.RemainingMovePoints;
+                DOVirtual.DelayedCall(.02f, () => HandleMouseDown());
+            }
+        }
+
         base.OnMoveFinished();
     }
 
@@ -573,6 +606,9 @@ public class LUnit : Unit
     public void HandleMouseDown()
     {
         if (PrisonerAbility != null && PrisonerAbility.IsPrisoner) return;
+        if (_undoMovementAction is not null && _undoMovementAction.IsUndoingMovement &&
+            _undoMovementAction.IsUndoMovementButtonEnabled) return;
+
         OnAnyUnitClicked?.Invoke();
         base.OnMouseDown();
         if (PlayerNumber == CellGrid.Instance.CurrentPlayerNumber)
