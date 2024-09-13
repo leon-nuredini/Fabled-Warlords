@@ -4,6 +4,8 @@ using System;
 using System.Collections;
 using NaughtyAttributes;
 using TbsFramework.Grid;
+using TbsFramework.Grid.GridStates;
+using TbsFramework.Units.Abilities;
 
 public class ObjectHolder : SceneSingleton<ObjectHolder>
 {
@@ -90,6 +92,16 @@ public class ObjectHolder : SceneSingleton<ObjectHolder>
     private void OnCellSelectedAlternative(LSquare selectedCell)
     {
         if (selectedCell.TerrainDescription == null) return;
+        if (CurrSelectedUnit != null)
+        {
+            CurrSelectedUnit.UnmarkSelection();
+            MoveAbility moveAbility = CurrSelectedUnit.GetComponent<MoveAbility>();
+            moveAbility.CleanUp(CellGrid.Instance);
+            if (CellGrid.Instance != null)
+                CellGrid.Instance.cellGridState = new CellGridStateWaitingForInput(CellGrid.Instance);
+            CurrSelectedUnit = null;
+        }
+
         _currentSelectedSquare = null;
         OnSelectCell?.Invoke(selectedCell);
     }

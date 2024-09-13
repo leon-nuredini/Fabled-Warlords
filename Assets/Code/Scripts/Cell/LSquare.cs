@@ -77,7 +77,7 @@ public class LSquare : Square
             OnAnyRightClickCell?.Invoke(this);
     }
 
-    private void UnMarkCurrentSelectedUnit()
+    public void UnMarkCurrentSelectedUnit()
     {
         if (ObjectHolder.Instance != null && ObjectHolder.Instance.CurrSelectedUnit != null && !IsMarkedReachable)
         {

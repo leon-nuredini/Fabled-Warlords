@@ -27,6 +27,7 @@ public class LUnit : Unit
     public static event Action OnAnyUnitClicked;
     public event Action OnAnyUnmarkUnit;
     public event Action OnStartedMoving;
+    public event Action<MovementEventArgs, bool> OnMovementFinished;
 
     [BoxGroup("Information")] [SerializeField]
     private UnitDetails _unitDetails;
@@ -447,6 +448,8 @@ public class LUnit : Unit
         return factoredDamage;
     }
 
+    private MovementEventArgs _movementEventArgs;
+
     public override IEnumerator Move(Cell destinationCell, IList<Cell> path)
     {
         OnStartedMoving?.Invoke();
@@ -457,7 +460,11 @@ public class LUnit : Unit
         MaskSpriteRenderer.sortingOrder += 10;
         IsMoving = true;
         if (_undoMovementAction is not null && _undoMovementAction.DisableUndoMovement)
+        {
             _undoMovementAction.UpdateStartingCell();
+        }
+
+        _movementEventArgs = new MovementEventArgs(Cell, destinationCell, path, this);
         yield return base.Move(destinationCell, path);
     }
 
@@ -467,6 +474,17 @@ public class LUnit : Unit
 
         if (GameSettings.Instance != null && CellGrid.Instance.CurrentPlayer is AIPlayer)
             movementAnimationSpeed *= GameSettings.Instance.Preferences.AISpeed;
+
+        if (_undoMovementAction.IsUndoingMovement && path.Count > 0)
+        {
+            var currentCell = path[0];
+            Vector3 destination_pos = new Vector3(currentCell.transform.localPosition.x,
+                currentCell.transform.localPosition.y,
+                CachedTransform.localPosition.z);
+            CachedTransform.localPosition = destination_pos;
+            OnMoveFinished();
+            yield break;
+        }
 
         for (int i = path.Count - 1; i >= 0; i--)
         {
@@ -480,12 +498,9 @@ public class LUnit : Unit
 
             while (transform.localPosition != destination_pos)
             {
-                if (_undoMovementAction.IsUndoingMovement)
-                    CachedTransform.localPosition = destination_pos;
-                else
-                    CachedTransform.localPosition = Vector3.MoveTowards(CachedTransform.localPosition,
-                        destination_pos,
-                        Time.deltaTime * movementAnimationSpeed);
+                CachedTransform.localPosition = Vector3.MoveTowards(CachedTransform.localPosition,
+                    destination_pos,
+                    Time.deltaTime * movementAnimationSpeed);
                 yield return 0;
             }
         }
@@ -512,6 +527,7 @@ public class LUnit : Unit
 
     protected override void OnMoveFinished()
     {
+        bool isUndoing = false;
         _spriteRenderer.sortingOrder -= 10;
         _markerSpriteRenderer.sortingOrder -= 10;
         MaskSpriteRenderer.sortingOrder -= 10;
@@ -522,6 +538,7 @@ public class LUnit : Unit
             _undoMovementAction.IsMovementPerformed = true;
             if (_undoMovementAction.IsUndoingMovement)
             {
+                isUndoing = true;
                 SetCurrentUnitDirection(_undoMovementAction.UnitDirection);
                 _undoMovementAction.IsUndoingMovement = false;
                 _undoMovementAction.IsMovementPerformed = false;
@@ -530,6 +547,7 @@ public class LUnit : Unit
             }
         }
 
+        OnMovementFinished?.Invoke(_movementEventArgs, isUndoing);
         base.OnMoveFinished();
     }
 
