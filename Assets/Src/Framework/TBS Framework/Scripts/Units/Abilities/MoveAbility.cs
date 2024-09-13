@@ -73,6 +73,11 @@ namespace TbsFramework.Units.Abilities
             }
         }
 
+        public void SetCellGridStatetoWaitingForInput(CellGrid cellGrid)
+        {
+            cellGrid.cellGridState = new CellGridStateWaitingForInput(cellGrid);
+        }
+
         public override void OnCellSelected(Cell cell, CellGrid cellGrid)
         {
             _movePath.Clear();

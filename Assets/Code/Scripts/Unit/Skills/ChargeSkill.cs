@@ -17,26 +17,31 @@ public class ChargeSkill : MonoBehaviour, IAttackSkill
     private bool _applyCharge;
 
     private LUnit _lUnit;
+    private UndoMovementAction _undoMovementAction;
 
     #region Properties
 
-    public string SkillName                     => _skillName;
-    public string SkillDescription              => _skillDescription;
-    public bool   CanBeActivatedDuringEnemyTurn { get; set; } = true;
+    public string SkillName => _skillName;
+    public string SkillDescription => _skillDescription;
+    public bool CanBeActivatedDuringEnemyTurn { get; set; } = true;
 
     #endregion
 
-    private void Awake() { _lUnit = GetComponent<LUnit>(); }
+    private void Awake()
+    {
+        _lUnit = GetComponent<LUnit>();
+        _undoMovementAction = GetComponent<UndoMovementAction>();
+    }
 
     private void OnEnable()
     {
-        _lUnit.UnitMoved          += OnMoveToAnotherCell;
+        _lUnit.OnMovementFinished += OnMoveToAnotherCell;
         _lUnit.OnTurnEndUnitReset += ResetTileDistance;
     }
 
     private void OnDisable()
     {
-        _lUnit.UnitMoved          -= OnMoveToAnotherCell;
+        _lUnit.OnMovementFinished -= OnMoveToAnotherCell;
         _lUnit.OnTurnEndUnitReset -= ResetTileDistance;
     }
 
@@ -47,12 +52,19 @@ public class ChargeSkill : MonoBehaviour, IAttackSkill
         return 0;
     }
 
-    private void OnMoveToAnotherCell(object obj, MovementEventArgs movementEventArgs)
+    private void OnMoveToAnotherCell(MovementEventArgs movementEventArgs, bool isUndoing)
     {
+        if (isUndoing)
+        {
+            _applyCharge = false;
+            return;
+        }
+        
         _applyCharge = movementEventArgs.Path.Count >= _totalTilesDistanceAmount;
         if (_applyCharge && ChargeTextSpawner.Instance != null)
             ChargeTextSpawner.Instance.SpawnTextGameObject(_lUnit, transform.position);
     }
 
     private void ResetTileDistance() => _applyCharge = false;
+    
 }
