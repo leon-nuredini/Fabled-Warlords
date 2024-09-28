@@ -9,6 +9,8 @@ public class TextLogoShineAnimation : MonoBehaviour
 
     private Image _image;
     private Material _material;
+    private Tween _delayTween;
+    private Tween _shineTween;
 
     private readonly string _shineOnly = "_ShineLocation";
 
@@ -18,17 +20,27 @@ public class TextLogoShineAnimation : MonoBehaviour
         _material = _image.material;
     }
 
-    private void Start()
+    private void Start() => InitAnimation();
+
+    public void InitAnimation()
     {
         _material.SetFloat(_shineOnly, 0f);
-        DOVirtual.DelayedCall(_shineDelay, () => AnimateShine());
+        if (_delayTween != null) return;
+        if (_shineTween != null) return;
+        _delayTween = DOVirtual.DelayedCall(_shineDelay, AnimateShine);
     }
 
     private void AnimateShine()
     {
-        DOVirtual.Float(0f, 1f, _shineDuration, value =>
-        {
-            _material.SetFloat(_shineOnly, value);
-        });
+        _shineDelay = 0f;
+        _shineTween = DOVirtual.Float(0f, 1f, _shineDuration, value => { _material.SetFloat(_shineOnly, value); })
+            .OnComplete(
+                () =>
+                {
+                    _delayTween.Kill();
+                    _shineTween.Kill();
+                    _delayTween = null;
+                    _shineTween = null;
+                });
     }
 }
