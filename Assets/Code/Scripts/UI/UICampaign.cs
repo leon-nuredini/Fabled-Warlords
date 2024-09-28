@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using DG.Tweening;
 using NaughtyAttributes;
 
 public class UICampaign : MonoBehaviour
@@ -19,11 +20,14 @@ public class UICampaign : MonoBehaviour
 
     private UILevelButton[] _uiLevelButtonArray;
 
+    private Scrollbar _scrollBar;
     private GraphicRaycaster _graphicRaycaster;
 
     private int _selectedLevelIndex;
     private int _unlockedLevelsAmount = 1;
     private bool _isOpenedFirstTime;
+
+    private void Awake() => _scrollBar = _scrollRect.gameObject.GetComponentInChildren<Scrollbar>();
 
     private void Start()
     {
@@ -46,6 +50,7 @@ public class UICampaign : MonoBehaviour
             _uiLevelButtonArray[i].OnLevelSelected += OnSelectLevel;
         }
 
+        _scrollBar.value = 1f;
         if (LevelManager.openLevelSelection)
         {
             LevelManager.openLevelSelection = false;
