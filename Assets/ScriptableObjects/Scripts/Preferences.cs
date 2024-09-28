@@ -69,7 +69,7 @@ public class Preferences : ScriptableObject
         set
         {
             _enableUnitCycleUI = value;
-            PlayerPrefs.SetInt(SaveName.UnitCycleUI, _enableUnitGlow ? 1 : 0);
+            PlayerPrefs.SetInt(SaveName.UnitCycleUI, _enableUnitCycleUI ? 1 : 0);
             OnUpdateUnitCyclingUI?.Invoke(_enableUnitCycleUI);
             SaveData();
         }
