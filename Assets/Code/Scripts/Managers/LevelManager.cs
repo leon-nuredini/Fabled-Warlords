@@ -68,9 +68,9 @@ public class LevelManager : Singleton<LevelManager>
             return;
         #endif
 
-        if (_levelToLoadIndex > 0)
+        /*if (_levelToLoadIndex > 0)
             StartLevelEvent(_levelToLoadIndex);
-        CoolMathAds.instance.InitiateAds();
+        CoolMathAds.instance.InitiateAds();*/
         SceneManager.LoadScene(_levelToLoadIndex);
     }
 
